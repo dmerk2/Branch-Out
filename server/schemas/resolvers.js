@@ -3,15 +3,16 @@ const { User, Post, Comment } = require('../models');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('friends').populate('posts');
+      return await User.find().populate('friends').populate('posts');
     },
     posts: async () => {
-      return Post.find().populate('user').populate('likes').populate('comments');
+      return await Post.find().populate('user').populate('likes').populate('comments');
     },
     comments: async () => {
-      return Comment.find().populate('post').populate('user');
+      return await Comment.find().populate('post').populate('user');
     },
   },
+
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
