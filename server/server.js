@@ -14,7 +14,8 @@ const app = express();
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "https://branch-out.onrender.com"],
+    origin: "https://branch-out.onrender.com",
+    // origin: ["http://localhost:3000", "https://branch-out.onrender.com"],
     methods: ["GET", "POST"],
   },
 });
