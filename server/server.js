@@ -19,12 +19,11 @@ const io = new Server(httpServer, {
   },
 });
 
-// Comment out ApolloServer instantiation for testing
-// const server = new ApolloServer({
-//   typeDefs,
-//   resolvers,
-//   context: authMiddleware,
-// });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: authMiddleware,
+});
 
 app.use(cors());
 
@@ -64,7 +63,6 @@ io.on("connection", (socket) => {
 db.once("open", () => {
   httpServer.listen(PORT, () => {
     console.log(`API server running on http://localhost:${PORT}!`);
-    // Comment out GraphQL info for testing
-    // console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+    console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
   });
 });
