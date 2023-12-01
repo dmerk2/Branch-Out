@@ -36,7 +36,13 @@ const postSchema = new mongoose.Schema({
       },
     },
   ],
-});
+},
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
+  });
 
 const Post = mongoose.model("Post", postSchema);
 
