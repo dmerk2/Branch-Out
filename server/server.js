@@ -10,12 +10,17 @@ const { authMiddleware } = require("./utils/auth");
 const db = require("./config/connection");
 const { typeDefs, resolvers } = require("./schemas");
 
+// const jwt = require("jsonwebtoken");
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "https://branch-out-web-service.onrender.com"],
+    origin: [
+      "http://localhost:3000",
+      "https://branch-out-web-service.onrender.com",
+    ],
     methods: ["GET", "POST"],
   },
 });
@@ -27,15 +32,15 @@ const server = new ApolloServer({
 });
 
 async function startApolloServer() {
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
   await server.start();
-  app.use("/graphql", expressMiddleware(server));
+  app.use("/graphql", expressMiddleware(server, { context: authMiddleware }));
 }
 
 startApolloServer();
 
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
@@ -44,6 +49,10 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../client/dist/index.html"));
   });
 }
+
+// app.get("/getToken", (req, res) => {
+//   res.json(jwt.sign({ data: "something" }, "something", { expiresIn: "2h" }));
+// });
 
 // WebSocket logic
 io.on("connection", (socket) => {
