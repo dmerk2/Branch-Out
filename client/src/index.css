@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Audiowide&display=swap");
+
+:root {
+  --black-haze: #f5f6f6;
+  --elm: #1f8279;
+  --limed-spruce: #304747;
+  --mountain-meadow: #20b080;
+  
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
