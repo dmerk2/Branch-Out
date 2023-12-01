@@ -2,7 +2,13 @@ import { useState } from "react";
 import io from "socket.io-client";
 import Chat from "../components/Chat";
 
-const socket = io.connect("http://localhost:3001");
+// Determine the socket connection URL based on the environment
+const socketURL =
+  process.env.NODE_ENV === "production"
+    ? "https://branch-out.onrender.com"
+    : "http://localhost:3001";
+
+const socket = io.connect(socketURL);
 
 export default function ChatRoom() {
   const [username, setUsername] = useState("");
