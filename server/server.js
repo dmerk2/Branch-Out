@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -14,8 +15,7 @@ const app = express();
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://branch-out.onrender.com",
-    // origin: ["http://localhost:3000", "https://branch-out.onrender.com"],
+    origin: ["http://localhost:3000", "https://branch-out-web-service.onrender.com"],
     methods: ["GET", "POST"],
   },
 });

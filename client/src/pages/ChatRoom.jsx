@@ -5,7 +5,7 @@ import Chat from "../components/Chat";
 // Determine the socket connection URL based on the environment
 const socketURL =
   process.env.NODE_ENV === "production"
-    ? "https://branch-out.onrender.com"
+    ? "https://branch-out-web-service.onrender.com"
     : "http://localhost:3001";
 
 const socket = io.connect(socketURL);
