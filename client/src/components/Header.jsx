@@ -9,7 +9,7 @@ export default function Header() {
         <img src={Logo} alt="Branch Out Logo" />
       </Link>
       <div className={styles.headerSearch}>
-        <input class={styles.inputSearch} type="search" placeholder="Search..." />
+        <input className={styles.inputSearch} type="search" placeholder="Search..." />
       </div>
       <div className={styles.headerNav}>
         <ul className={styles.navbarNav}>
