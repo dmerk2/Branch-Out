@@ -3,18 +3,15 @@ import { Link } from "react-router-dom";
 import styles from "../styles/Profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
-import UserDiamond from "../components/UserDiamond.jsx";
+import ProfileUserDisplay from "../components/ProfileUserDisplay.jsx";
 
 export default function Profile() {
   return (
-    <body className= { styles.profilePageBody}>
+
       <div className= {styles.profilePageRow}>
         <div className= { styles.profilePageColumn}>
           <div className={styles.profileUserInfo}>
-            <div className={styles.userDiamond_Horizontal_Container}>
-              <UserDiamond />
-              <p className={styles.username}>SampleUser281</p>
-            </div>
+            < ProfileUserDisplay />
           </div>
           {/* <div className= {styles.profileOtherSocials}>
             <button className= {styles.profileOtherSocials}>
@@ -34,6 +31,5 @@ export default function Profile() {
         <div className= { styles.profilePageColumn}>Column 2</div>
         <div className= { styles.profilePageColumn}>Column 3</div>
       </div>
-    </body>
   );
 }

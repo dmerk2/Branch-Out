@@ -16,22 +16,6 @@
   clear: both;
 }
 
-.userDiamond_Horizontal_Container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.username {
-  margin-top: 150px;
-  padding: 15px 50px 0 50px;
-  background-color: var(--limed-spruce);
-  color: var(--black-haze);
-  border-radius: 0 50px 50px 0;
-  height: 50px;
-
-}
-
 .profileOtherSocials {
   background-color: var(--mountain-meadow);
   color: var(--black-haze);
