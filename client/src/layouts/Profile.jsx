@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import styles from "../styles/Profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
-import ProfileUserDisplay from "../components/ProfileUserDisplay.jsx";
-import ViewFriendsList from "../components/ViewFriendsList.jsx";
+import ProfileUserDisplay from "../common/components/ProfileUserDisplay.jsx";
+import ViewFriendsList from "../common/components/ViewFriendsList.jsx";
 
 export default function Profile() {
   return (
