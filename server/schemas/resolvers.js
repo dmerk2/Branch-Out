@@ -1,3 +1,4 @@
+const { signToken } = require('../utils/auth');
 const { User, Post, Comment } = require('../models');
 
 const resolvers = {
@@ -14,9 +15,25 @@ const resolvers = {
   },
 
   Mutation: {
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new Error('No user found with this email address');
+      }
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+        throw new Error('Incorrect password');
+      }
+      const token = signToken(user);
+      return { token, user };
+    },
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
-      return user;
+      if (!user) {
+        throw new Error('No user found with this email address');
+      }
+      const token = signToken(user);
+      return { token, user };
     },
     updateUser: async (parent, { _id, username, email, password }) => {
       const user = await User.findByIdAndUpdate(_id, { username, email, password }, { new: true });
