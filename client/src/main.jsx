@@ -5,13 +5,13 @@ import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import store from "./utils/store";
-import Home from "./pages/Home.jsx";
-import Profile from "./pages/Profile.jsx";
-import ChatRoom from "./pages/ChatRoom.jsx";
-import Login from "./pages/Login.jsx";
-import Post from "./pages/Post.jsx";
-import EditPost from "./pages/EditPost.jsx";
-import Friends from "./pages/Friends.jsx";
+import Home from "./layouts/Home.jsx";
+import Profile from "./layouts/Profile.jsx";
+import ChatRoom from "./layouts/ChatRoom.jsx";
+import Login from "./layouts/Login.jsx";
+import Post from "./layouts/Post.jsx";
+import EditPost from "./layouts/EditPost.jsx";
+import Friends from "./layouts/Friends.jsx";
 
 const router = createBrowserRouter([
   {
