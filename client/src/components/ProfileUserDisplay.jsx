@@ -6,7 +6,7 @@ export default function ProfileUserDisplay() {
     return (
             <div className={styles.userDiamond_Horizontal_Container}>
               <UserDiamond />
-              <p className={styles.username}>SampleUser281</p>
+              <p className={styles.profileUsername}>SampleUser281</p>
             </div>
 
      );
