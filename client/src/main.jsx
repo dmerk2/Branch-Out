@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
+import { store } from "../store/store.js";
 import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import store from "./utils/store";
-import Home from "./pages/Home.jsx";
-import Profile from "./pages/Profile.jsx";
-import ChatRoom from "./pages/ChatRoom.jsx";
-import Login from "./pages/Login.jsx";
-import Post from "./pages/Post.jsx";
-import EditPost from "./pages/EditPost.jsx";
-import Friends from "./pages/Friends.jsx";
+import Home from "./components/Home.jsx";
+import Profile from "./components/Profile.jsx";
+import ChatRoom from "./components/ChatRoom.jsx";
+import Login from "./components/Login.jsx";
+import Post from "./components/Post.jsx";
+import EditPost from "./components/EditPost.jsx";
+import Friends from "./components/Friends.jsx";
 
 const router = createBrowserRouter([
   {
