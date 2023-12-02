@@ -1,0 +1,17 @@
+.diamondShape {
+    margin-top: 100px;
+    background: var(--limed-spruce);
+    height: 150px;
+    width: 150px;
+    text-align: center;
+    transform: rotate(45deg);
+    border: 30px solid var(--mountain-meadow);
+    border-radius: 40px;
+  }
+  
+  .userIcon {
+    color: var(--black-haze);
+    transform: rotate(-45deg);
+    height: 70px;
+    padding-right: 12px;
+  }

@@ -4,6 +4,7 @@ import "../App.css";
 import "../index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import UserDiamond from "../components/UserDiamond.jsx";
 
 export default function Profile() {
   return (
@@ -12,9 +13,7 @@ export default function Profile() {
         <div className="column">
           <div className="user-info">
             <div className="flex-container">
-              <div className="diamond-shape">
-                <FontAwesomeIcon icon={faUserSecret} className="user-icon" />
-              </div>
+              <UserDiamond />
               <p className="username">SampleUser281</p>
             </div>
           </div>
