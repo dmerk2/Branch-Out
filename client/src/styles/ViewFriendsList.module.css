@@ -1,0 +1,36 @@
+.profileFriendsInfo {
+  display: flex;
+  background-color: var(--elm);
+  padding: 10px;
+  width: 50%;
+  margin: 40px auto;
+  border-radius: 30px;
+  box-shadow: 0px 10px 5px rgba(156, 156, 156, 0.965);
+}
+
+.profileFriendCount {
+  color: var(--black-haze);
+  margin: auto 10px;
+  font-size: 20px;
+  text-shadow: 0px 3px 3px #0f413c;
+}
+
+.profileViewAllFriends {
+  background-color: var(--black-haze);
+  color: var(--elm);
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  margin: auto 10px auto auto;
+  font-family: Audiowide, sans-serif;
+  border-radius: 20px;
+  font-size: 20px;
+  box-shadow: 0px 5px 5px #0f413c;
+  text-shadow: 0px 3px 3px  rgba(156, 156, 156, 0.965);
+}
+
+.profileViewAllFriends:hover {
+  background-color: var(--limed-spruce);
+  color: var(--black-haze);
+  text-shadow: 0px 3px 3px  #151f1f;
+}
