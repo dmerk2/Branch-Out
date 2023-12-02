@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addMessage } from "../slices/chatSlice";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 export default function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
+  const messageList = useSelector((state) => state.chat.messageList);
+  const dispatch = useDispatch();
 
   const sendMessage = () => {
     if (currentMessage.trim() !== "") {
@@ -20,7 +23,7 @@ export default function Chat({ socket, username, room }) {
         time: `${formattedHours}:${minutes} ${ampm}`,
       };
 
-      setMessageList((list) => [...list, messageData]);
+      dispatch(addMessage(messageData));
       socket.emit("send_message", messageData);
       setCurrentMessage("");
     }
@@ -28,13 +31,13 @@ export default function Chat({ socket, username, room }) {
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data]);
+      dispatch(addMessage(data));
     });
 
     return () => {
       socket.off("receive_message");
     };
-  }, [socket]);
+  }, [socket, dispatch]);
   return (
     <div className="chat-window">
       <div className="chat-header">
@@ -67,7 +70,7 @@ export default function Chat({ socket, username, room }) {
           placeholder="Enter message..."
           value={currentMessage}
           onChange={(event) => setCurrentMessage(event.target.value)}
-          onKeyPress={(event) => event.key === "Enter" && sendMessage()}
+          onKeyDown={(event) => event.key === "Enter" && sendMessage()}
         />
         <button onClick={sendMessage}>Enter</button>
       </div>
