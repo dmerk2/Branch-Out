@@ -1,6 +1,6 @@
 import { useState } from "react";
 import io from "socket.io-client";
-import Chat from "../components/Chat";
+import Chat from "../common/components/Chat";
 
 // Determine the socket connection URL based on the environment
 const socketURL =
