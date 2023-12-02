@@ -40,9 +40,7 @@ export default function ChatRoom() {
         />
         <button onClick={joinRoom}>Join A Room</button>
       </div>
-      {showChat ? (
-        <Chat socket={socket} username={username} room={room} />
-      ) : null}
+      {showChat && <Chat socket={socket} username={username} room={room} />}
     </div>
   );
 }
