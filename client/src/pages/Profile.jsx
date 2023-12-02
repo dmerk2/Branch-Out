@@ -1,39 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../App.css";
-import "../index.css";
+import styles from "../styles/Profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import UserDiamond from "../components/UserDiamond.jsx";
 
 export default function Profile() {
   return (
-    <body>
-      <div class="row">
-        <div className="column">
-          <div className="user-info">
-            <div className="flex-container">
+    <body className= { styles.profilePageBody}>
+      <div className= {styles.profilePageRow}>
+        <div className= { styles.profilePageColumn}>
+          <div className={styles.profileUserInfo}>
+            <div className={styles.userDiamond_Horizontal_Container}>
               <UserDiamond />
-              <p className="username">SampleUser281</p>
+              <p className={styles.username}>SampleUser281</p>
             </div>
           </div>
-          <div className="user-actions">
-            <button className="action-button discord-button">
-              <FontAwesomeIcon icon={faUserSecret} className="action-icon" />
+          {/* <div className= {styles.profileOtherSocials}>
+            <button className= {styles.profileOtherSocials}>
+              <FontAwesomeIcon icon={faUserSecret} className= {styles.profileSocialsIcon} />
             </button>
-            <button className="action-button github-button">
-              <FontAwesomeIcon icon={faUserSecret} className="action-icon" />
+            <button className="actionButton githubButton">
+              <FontAwesomeIcon icon={faUserSecret} className= {styles.profileSocialsIcon} />
             </button>
+          </div> */}
+          <div className={styles.profileFriendsInfo}>
+            <p className={styles.profilefriendCount}>Friends: 21</p>
+            <button className={styles.profileViewAllFriends}>View All</button>
           </div>
-          <div className="friends-info">
-            <p className="friends-count">Friends: 21</p>
-            <button className="view-all-button">View All</button>
-          </div>
-          <div className="rectangle rectangle1"></div>
-          <div className="rectangle rectangle2"></div>
+          <div className={styles.profileAddFriendSquare}></div>
+          <div className={styles.profileAddFriendSquare}></div>
         </div>
-        <div class="column">Column 2</div>
-        <div class="column">Column 3</div>
+        <div className= { styles.profilePageColumn}>Column 2</div>
+        <div className= { styles.profilePageColumn}>Column 3</div>
       </div>
     </body>
   );
