@@ -25,19 +25,6 @@
   cursor: pointer;
 }
 
-.profileFriendsInfo {
-  background-color: var(--elm);
-  padding: 10px;
-}
-
-.profileViewAllFriends {
-  background-color: var(--black-haze);
-  color: var(--elm);
-  border: none;
-  padding: 5px;
-  cursor: pointer;
-}
-
 .profileAddFriendSquare {
   background-color: var(--black-haze);
   border: 5px solid var(--limed-spruce);

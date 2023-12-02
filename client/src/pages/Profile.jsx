@@ -4,13 +4,14 @@ import styles from "../styles/Profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import ProfileUserDisplay from "../components/ProfileUserDisplay.jsx";
+import ViewFriendsList from "../components/ViewFriendsList.jsx";
 
 export default function Profile() {
   return (
 
       <div className= {styles.profilePageRow}>
         <div className= { styles.profilePageColumn}>
-          <div className={styles.profileUserInfo}>
+          <div className={styles.profileUserSection}>
             < ProfileUserDisplay />
           </div>
           {/* <div className= {styles.profileOtherSocials}>
@@ -21,9 +22,8 @@ export default function Profile() {
               <FontAwesomeIcon icon={faUserSecret} className= {styles.profileSocialsIcon} />
             </button>
           </div> */}
-          <div className={styles.profileFriendsInfo}>
-            <p className={styles.profilefriendCount}>Friends: 21</p>
-            <button className={styles.profileViewAllFriends}>View All</button>
+          <div className={styles.profileFriendsTracker}>
+            < ViewFriendsList />
           </div>
           <div className={styles.profileAddFriendSquare}></div>
           <div className={styles.profileAddFriendSquare}></div>
