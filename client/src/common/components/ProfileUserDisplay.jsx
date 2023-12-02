@@ -1,6 +1,6 @@
 import React from 'react';
 import UserDiamond from "../components/UserDiamond.jsx";
-import styles from "../styles/ProfileUserDisplay.module.css";
+import styles from "../../styles/ProfileUserDisplay.module.css";
 
 export default function ProfileUserDisplay() {
     return (

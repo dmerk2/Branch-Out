@@ -1,4 +1,4 @@
-import styles from "../styles/ViewFriendsList.module.css";
+import styles from "../../styles/ViewFriendsList.module.css";
 
 export default function ViewFriendsList() {
   return (
