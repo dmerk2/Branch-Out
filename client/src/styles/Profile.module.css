@@ -25,6 +25,12 @@
   cursor: pointer;
 }
 
+.profileAddFriends {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
 .profileAddFriendSquare {
   background-color: var(--black-haze);
   border: 5px solid var(--limed-spruce);

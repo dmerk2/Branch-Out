@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import ProfileUserDisplay from "../common/components/ProfileUserDisplay.jsx";
 import ViewFriendsList from "../common/components/ViewFriendsList.jsx";
+import AddFriendSquare from "../common/components/AddFriendSquare.jsx";
 
 export default function Profile() {
   return (
@@ -25,8 +26,10 @@ export default function Profile() {
           <div className={styles.profileFriendsTracker}>
             < ViewFriendsList />
           </div>
-          <div className={styles.profileAddFriendSquare}></div>
-          <div className={styles.profileAddFriendSquare}></div>
+          <div className={styles.profileAddFriends}>
+            <AddFriendSquare />
+            <AddFriendSquare />
+          </div>
         </div>
         <div className= { styles.profilePageColumn}>Column 2</div>
         <div className= { styles.profilePageColumn}>Column 3</div>
