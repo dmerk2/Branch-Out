@@ -1,26 +1,27 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ScrollToBottom from "react-scroll-to-bottom";
+import { addMessage, selectMessageList } from "../../features/chatSlice";
 
 export default function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
+  const dispatch = useDispatch();
+  const messageList = useSelector(selectMessageList);
 
   const sendMessage = () => {
     if (currentMessage.trim() !== "") {
-      const currentDate = new Date();
-      const hours = currentDate.getHours();
-      const minutes = currentDate.getMinutes();
-      const ampm = hours >= 12 ? "PM" : "AM";
-      const formattedHours = hours % 12 || 12;
-
       const messageData = {
         room: room,
         author: username,
         message: currentMessage.trim(),
-        time: `${formattedHours}:${minutes} ${ampm}`,
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        }),
       };
 
-      setMessageList((list) => [...list, messageData]);
+      dispatch(addMessage(messageData));
       socket.emit("send_message", messageData);
       setCurrentMessage("");
     }
@@ -28,48 +29,50 @@ export default function Chat({ socket, username, room }) {
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data]);
+      dispatch(addMessage(data));
     });
 
     return () => {
       socket.off("receive_message");
     };
-  }, [socket]);
+  }, [socket, dispatch]);
+
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>Live Chat</p>
+        <h2>Room {room}</h2>
       </div>
-      <div className="chat-body">
-        <ScrollToBottom className="message-container">
-          {messageList.map((messageContent, index) => (
+      <ScrollToBottom className="chat-body">
+        {messageList.map((messageContent, index) => (
+          <div className="message" key={index}>
             <div
-              className="message"
-              id={username === messageContent.author ? "you" : "other"}
-              key={index}
+              className={
+                username === messageContent.author
+                  ? "my-message"
+                  : "other-message"
+              }
             >
-              <div>
-                <div className="message-content">
-                  <p>{messageContent.message}</p>
-                </div>
-                <div className="message-meta">
-                  <p id="time">{messageContent.time}</p>
-                  <p id="author">{messageContent.author}</p>
-                </div>
+              <div className="message-content">
+                <p>{messageContent.message}</p>
+              </div>
+              <div className="message-meta">
+                <span className="author">From: {messageContent.author}</span>
+                <br />
+                <span className="time">Sent at {messageContent.time}</span>
               </div>
             </div>
-          ))}
-        </ScrollToBottom>
-      </div>
+          </div>
+        ))}
+      </ScrollToBottom>
       <div className="chat-footer">
         <input
           type="text"
           placeholder="Enter message..."
           value={currentMessage}
-          onChange={(event) => setCurrentMessage(event.target.value)}
-          onKeyPress={(event) => event.key === "Enter" && sendMessage()}
+          onChange={(e) => setCurrentMessage(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
-        <button onClick={sendMessage}>Enter</button>
+        <button onClick={sendMessage}>Send</button>
       </div>
     </div>
   );
