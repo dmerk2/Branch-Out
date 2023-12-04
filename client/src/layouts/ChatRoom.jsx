@@ -1,6 +1,13 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import Chat from "../common/components/Chat";
+import {
+  setUsername,
+  setRoom,
+  selectUsername,
+  selectRoom,
+} from "../features/chatSlice"; // Import Redux actions and selectors
 
 // Determine the socket connection URL based on the environment
 const socketURL =
@@ -11,8 +18,9 @@ const socketURL =
 const socket = io.connect(socketURL);
 
 export default function ChatRoom() {
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
+  const dispatch = useDispatch();
+  const username = useSelector(selectUsername);
+  const room = useSelector(selectRoom);
   const [showChat, setShowChat] = useState(false);
 
   const joinRoom = () => {
@@ -22,6 +30,14 @@ export default function ChatRoom() {
     }
   };
 
+  const handleUsernameChange = (e) => {
+    dispatch(setUsername(e.target.value));
+  };
+
+  const handleRoomChange = (e) => {
+    dispatch(setRoom(e.target.value));
+  };
+
   return (
     <div>
       <h1>Chat Room</h1>
@@ -29,12 +45,12 @@ export default function ChatRoom() {
         <input
           type="text"
           placeholder="Choose Your Name"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={handleUsernameChange}
         />
         <input
           type="text"
           placeholder="Enter Your Room"
-          onChange={(e) => setRoom(e.target.value)}
+          onChange={handleRoomChange}
         />
         <button onClick={joinRoom}>Join A Room</button>
       </div>
