@@ -1,0 +1,40 @@
+.userMessageLine {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+  
+.messageUsername {
+    margin: 58px 0;
+    padding: 6px 50px 0 50px;
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
+    border-radius: 0 50px 50px 0;
+    height: 30px;
+    font-size: 15x;
+    box-shadow: 2px 5px 5px #0f413c;
+    text-shadow: 0px 5px 5px #151f1f;
+}
+
+.smallDiamondShape {
+    margin-top: 30px;
+    background: var(--limed-spruce);
+    height: 85px;
+    width: 85px;
+    text-align: center;
+    transform: rotate(45deg);
+    border: 12px solid var(--black-haze);
+    border-radius: 25px;
+    box-shadow: 
+    inset 5px 4px 5px  #151f1f,
+    5px 5px 5px #0f413c;
+
+}
+
+  
+.messageIcon {
+    color: var(--black-haze);
+    transform: rotate(-45deg);
+    height: 40px;
+    padding: 10px 8px 0 0;
+}
