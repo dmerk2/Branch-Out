@@ -27,16 +27,16 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, { username, email, password, bio, profileImage }) => {
+      const user = await User.create({ username, email, password, bio, profileImage });
       if (!user) {
         throw new Error('No user found with this email address');
       }
       const token = signToken(user);
       return { token, user };
     },
-    updateUser: async (parent, { _id, username, email, password }) => {
-      const user = await User.findByIdAndUpdate(_id, { username, email, password }, { new: true });
+    updateUser: async (parent, { _id, username, email, password, bio, profileImage }) => {
+      const user = await User.findByIdAndUpdate(_id, { username, email, password, bio, profileImage }, { new: true });
       return user;
     },
     deleteUser: async (parent, { _id }) => {
