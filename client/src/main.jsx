@@ -12,6 +12,7 @@ import Login from "./layouts/Login.jsx";
 import Post from "./layouts/Post.jsx";
 import EditPost from "./layouts/EditPost.jsx";
 import Friends from "./layouts/Friends.jsx";
+import SignupForm from "./common/components/SignUpForm.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <SignupForm />,
       },
       {
         path: "post/:id",
