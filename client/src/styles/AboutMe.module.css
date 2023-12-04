@@ -1,11 +1,7 @@
 
 .bigGreenSquare {
   background-color: var(--elm);
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-margin-top: 50px;
+  margin: 50px 30px 0px 30px;
   padding: 20px;
   border-radius: 30px;
 }
