@@ -1,0 +1,22 @@
+.diamondButton {
+    margin-top: 40px;
+    background: var(--black-haze);
+    height: 75px;
+    width: 75px;
+    text-align: center;
+    transform: rotate(45deg);
+    border: 10px solid var(--limed-spruce);
+    border-radius: 10px;
+    box-shadow: 
+    inset 5px 4px 5px  rgba(156, 156, 156, 0.965),
+    5px 5px 5px rgba(156, 156, 156, 0.965);
+
+  }
+  
+  .buttonIcon {
+    color: var(--mountain-meadow);
+    transform: rotate(-45deg);
+    height: 30px;
+    padding-top: 10px;
+    padding-right: 10px;
+  }

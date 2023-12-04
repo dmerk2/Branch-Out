@@ -5,13 +5,11 @@ import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
 
 export default function AddFriendSquare() {
     return (
-      <div className={styles.friendSquare}>
-        <div className={styles.iconSquare}>
-          <FontAwesomeIcon icon={faUserAstronaut} className={styles.friendIcon} />
+      <div className={styles.outerSquare}>
+        <div className={styles.innerSquare}>
+        <FontAwesomeIcon icon={faUserAstronaut} className={styles.friendIcon} />
         </div>
-        <div className={styles.textSquare}>
-          <p className={styles.friendUsername}>User123</p>
-        </div>
+        <div className={styles.friendUsername}>Test123</div>
       </div>
     );
   }
