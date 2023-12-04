@@ -29,11 +29,11 @@ export default function Header() {
           </li>
           {Auth.loggedIn() ? (
             <li>
-              <Link to="/login">Log In</Link>
+              <Link onClick={Auth.logout}>Log Out</Link>
             </li>
           ) : (
             <li>
-              <Link onClick={Auth.logout}>Log Out</Link>
+              <Link to="/login">Log In</Link>
             </li>
           )}
         </ul>
