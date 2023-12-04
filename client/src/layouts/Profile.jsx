@@ -6,6 +6,7 @@ import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import ProfileUserDisplay from "../common/components/ProfileUserDisplay.jsx";
 import ViewFriendsList from "../common/components/ViewFriendsList.jsx";
 import AddFriendSquare from "../common/components/AddFriendSquare.jsx";
+import AboutMe from "../common/components/AboutMe.jsx";
 
 export default function Profile() {
   return (
@@ -31,7 +32,9 @@ export default function Profile() {
             <AddFriendSquare />
           </div>
         </div>
-        <div className= { styles.profilePageColumn}>Column 2</div>
+        <div className= { styles.profilePageColumn}>
+          <AboutMe />
+        </div>
         <div className= { styles.profilePageColumn}>Column 3</div>
       </div>
   );
