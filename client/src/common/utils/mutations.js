@@ -39,3 +39,12 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const GET_PRESIGNED_URL = gql`
+  mutation GetPresignedUrl($key: String!) {
+    getPresignedUrl(key: $key) {
+      presignedUrl
+      key
+    }
+  }
+`;

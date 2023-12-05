@@ -1,9 +1,9 @@
-import { ADD_USER } from "../utils/mutations";
+import { ADD_USER, GET_PRESIGNED_URL } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { useState, useEffect } from "react";
 
-function LoginForm() {
+function SignUpForm() {
   const [userFormData, setUserFormData] = useState({
     email: "",
     password: "",
@@ -12,11 +12,17 @@ function LoginForm() {
     profileImage: "",
   });
   const [showAlert, setShowAlert] = useState(false);
-  const [addUser, { error }] = useMutation(ADD_USER);
+  const [addUser, { error: addUserError }] = useMutation(ADD_USER);
+  const [getPresignedUrl, { error: presignedUrlError }] =
+    useMutation(GET_PRESIGNED_URL);
 
   useEffect(() => {
-    error ? setShowAlert(true) : setShowAlert(false);
-  }, [error]);
+    presignedUrlError ? setShowAlert(true) : setShowAlert(false);
+  }, [presignedUrlError]);
+
+  useEffect(() => {
+    addUserError ? setShowAlert(true) : setShowAlert(false);
+  }, [addUserError]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +33,10 @@ function LoginForm() {
     e.preventDefault();
     console.log("Form Submitted");
     try {
+      const presignedUrlResponse = await getPresignedUrl({
+        variables: { key: `profile-images/${Date.now()}_example.jpg` },
+      });
+      const { presignedUrl, key } = presignedUrlResponse.data.getPresignedUrl;
       const { data } = await addUser({ variables: { ...userFormData } });
       console.log(data);
       Auth.login(data.addUser.token);
@@ -71,7 +81,7 @@ function LoginForm() {
             required
           />
         </div>
-        
+
         <div>
           <label htmlFor="username">Username</label>
           <input
@@ -113,15 +123,23 @@ function LoginForm() {
 
         <div>
           <label htmlFor="profileImage">Profile Picture</label>
-          <input type="file" name="profileImage" id="profileImage" />
+          <input
+            type="file"
+            name="profileImage"
+            id="profileImage"
+            onInput={(e) =>
+              setUserFormData({
+                ...userFormData,
+                profileImage: e.target.files[0],
+              })
+            }
+          />
         </div>
 
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
     </>
   );
 }
 
-export default LoginForm;
+export default SignUpForm;
