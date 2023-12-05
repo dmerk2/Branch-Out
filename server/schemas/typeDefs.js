@@ -29,6 +29,15 @@ const typeDefs = `
   }
 
   type Query {
+    getPresignedUrl(key: String!): PresignedUrlResponse
+  }
+
+  type PresignedUrlResponse {
+    presignedUrl: String
+    key: String
+  }
+
+  type Query {
     users: [User]
     posts: [Post]
     comments: [Comment]
