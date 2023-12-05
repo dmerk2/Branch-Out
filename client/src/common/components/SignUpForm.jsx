@@ -2,6 +2,8 @@ import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { useState, useEffect } from "react";
+import styles from "../../styles/LoginForm.module.css";
+import Logo from "../../assets/images/BranchOut_With_Words.png";
 
 function LoginForm() {
   const [userFormData, setUserFormData] = useState({
@@ -45,23 +47,16 @@ function LoginForm() {
 
   return (
     <>
-      <form noValidate onSubmit={handleFormSubmit}>
-        {showAlert && (
-          <div>
-            Something went wrong with your sign up!
-            <button
-              type="button"
-              className="close"
-              onClick={() => setShowAlert(false)}
-            >
-              <span>&times;</span>
-            </button>
-          </div>
-        )}
+      <form noValidate onSubmit={handleFormSubmit}  className={styles.formSquare}>
+
+      <div className={styles.formLogo}>
+            <img src={Logo} alt="Branch Out Logo" />
+        </div>
 
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className={styles.loginRequirement}>Email</label>
           <input
+            className={styles.loginInput}
             type="text"
             placeholder="Your email"
             name="email"
@@ -73,8 +68,9 @@ function LoginForm() {
         </div>
         
         <div>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username" className={styles.loginRequirement}>Username</label>
           <input
+            className={styles.loginInput}
             type="text"
             placeholder="Your username"
             name="username"
@@ -86,8 +82,9 @@ function LoginForm() {
         </div>
 
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className={styles.loginRequirement}>Password</label>
           <input
+            className={styles.loginInput}
             type="password"
             placeholder="*********"
             name="password"
@@ -99,8 +96,9 @@ function LoginForm() {
         </div>
 
         <div>
-          <label htmlFor="bio">Bio</label>
+          <label htmlFor="bio" className={styles.loginRequirement}>Bio</label>
           <textarea
+            className={styles.loginInput}
             name="bio"
             id="bio"
             cols="30"
@@ -112,13 +110,26 @@ function LoginForm() {
         </div>
 
         <div>
-          <label htmlFor="profileImage">Profile Picture</label>
-          <input type="file" name="profileImage" id="profileImage" />
+          <label htmlFor="profileImage" className={styles.loginRequirement}>Profile Picture</label>
+          <input type="file" name="profileImage" id="profileImage" className={styles.loginInput}/>
         </div>
 
-        <button type="submit">
-          Submit
+        <button type="submit" className={styles.signUpPageButton}>
+          Sign Up
         </button>
+        
+        {showAlert && (
+          <div className={styles.somethingWrong}>
+            Something went wrong with your sign up!
+            <button
+              type="button"
+              className={styles.close}
+              onClick={() => setShowAlert(false)}
+            >
+              <span>&times;</span>
+            </button>
+          </div>
+        )}
       </form>
     </>
   );
