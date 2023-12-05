@@ -3,6 +3,8 @@ import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import styles from "../../styles/LoginForm.module.css";
+import Logo from "../../assets/images/BranchOut_With_Words.png";
 
 function LoginForm() {
   const [userFormData, setUserFormData] = useState({
@@ -44,23 +46,14 @@ function LoginForm() {
 
   return (
     <>
-      <form noValidate onSubmit={handleFormSubmit}>
-        {showAlert && (
-          <div>
-            Something went wrong with your login credentials!
-            <button
-              type="button"
-              className="close"
-              onClick={() => setShowAlert(false)}
-            >
-              <span>&times;</span>
-            </button>
-          </div>
-        )}
-
+      <form noValidate onSubmit={handleFormSubmit} className={styles.formSquare}>
+        <div className={styles.formLogo}>
+            <img src={Logo} alt="Branch Out Logo" />
+        </div>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className={styles.loginRequirement}>Email</label>
           <input
+            className={styles.loginInput}
             type="text"
             placeholder="Your email"
             name="email"
@@ -72,8 +65,9 @@ function LoginForm() {
         </div>
 
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className={styles.loginRequirement}>Password</label>
           <input
+            className={styles.loginInput}
             type="password"
             placeholder="*********"
             name="password"
@@ -84,12 +78,24 @@ function LoginForm() {
           />
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" className={styles.loginButton}>LOGIN</button>
+        {showAlert && (
+          <div className={styles.somethingWrong}>
+            Something went wrong with your login credentials!
+            <button
+              type="button"
+              className={styles.close}
+              onClick={() => setShowAlert(false)}
+            >
+              <span>&times;</span>
+            </button>
+          </div>
+        )}
       </form>
-      <div>
-        <h3>Don't Have an Account?</h3>
-        <Link to="/signup">
-          <button>Sign Up</button>
+      <div className={styles.noAccount}>
+        <h3 className={styles.signUp}>Don't Have an Account?</h3>
+        <Link to="/signup" className={styles.linkUnderline}>
+          <button className={styles.signUpButton}>Sign Up</button>
         </Link>
       </div>
     </>
