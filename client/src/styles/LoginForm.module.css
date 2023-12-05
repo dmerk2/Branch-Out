@@ -1,0 +1,163 @@
+
+.formSquare {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 50px 700px;
+    background-color: var(--mountain-meadow);
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0px 10px 5px rgba(156, 156, 156, 0.965);
+}
+
+.formLogo {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    text-decoration: none;
+    color: inherit;
+    background-color: var(--limed-spruce);
+    padding: 10px 20px;
+    border-radius: 25px;
+    box-shadow: 0px 10px 5px #116849;
+  }
+  
+  .formLogo img {
+    width: 150px;
+  }
+
+.loginButton {
+    display: flex;
+    justify-content: center;
+    background-color: var(--black-haze);
+    color: var(--limed-spruce);
+    border: none;
+    padding: 0 10px;
+    cursor: pointer;
+    margin: 30px auto 10px auto;
+    font-family: Audiowide, sans-serif;
+    border-radius: 40px;
+    font-size: 25px;
+    box-shadow: 0px 5px 5px #116849;
+    text-shadow: 0px 3px 3px  rgba(156, 156, 156, 0.965);
+}
+
+.loginButton:hover {
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
+    text-shadow: 0px 3px 3px #151f1f;
+}
+
+.loginRequirement {
+    display: flex;
+      justify-content: center;
+      background-color: var(--limed-spruce);
+      color: var(--black-haze);
+      border: none;
+      padding: 5px 15px;
+      cursor: pointer;
+      margin: 20px 175px;
+      font-family: Audiowide, sans-serif;
+      border-radius: 20px;
+      font-size: 15px;
+      box-shadow: 0px 5px 5px #116849;
+      text-shadow: 0px 3px 3px  #151f1f;
+}
+
+.loginInput {
+    display: flex;
+    justify-content: center;
+    font-family: 'Audiowide', sans-serif;
+    color: var(--elm);
+    width: 50%;
+    height: 2rem;
+    background: var(--black-haze);
+    outline: none;
+    border: none;
+    border-radius: 1.625rem;
+    padding: 0 3.5rem 0 1.5rem;
+    font-size: 1rem;
+    box-shadow: 0px 5px 5px #116849;
+}
+
+.somethingWrong {
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
+    text-shadow: 0px 3px 3px #151f1f;
+    display: flex;
+    justify-content: center;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    margin: 30px auto 10px auto;
+    font-family: Audiowide, sans-serif;
+    border-radius: 40px;
+    font-size: 15px;
+    box-shadow: 0px 5px 5px #116849;
+}
+
+.close {
+    color: var(--limed-spruce);
+    background-color: var(--black-haze);
+    border: none;
+    margin: 0 10px;
+    padding: 10px;
+    cursor: pointer;
+    font-family: Audiowide, sans-serif;
+    border-radius: 40px;
+    font-size: 20px;
+    box-shadow: 0px 5px 5px #151f1f;
+}
+
+.noAccount {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 50px 700px;
+    background-color: var(--elm);
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0px 10px 5px rgba(156, 156, 156, 0.965);
+}
+
+.signUp {
+    display: flex;
+    justify-content: center;
+    color: var(--black-haze);
+    border: none;
+    padding: 0 10px;
+    cursor: pointer;
+    margin: 10px auto 0px auto;
+    font-family: Audiowide, sans-serif;
+    border-radius: 40px;
+    font-size: 25px;
+    text-shadow: 0px 3px 3px #0f413c;
+}
+
+.linkUnderline {
+    text-decoration: none;
+}
+
+.signUpButton {
+    display: flex;
+    justify-content: center;
+    background-color: var(--black-haze);
+    color: var(--limed-spruce);
+    border: none;
+    padding: 0 10px;
+    cursor: pointer;
+    margin: 30px auto 10px auto;
+    font-family: Audiowide, sans-serif;
+    border-radius: 40px;
+    font-size: 25px;
+    box-shadow: 0px 5px 5px #0f413c;
+    text-shadow: 0px 1px 3px  rgba(156, 156, 156, 0.965);
+}
+
+.signUpButton:hover {
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
+    text-shadow: 0px 3px 3px #151f1f;
+}
