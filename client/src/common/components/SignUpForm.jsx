@@ -1,11 +1,13 @@
-import { ADD_USER } from "../utils/mutations";
-import Auth from "../utils/auth";
-import { useMutation } from "@apollo/client";
 import { useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_USER, GET_PRESIGNED_URL } from "../utils/mutations";
+import Auth from "../utils/auth";
+import { BarLoader as Spinner } from "react-spinners";
 import styles from "../../styles/LoginForm.module.css";
 import Logo from "../../assets/images/BranchOut_With_Words.png";
 
-function LoginForm() {
+
+function SignUpForm() {
   const [userFormData, setUserFormData] = useState({
     email: "",
     password: "",
@@ -14,35 +16,72 @@ function LoginForm() {
     profileImage: "",
   });
   const [showAlert, setShowAlert] = useState(false);
-  const [addUser, { error }] = useMutation(ADD_USER);
+  const [isUploading, setIsUploading] = useState(false);
+  const [color, setColor] = useState("#FF0000"); // Can be a CSS hex-color string or an array of colors in hex format
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [addUser, { error: addUserError }] = useMutation(ADD_USER);
+  const [getPresignedUrl, { error: presignedUrlError }] =
+    useMutation(GET_PRESIGNED_URL);
 
   useEffect(() => {
-    error ? setShowAlert(true) : setShowAlert(false);
-  }, [error]);
+    presignedUrlError ? setShowAlert(true) : setShowAlert(false);
+  }, [presignedUrlError]);
+
+  useEffect(() => {
+    addUserError ? setShowAlert(true) : setShowAlert(false);
+  }, [addUserError]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  const override = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted");
-    try {
-      const { data } = await addUser({ variables: { ...userFormData } });
-      console.log(data);
-      Auth.login(data.addUser.token);
-    } catch (error) {
-      console.error(error);
-    }
+    setIsUploading(true); // Start upload
 
-    setUserFormData({
-      email: "",
-      password: "",
-      username: "",
-      bio: "",
-      profileImage: "",
-    });
+    try {
+      const file = userFormData.profileImage;
+      const key = `${Date.now()}_${file.name}`;
+      const presignedUrlResponse = await getPresignedUrl({
+        variables: { key: key },
+      });
+      const { presignedUrl } = presignedUrlResponse.data.getPresignedUrl;
+
+      // Upload the file to S3
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const uploadResponse = await fetch(presignedUrl, {
+        method: "PUT",
+        body: formData,
+        // onUploadProgress: implement if using XMLHttpRequest or Axios
+      });
+
+      if (uploadResponse.ok) {
+        const imageUrl = `https://branch-out-images.s3.amazonaws.com/${key}`;
+        setUserFormData({ ...userFormData, profileImage: imageUrl });
+
+        // Submit the user data
+        const { data } = await addUser({ variables: { ...userFormData } });
+        Auth.login(data.addUser.token);
+      } else {
+        throw new Error("Failed to upload image to S3");
+      }
+    } catch (error) {
+      console.error("Error in form submission:", error.stack);
+      console.log("Current userFormData state:", userFormData);
+      // Specifically log the profileImage data
+      console.log("Profile Image Data:", userFormData.profileImage);
+    } finally {
+      setIsUploading(false); // Reset uploading state
+    }
   };
 
   return (
@@ -66,7 +105,7 @@ function LoginForm() {
             required
           />
         </div>
-        
+
         <div>
           <label htmlFor="username" className={styles.loginRequirement}>Username</label>
           <input
@@ -110,12 +149,38 @@ function LoginForm() {
         </div>
 
         <div>
-          <label htmlFor="profileImage" className={styles.loginRequirement}>Profile Picture</label>
-          <input type="file" name="profileImage" id="profileImage" className={styles.loginInput}/>
+
+          <label htmlFor="profileImage"  className={styles.loginRequirement}>Profile Picture</label>
+          <input
+            className={styles.loginInput}
+            type="file"
+            name="profileImage"
+            id="profileImage"
+            onInput={(e) => {
+              setUserFormData({
+                ...userFormData,
+                profileImage: e.target.files[0],
+              });
+            }}
+          />
+          {isUploading && (
+            <div>
+              <Spinner
+                color={color}
+                loading={isUploading}
+                cssOverride={override}
+                size={150}
+                aria-label="Loading..."
+                data-testid="spinner"
+              />{" "}
+              {/* Loading indicator */}
+              <p>Uploading image... {uploadProgress}%</p>
+            </div>
+          )}
         </div>
 
-        <button type="submit" className={styles.signUpPageButton}>
-          Sign Up
+        <button type="submit" className={styles.signUpPageButton} disabled={isUploading}>
+          Submit
         </button>
         
         {showAlert && (
@@ -135,4 +200,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default SignUpForm;

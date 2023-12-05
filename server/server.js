@@ -9,19 +9,17 @@ const { expressMiddleware } = require("@apollo/server/express4");
 const { authMiddleware } = require("./utils/auth");
 const db = require("./config/connection");
 const { typeDefs, resolvers } = require("./schemas");
-
-// const jwt = require("jsonwebtoken");
-
 const PORT = process.env.PORT || 3001;
 const app = express();
 const httpServer = http.createServer(app);
+
 const io = new Server(httpServer, {
   cors: {
     origin: [
       "http://localhost:3000",
       "https://branch-out-web-service.onrender.com",
     ],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
   },
 });
 
@@ -30,6 +28,7 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware,
 });
+
 
 async function startApolloServer() {
   app.use(express.urlencoded({ extended: true }));
@@ -49,10 +48,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../client/dist/index.html"));
   });
 }
-
-// app.get("/getToken", (req, res) => {
-//   res.json(jwt.sign({ data: "something" }, "something", { expiresIn: "2h" }));
-// });
 
 // WebSocket logic
 io.on("connection", (socket) => {

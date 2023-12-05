@@ -28,6 +28,11 @@ const typeDefs = `
     createdAt: String
   }
 
+  type PresignedUrlResponse {
+    presignedUrl: String
+    key: String
+  }
+
   type Query {
     users: [User]
     posts: [Post]
@@ -52,6 +57,8 @@ const typeDefs = `
     addComment(post: ID!, user: ID!, content: String!): Comment
     updateComment(_id: ID!, content: String): Comment
     deleteComment(_id: ID!): Comment
+
+    getPresignedUrl(key: String!): PresignedUrlResponse
   }
 `;
 
