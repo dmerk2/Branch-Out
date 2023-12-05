@@ -16,15 +16,7 @@ const resolvers = {
     comments: async () => {
       return await Comment.find().populate("post").populate("user");
     },
-    getPresignedUrl: async (_, { key }) => {
-      try {
-        const presignedUrl = await generatePresignedUrl(key);
-        return { presignedUrl, key };
-      } catch (error) {
-        console.error(error);
-        throw new Error("Failed to generate pre-signed URL");
-      }
-    },
+
   },
 
   Mutation: {
@@ -105,6 +97,15 @@ const resolvers = {
     deleteComment: async (parent, { _id }) => {
       const comment = await Comment.findByIdAndDelete(_id);
       return comment;
+    },
+    getPresignedUrl: async (_, { key }) => {
+      try {
+        const presignedUrl = await generatePresignedUrl(key);
+        return { presignedUrl, key };
+      } catch (error) {
+        console.error(error);
+        throw new Error("Failed to generate pre-signed URL");
+      }
     },
   },
 };
