@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { addMessage, selectMessageList } from "../../features/chatSlice";
+import styles from "../../styles/Chat.module.css";
 
 export default function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");

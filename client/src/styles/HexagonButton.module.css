@@ -8,8 +8,8 @@
     border: 10px solid var(--limed-spruce);
     border-radius: 10px;
     box-shadow: 
-    inset 5px 4px 5px  rgba(156, 156, 156, 0.965),
-    5px 5px 5px rgba(156, 156, 156, 0.965);
+    inset 5px 4px 5px  var(--black-haze-shadow),
+    5px 5px 5px var(--black-haze-shadow);
 
   }
   

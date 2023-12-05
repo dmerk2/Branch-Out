@@ -8,6 +8,7 @@ import {
   selectUsername,
   selectRoom,
 } from "../features/chatSlice"; // Import Redux actions and selectors
+import styles from "../styles/ChatRoom.module.css";
 
 // Determine the socket connection URL based on the environment
 const socketURL =
@@ -40,7 +41,7 @@ export default function ChatRoom() {
 
   return (
     <div>
-      <h1>Chat Room</h1>
+      <h1 className={styles.chatRoomHeader}>Chat Room</h1>
       <div>
         <input
           type="text"
