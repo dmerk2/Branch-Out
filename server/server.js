@@ -19,7 +19,7 @@ const io = new Server(httpServer, {
       "http://localhost:3000",
       "https://branch-out-web-service.onrender.com",
     ],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
   },
 });
 
