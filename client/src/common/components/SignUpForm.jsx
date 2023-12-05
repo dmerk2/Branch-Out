@@ -3,6 +3,9 @@ import { useMutation } from "@apollo/client";
 import { ADD_USER, GET_PRESIGNED_URL } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { BarLoader as Spinner } from "react-spinners";
+import styles from "../../styles/LoginForm.module.css";
+import Logo from "../../assets/images/BranchOut_With_Words.png";
+
 
 function SignUpForm() {
   const [userFormData, setUserFormData] = useState({
@@ -83,23 +86,16 @@ function SignUpForm() {
 
   return (
     <>
-      <form noValidate onSubmit={handleFormSubmit}>
-        {showAlert && (
-          <div>
-            Something went wrong with your sign up!
-            <button
-              type="button"
-              className="close"
-              onClick={() => setShowAlert(false)}
-            >
-              <span>&times;</span>
-            </button>
-          </div>
-        )}
+      <form noValidate onSubmit={handleFormSubmit}  className={styles.formSquare}>
+
+      <div className={styles.formLogo}>
+            <img src={Logo} alt="Branch Out Logo" />
+        </div>
 
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className={styles.loginRequirement}>Email</label>
           <input
+            className={styles.loginInput}
             type="text"
             placeholder="Your email"
             name="email"
@@ -111,8 +107,9 @@ function SignUpForm() {
         </div>
 
         <div>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username" className={styles.loginRequirement}>Username</label>
           <input
+            className={styles.loginInput}
             type="text"
             placeholder="Your username"
             name="username"
@@ -124,8 +121,9 @@ function SignUpForm() {
         </div>
 
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className={styles.loginRequirement}>Password</label>
           <input
+            className={styles.loginInput}
             type="password"
             placeholder="*********"
             name="password"
@@ -137,8 +135,9 @@ function SignUpForm() {
         </div>
 
         <div>
-          <label htmlFor="bio">Bio</label>
+          <label htmlFor="bio" className={styles.loginRequirement}>Bio</label>
           <textarea
+            className={styles.loginInput}
             name="bio"
             id="bio"
             cols="30"
@@ -150,8 +149,10 @@ function SignUpForm() {
         </div>
 
         <div>
-          <label htmlFor="profileImage">Profile Picture</label>
+
+          <label htmlFor="profileImage"  className={styles.loginRequirement}>Profile Picture</label>
           <input
+            className={styles.loginInput}
             type="file"
             name="profileImage"
             id="profileImage"
@@ -178,9 +179,22 @@ function SignUpForm() {
           )}
         </div>
 
-        <button type="submit" disabled={isUploading}>
+        <button type="submit" className={styles.signUpPageButton} disabled={isUploading}>
           Submit
         </button>
+        
+        {showAlert && (
+          <div className={styles.somethingWrong}>
+            Something went wrong with your sign up!
+            <button
+              type="button"
+              className={styles.close}
+              onClick={() => setShowAlert(false)}
+            >
+              <span>&times;</span>
+            </button>
+          </div>
+        )}
       </form>
     </>
   );
