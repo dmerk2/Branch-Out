@@ -8,6 +8,7 @@ import {
   selectUsername,
   selectRoom,
 } from "../features/chatSlice"; // Import Redux actions and selectors
+import styles from "../styles/ChatRoom.module.css";
 
 // Determine the socket connection URL based on the environment
 const socketURL =
@@ -40,21 +41,30 @@ export default function ChatRoom() {
 
   return (
     <div>
-      <h1>Chat Room</h1>
-      <div>
-        <input
-          type="text"
-          placeholder="Choose Your Name"
-          onChange={handleUsernameChange}
-        />
-        <input
-          type="text"
-          placeholder="Enter Your Room"
-          onChange={handleRoomChange}
-        />
-        <button onClick={joinRoom}>Join A Room</button>
-      </div>
-      <Chat socket={socket} username={username} room={room} />
-    </div>
+      {showChat ? null : (
+        <div>
+          <h1 className={styles.chatRoomHeader}>Chat Room</h1>
+          <div className={styles.joinRoom}>
+            <input
+              className={styles.chatRoomInput}
+              type="text"
+              placeholder="Choose Your Name"
+              onChange={handleUsernameChange}
+            />
+            <input
+              className={styles.chatRoomInput}
+              type="text"
+              placeholder="Enter Your Room"
+              onChange={handleRoomChange}
+            />
+            <button onClick={joinRoom} className={styles.joinButton}>
+              Join A Room
+            </button>
+          </div>
+          {showChat ? <Chat socket={socket} username={username} room={room} /> : null}
+        </div>
+      )}
+    {showChat ? <Chat socket={socket} username={username} room={room} /> : null}
+  </div>
   );
 }

@@ -1,0 +1,87 @@
+.chatBody {
+    min-height: 565px;
+    max-height: 565px;
+    overflow-y: auto;
+    margin: 10px 30px;
+    font-size: 20px;
+}
+
+.chatFooter {
+    margin: 10px 30px 30px 30px;
+    border-radius: 20px;
+}
+
+.roomName {
+    background-color: var(--limed-spruce);
+    margin: 20px 15px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 30px;
+    width: 20%;
+    color: var(--black-haze);
+    box-shadow: 2px 10px 5px var(--black-haze-shadow);
+    text-shadow: 0px 5px 5px var(--limed-spruce-shadow);
+}
+
+.messageMeta {
+    display: flex;
+    background-color: var(--elm);
+    margin: 10px 0;
+    border-radius: 20px;
+}
+
+.author {
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
+    margin: 0 15px 0 0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    box-shadow: 10px 0px 10px var(--elm-shadow);
+    text-shadow: 0px 3px 3px var(--limed-spruce-shadow);
+}
+
+.messageContent {
+    color: var(--black-haze);
+    margin: 5px 0;
+}
+
+.time {
+    background-color: var(--mountain-meadow);
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 0 0 0 auto; 
+    color: var(--black-haze);
+    box-shadow: -10px 0px 10px var(--elm-shadow);
+    text-shadow: 0px 3px 3px var(--mountain-meadow-shadow);
+}
+
+.chatInput {
+    font-family: 'Audiowide', sans-serif;
+    width: 94%;
+    height: 2.8rem;
+    background: var(black-haze);
+    outline: none;
+    border: none;
+    border-radius: 1.625rem;
+    padding: 0 3.5rem 0 1.5rem;
+    font-size: 1.5rem;
+    border: 5px solid var(--limed-spruce);
+    box-shadow: 0px 10px 5px var(--black-haze-shadow);
+}
+
+.sendButton {
+    font-family: 'Audiowide', sans-serif;
+    text-align: right;
+    margin: 10px;
+    height: 2.8rem;
+    font-size: 1.5rem;
+    background-color: var(--mountain-meadow);
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: var(--black-haze);
+    box-shadow: 0px 10px 5px var(--black-haze-shadow);
+    text-shadow: 0px 3px 3px var(--mountain-meadow-shadow);
+    border: none;
+}

@@ -4,7 +4,7 @@
     margin: 50px 30px 0px 30px;
     padding: 20px;
     border-radius: 60px;
-    box-shadow: 0px 10px 5px rgba(156, 156, 156, 0.965);
+    box-shadow: 0px 10px 5px var(--black-haze-shadow);
   }
   
   .whatsUp {
@@ -12,7 +12,7 @@
       font-size: 20px;
       color: var(--black-haze);
       padding: 5px;
-      text-shadow: 0px 5px 5px #116849;
+      text-shadow: 0px 5px 5px var(--mountain-meadow-shadow);
       margin: 0px 50px;
   }
 
@@ -33,7 +33,7 @@
     border-radius: 1.625rem;
     padding: 0 0 3rem 1rem;
     font-size: 15px;
-    box-shadow: 0px 10px 10px #116849;
+    box-shadow: 0px 10px 10px var(--mountain-meadow-shadow);
   }
   
   .postButton {
@@ -48,14 +48,14 @@
       font-family: Audiowide, sans-serif;
       border-radius: 20px;
       font-size: 15px;
-      box-shadow: 0px 5px 5px #116849;
-      text-shadow: 0px 3px 3px  #151f1f;
+      box-shadow: 0px 5px 5px var(--mountain-meadow-shadow);
+      text-shadow: 0px 3px 3px  var(--limed-spruce-shadow);
   }
   
   .postButton:hover {
     background-color: var(--black-haze);
     color: var(--elm);
-    text-shadow: 0px 3px 3px  rgba(156, 156, 156, 0.965);
+    text-shadow: 0px 3px 3px  var(--black-haze-shadow);
   }
     
   

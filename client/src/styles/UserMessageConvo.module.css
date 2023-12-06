@@ -12,8 +12,8 @@
     border-radius: 0 50px 50px 0;
     height: 30px;
     font-size: 15x;
-    box-shadow: 2px 5px 5px #0f413c;
-    text-shadow: 0px 5px 5px #151f1f;
+    box-shadow: 2px 5px 5px var(--elm-shadow);
+    text-shadow: 0px 5px 5px var(--limed-spruce-shadow);
 }
 
 .smallDiamondShape {
@@ -26,8 +26,8 @@
     border: 12px solid var(--black-haze);
     border-radius: 25px;
     box-shadow: 
-    inset 5px 4px 5px  #151f1f,
-    5px 5px 5px #0f413c;
+    inset 5px 4px 5px  var(--limed-spruce-shadow),
+    5px 5px 5px var(--elm-shadow);
 
 }
 

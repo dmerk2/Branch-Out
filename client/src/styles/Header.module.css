@@ -6,7 +6,7 @@
   background-color: var(--limed-spruce);
   font-family: 'Audiowide', sans-serif;
   border-bottom: 15px solid var(--mountain-meadow);
-  box-shadow: 0px 10px 5px rgba(156, 156, 156, 0.965);
+  box-shadow: 0px 10px 5px var(--black-haze-shadow);
 }
 
 .headerLogo {
@@ -17,7 +17,7 @@
   background-color: var(--black-haze);
   padding: 10px 50px 10px 150px;
   border-radius: 0px 50px 50px 0px;
-  box-shadow: 0px 10px 5px #151f1f;
+  box-shadow: 0px 10px 5px var(--limed-spruce-shadow);
 }
 
 .headerLogo img {
@@ -48,7 +48,7 @@
   border-radius: 1.625rem;
   padding: 0 3.5rem 0 1.5rem;
   font-size: 1.5rem;
-  box-shadow: 0px 10px 5px #151f1f;
+  box-shadow: 0px 10px 5px var(--limed-spruce-shadow);
 }
 
 .headerSearch input {
@@ -65,7 +65,7 @@
   padding: 10px 10px 10px 20px;
   border-radius: 50px 0px 0px 50px;
   background-color: var(--black-haze);
-  box-shadow: 0px 10px 5px #151f1f;
+  box-shadow: 0px 10px 5px var(--limed-spruce-shadow);
 }
 
 .headerNav li {
@@ -84,7 +84,7 @@
   padding: 8px;
   border-radius: 30px;
   color: var(--black-haze);
-  box-shadow: 0px 1px rgba(156, 156, 156, 0.965);
+  box-shadow: 0px 1px var(--black-haze-shadow);
 }
 
 .navbarNav {
