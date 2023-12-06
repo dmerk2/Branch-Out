@@ -35,6 +35,7 @@ const typeDefs = `
 
   type Query {
     users: [User]
+    searchUsers(username: String!): [User]
     posts: [Post]
     comments: [Comment]
   }
