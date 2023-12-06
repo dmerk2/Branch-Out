@@ -6,6 +6,7 @@ import SuggestedFriendsList from "../common/components/SuggestedFriends"
 import AuthService from "../common/utils/auth"
 import RecentPost from "../common/components/RecentPost"
 import AboutBranchOut from "../common/components/AboutBranchOut"
+import SendMessageButton from "../common/components/SendMessage"
 
 export default function Home() {
   const isLoggedIn = AuthService.loggedIn();
@@ -39,8 +40,10 @@ export default function Home() {
           <AddFriendSquare />
           <AddFriendSquare />
         </div>
+        <div>
+        <SendMessageButton />
       </div>
-
+      </div>
     </div>
   );
 }
