@@ -14,6 +14,29 @@ import EditPost from "./layouts/EditPost.jsx";
 import Friends from "./layouts/Friends.jsx";
 import SignupForm from "./common/components/SignUpForm.jsx";
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Uncaught error in component tree:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong in the app.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,8 +85,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </ErrorBoundary>
   </React.StrictMode>
 );
