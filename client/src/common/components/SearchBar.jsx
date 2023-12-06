@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { SEARCH_USERS } from "../utils/queries";
+import styles from "../../styles/SearchBar.module.css";
 
 function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,14 +32,15 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div  className={styles.headerSearch}>
       <input
+       className={styles.inputSearch}
         type="text"
         placeholder="Search users..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button className={styles.searchButton} onClick={handleSearch}>Search</button>
       {filteredUsers.length > 0 && (
         <div className="dropdown">
           {filteredUsers.map((user) => (
