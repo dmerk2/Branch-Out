@@ -65,3 +65,67 @@
   display: flex;
   list-style: none;
 }
+
+/* For medium-sized screens */
+@media only screen and (max-width: 1400px) {
+
+  .headerSearchBar {
+    margin-top: 15px;
+  }
+
+  .header {
+    flex-direction: column; /* Align nav items vertically */
+  }
+
+  .headerLogo {
+    padding: 10px 25px; /* Adjust logo padding */
+    border-radius: 50px;
+  }
+
+  .headerNav {
+    padding: 10px; /* Adjust padding for nav */
+    border-radius: 50px;
+    margin-top: 15px;
+  }
+
+  .headerNav li {
+    margin: 10px 15px; /* Adjust margin for nav items */
+  }
+}
+
+/* For small-sized screens */
+@media only screen and (max-width: 768px) {
+
+
+  .headerNav {
+    padding: 10px; /* Adjust padding for nav */
+  }
+
+  .headerNav li {
+    margin: 1.5px 10px; /* Adjust margin for nav items */
+  }
+}
+
+/* For extra small screens */
+@media only screen and (max-width: 576px) {
+
+  .navbarNav li {
+    margin: 10px 0 !important; /* 10px top and bottom, 0 left and right */
+  }
+
+  .navbarNav {
+    flex-direction: column; /* Align nav items vertically */
+    padding: 10px; /* Adjust padding for nav */
+    align-items: center;
+  }
+
+  .headerNav {
+    flex-direction: column; /* Align nav items vertically */
+    padding: 10px; /* Adjust padding for nav */
+    align-items: center;
+  }
+
+  .headerNav li {
+    margin: 5px 0; /* Adjust margin for nav items */
+  }
+}
