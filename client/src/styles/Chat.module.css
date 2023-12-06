@@ -21,7 +21,7 @@
     border-radius: 30px;
     width: 20%;
     color: var(--black-haze);
-    box-shadow: 2px 10px 5px var(--black-haze-shadow);
+    box-shadow: 0px 10px 5px var(--black-haze-shadow);
     text-shadow: 0px 5px 5px var(--limed-spruce-shadow);
 }
 

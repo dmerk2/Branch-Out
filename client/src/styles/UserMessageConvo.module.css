@@ -38,3 +38,21 @@
     height: 40px;
     padding: 10px 8px 0 0;
 }
+
+@media only screen and (max-width: 440px) {
+    .userMessageLine {
+        flex-direction: column;
+    }
+
+    .smallDiamondShape {
+        justify-content: center;
+        margin: 20px auto 0 auto;
+    }
+
+    .messageUsername {
+        text-align: center;
+        margin: 20px 0;
+        padding: 6px auto 0 auto;
+        border-radius: 50px;
+    }
+  }
