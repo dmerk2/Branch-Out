@@ -41,9 +41,9 @@ export default function Chat({ socket, username, room }) {
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <h2>Room {room}</h2>
+        <h2 className={styles.roomName}>Room {room}</h2>
       </div>
-      <ScrollToBottom className="chat-body">
+      <ScrollToBottom className={styles.chatBody}>
         {messageList.map((messageContent, index) => (
           <div className="message" key={index}>
             <div
@@ -53,27 +53,28 @@ export default function Chat({ socket, username, room }) {
                   : "other-message"
               }
             >
-              <div className="message-content">
+              
+              <div className={styles.messageMeta}>
+                <span className={styles.author}>{messageContent.author}</span>
+                <div className={styles.messageContent}>
                 <p>{messageContent.message}</p>
               </div>
-              <div className="message-meta">
-                <span className="author">From: {messageContent.author}</span>
-                <br />
-                <span className="time">Sent at {messageContent.time}</span>
+                <span className={styles.time}>Sent at {messageContent.time}</span>
               </div>
             </div>
           </div>
         ))}
       </ScrollToBottom>
-      <div className="chat-footer">
+      <div className={styles.chatFooter}>
         <input
+          className={styles.chatInput}
           type="text"
           placeholder="Enter message..."
           value={currentMessage}
           onChange={(e) => setCurrentMessage(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
-        <button onClick={sendMessage}>Send</button>
+        <button className={styles.sendButton} onClick={sendMessage}>Send</button>
       </div>
     </div>
   );
