@@ -66,12 +66,9 @@
   list-style: none;
 }
 
+
 /* For medium-sized screens */
 @media only screen and (max-width: 1400px) {
-
-  .headerSearchBar {
-    margin-top: 15px;
-  }
 
   .header {
     flex-direction: column; /* Align nav items vertically */
@@ -80,6 +77,7 @@
   .headerLogo {
     padding: 10px 25px; /* Adjust logo padding */
     border-radius: 50px;
+    margin-bottom: 15px;
   }
 
   .headerNav {
