@@ -16,9 +16,15 @@ export default function Header() {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
+          {Auth.loggedIn() ? (
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          ) : (
+            <li>
+              <Link to="/login">Profile</Link>
+            </li>
+          )}
           <li>
             <Link to="/chatroom">Live Chat</Link>
           </li>
