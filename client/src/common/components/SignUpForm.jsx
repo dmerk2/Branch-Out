@@ -66,10 +66,10 @@ function SignUpForm() {
 
       if (uploadResponse.ok) {
         const imageUrl = `https://branch-out-images.s3.amazonaws.com/${key}`;
-        setUserFormData({ ...userFormData, profileImage: imageUrl });
+        const updatedFormData = { ...userFormData, profileImage: imageUrl };
 
         // Submit the user data
-        const { data } = await addUser({ variables: { ...userFormData } });
+        const { data } = await addUser({ variables: { ...updatedFormData } });
         Auth.login(data.addUser.token);
       } else {
         throw new Error("Failed to upload image to S3");
