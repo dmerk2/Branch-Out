@@ -19,3 +19,16 @@
     height: 70px;
     padding-right: 12px;
   }
+
+@media only screen and (max-width: 460px) {
+  .diamondShape {
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    box-shadow: 
+    inset 10px 8px 10px  var(--limed-spruce-shadow),
+    9px 10px 5px var(--black-haze-shadow);
+
+  }
+
+}
