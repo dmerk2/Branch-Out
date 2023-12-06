@@ -1,0 +1,45 @@
+/* HomepageUserDiamond.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.diamondShape {
+  margin-top: 100px;
+  background: var(--limed-spruce);
+  height: 150px;
+  width: 150px;
+  text-align: center;
+  transform: rotate(45deg);
+  border: 30px solid var(--mountain-meadow);
+  border-radius: 40px;
+  box-shadow: 
+    inset 10px 8px 10px  var(--limed-spruce-shadow),
+    4px 10px 5px var(--black-haze-shadow);
+}
+
+.userIcon {
+  color: var(--black-haze);
+  transform: rotate(-45deg);
+  height: 70px;
+  padding-right: 12px;
+}
+
+.buttonColumn {
+  display: flex;
+  flex-direction: column; /* Updated to column layout */
+  align-items: center; /* Align buttons in the center horizontally */
+  margin-top: 0;
+  padding-bottom: 40px;
+  border-radius: 0 0 40px 40px;
+  background: var(--limed-spruce);
+}
+
+.diamondButtonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Make each button take the full width of the container */
+}

@@ -1,0 +1,94 @@
+/* RecentPost.module.css */
+
+.postContainer {
+    position: relative;
+    background-color: var(--elm);
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .userDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .userName {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .postDate {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    position: absolute;
+    top: 10px; /* Add padding to the top */
+    right: 10px; /* Add padding to the right */
+  }
+  
+  .userPost {
+    margin-top: 10px;
+    background-color: var(--black-haze);
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .postContent {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .engagementSection {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically */
+  }
+  
+  .comments {
+    flex-grow: 2;
+  }
+  
+  .comment {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .likesDislikes {
+    display: flex; /* Set display to flex */
+    align-items: flex-end; /* Align items to the bottom */
+  }
+  
+  .likeBox,
+  .dislikeBox {
+    padding: 10px;
+    border-radius: 8px;
+    margin-left: 10px;
+  }
+  
+  .likeButton,
+  .dislikeButton {
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    background-color: var(--mountain-meadow);
+    color: var(--limed-spruce);
+    border-radius: 4px;
+  }
+  
+  .likeButton:hover,
+  .dislikeButton:hover {
+    background-color: var(--black-haze);
+  }
+  
