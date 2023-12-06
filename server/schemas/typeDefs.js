@@ -13,7 +13,7 @@ const typeDefs = `
 
   type Post {
     _id: ID
-    user: [User]
+    user: User
     content: String!
     createdAt: String
     likes: [User]

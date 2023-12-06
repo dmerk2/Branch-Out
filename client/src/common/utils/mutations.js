@@ -48,3 +48,16 @@ export const GET_PRESIGNED_URL = gql`
     }
   }
 `;
+
+export const ADD_POST = gql`
+  mutation addPost($user: ID!, $content: String!) {
+    addPost(user: $user, content: $content) {
+      _id
+      user {
+        _id
+      }
+      content
+      createdAt
+    }
+  }
+`;
