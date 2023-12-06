@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "../../styles/Header.module.css";
 import Logo from "../../assets/images/BranchOut_With_Words.png";
 import Auth from "../utils/auth";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
   return (
@@ -9,13 +10,7 @@ export default function Header() {
       <Link to="/" className={styles.headerLogo}>
         <img src={Logo} alt="Branch Out Logo" />
       </Link>
-      <div className={styles.headerSearch}>
-        <input
-          className={styles.inputSearch}
-          type="search"
-          placeholder="Search..."
-        />
-      </div>
+      <SearchBar />
       <div className={styles.headerNav}>
         <ul className={styles.navbarNav}>
           <li>
