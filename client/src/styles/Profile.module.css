@@ -46,3 +46,52 @@
 .profileButton {
   margin: 10px 40px 10px 40px;
 }
+
+
+
+/* For medium-sized screens */
+@media only screen and (max-width: 1400px) {
+  .profilePageColumn {
+    width: 50%;
+  }
+}
+
+/* For small-sized screens */
+@media only screen and (max-width: 930px) {
+  .profilePageColumn {
+    width: 100%;
+  }
+}
+
+/* Additional adjustments for screens smaller than 800px */
+@media only screen and (max-width: 800px) {
+  .profilePageRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .profilePageColumn {
+    width: 100%;
+    margin-bottom: 20px; /* Add space between columns */
+  }
+
+  .profileButtonRow {
+    flex-direction: column; /* Align buttons vertically */
+    align-items: center;
+  }
+
+  .profileButton {
+    margin: 10px; /* Adjust margin for buttons */
+  }
+}
+
+/* For extra small screens */
+@media only screen and (max-width: 576px) {
+  .profilePageColumn {
+    width: 100%;
+  }
+  .profileButton {
+    margin: 10px 20px 10px 20px;
+  }
+}

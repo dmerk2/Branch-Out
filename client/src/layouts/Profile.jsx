@@ -19,14 +19,6 @@ export default function Profile() {
           <div className={styles.profileUserSection}>
             < ProfileUserDisplay />
           </div>
-          {/* <div className= {styles.profileOtherSocials}>
-            <button className= {styles.profileOtherSocials}>
-              <FontAwesomeIcon icon={faUserSecret} className= {styles.profileSocialsIcon} />
-            </button>
-            <button className="actionButton githubButton">
-              <FontAwesomeIcon icon={faUserSecret} className= {styles.profileSocialsIcon} />
-            </button>
-          </div> */}
           <div className={styles.profileFriendsTracker}>
             < ViewFriendsList />
           </div>
