@@ -19,6 +19,16 @@ const resolvers = {
     searchUsers: async (_, { username }) => {
       return await User.find({ username });
     },
+    checkUsernameEmailExists: async (_, { username, email }) => {
+      try {
+        const users = await User.find({
+          $or: [{ username }, { email }]
+        });
+        return users;
+      } catch (error) {
+        throw new Error(`Error in checkUsernameEmailExists: ${error.message}`);
+      }
+    },
   },
 
   Mutation: {

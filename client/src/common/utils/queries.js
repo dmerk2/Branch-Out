@@ -8,3 +8,13 @@ export const SEARCH_USERS = gql`
     }
   }
 `;
+
+export const CHECK_USERNAME_EMAIL_EXISTS = gql`
+  query checkUsernameEmailExists($username: String!, $email: String!) {
+    users(where: { OR: [{ username: $username }, { email: $email }] }) {
+      _id
+      username
+      email
+    }
+  }
+`;
