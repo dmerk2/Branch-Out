@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_USER, GET_PRESIGNED_URL } from "../utils/mutations";
-import { CHECK_USERNAME_EXISTS } from "../utils/queries";
+import { CHECK_USERNAME_EMAIL_EXISTS } from "../utils/queries";
 import Auth from "../utils/auth";
 import { BarLoader as Spinner } from "react-spinners";
 import styles from "../../styles/LoginForm.module.css";
