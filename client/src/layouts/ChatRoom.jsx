@@ -42,18 +42,20 @@ export default function ChatRoom() {
   return (
     <div>
       <h1 className={styles.chatRoomHeader}>Chat Room</h1>
-      <div>
+      <div className={styles.joinRoom}>
         <input
+          className={styles.chatRoomInput}
           type="text"
           placeholder="Choose Your Name"
           onChange={handleUsernameChange}
         />
         <input
+          className={styles.chatRoomInput}
           type="text"
           placeholder="Enter Your Room"
           onChange={handleRoomChange}
         />
-        <button onClick={joinRoom}>Join A Room</button>
+        <button onClick={joinRoom} className={styles.joinButton}>Join A Room</button>
       </div>
       <Chat socket={socket} username={username} room={room} />
     </div>
