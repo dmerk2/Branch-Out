@@ -1,6 +1,6 @@
 const { signToken } = require("../utils/auth");
 const { User, Post, Comment } = require("../models");
-const { generatePresignedUrl } = require('../utils/s3')
+const { generatePresignedUrl } = require("../utils/s3");
 
 const resolvers = {
   Query: {
@@ -16,7 +16,9 @@ const resolvers = {
     comments: async () => {
       return await Comment.find().populate("post").populate("user");
     },
-
+    searchUsers: async (_, { username }) => {
+      return await User.find({ username });
+    },
   },
 
   Mutation: {
