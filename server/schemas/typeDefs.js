@@ -48,6 +48,7 @@ const typeDefs = `
     posts: [Post]
     comments: [Comment]
     checkUsernameEmailExists(username: String!, email: String!): [User]
+    user(_id: ID): User
   }
 
   type Auth {
