@@ -8,6 +8,7 @@ const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@apollo/server/express4");
 const { authMiddleware } = require("./utils/auth");
 const db = require("./config/connection");
+const { generatePresignedUrl } = require("./utils/s3");
 const { typeDefs, resolvers } = require("./schemas");
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -66,6 +67,20 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User Disconnected:", socket.id);
   });
+});
+
+app.get('/presigned-url', async (req, res) => {
+  try {
+    const key = req.query.key;
+    if (!key) {
+      return res.status(400).json({ error: 'No key provided' });
+    }
+    const presignedUrl = await generatePresignedUrl(key);
+    res.json({ presignedUrl });
+  } catch (error) {
+    console.error('Error generating pre-signed URL:', error);
+    res.status(500).json({ error: error.toString() });
+  }
 });
 
 db.once("open", () => {

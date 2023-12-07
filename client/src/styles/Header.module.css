@@ -87,7 +87,7 @@
   }
 
   .headerNav li {
-    margin: 10px 15px; /* Adjust margin for nav items */
+    margin: 1.5px 10px; /* Adjust margin for nav items */
   }
 }
 
@@ -97,10 +97,6 @@
 
   .headerNav {
     padding: 10px; /* Adjust padding for nav */
-  }
-
-  .headerNav li {
-    margin: 1.5px 10px; /* Adjust margin for nav items */
   }
 }
 

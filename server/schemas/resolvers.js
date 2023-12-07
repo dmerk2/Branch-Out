@@ -7,6 +7,10 @@ const resolvers = {
     users: async () => {
       return await User.find().populate("friends").populate("posts");
     },
+    user: async (_, { _id }, context) => {
+      return await User.findById(_id || context.user._id)
+        .populate("friends")
+    },
     posts: async () => {
       return await Post.find()
         .populate("user")
@@ -22,7 +26,7 @@ const resolvers = {
     checkUsernameEmailExists: async (_, { username, email }) => {
       try {
         const users = await User.find({
-          $or: [{ username }, { email }]
+          $or: [{ username }, { email }],
         });
         return users;
       } catch (error) {
@@ -117,6 +121,57 @@ const resolvers = {
       } catch (error) {
         console.error(error);
         throw new Error("Failed to generate pre-signed URL");
+      }
+    },
+    likePost: async (_, { postId }, context) => {
+      try {
+        // Access the userId from the context
+        const { user } = context;
+
+        if (!user) {
+          // If the user is not authenticated, you can return a message
+          return new Error("User not authenticated");
+        }
+
+        const post = await Post.findByIdAndUpdate(
+          postId,
+          { $addToSet: { likes: user } },
+          { new: true }
+        );
+
+        return {
+          _id: post._id,
+          likeCount: post.likeCount,
+          dislikeCount: post.dislikeCount,
+        };
+      } catch (error) {
+        console.error("Error liking post:", error);
+        throw new Error("Failed to like post");
+      }
+    },
+
+    dislikePost: async (_, { postId }, context) => {
+      try {
+        const { user } = context;
+
+        if (!user) {
+          return new Error("User not authenticated");
+        }
+
+        const post = await Post.findByIdAndUpdate(
+          postId,
+          { $addToSet: { dislikes: user } },
+          { new: true }
+        );
+
+        return {
+          _id: post._id,
+          dislikeCount: post.dislikeCount,
+          likeCount: post.likeCount,
+        };
+      } catch (error) {
+        console.error("Error disliking post:", error);
+        throw new Error("Failed to dislike post");
       }
     },
   },

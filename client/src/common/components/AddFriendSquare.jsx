@@ -3,13 +3,19 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
 
-export default function AddFriendSquare() {
-    return (
-      <div className={styles.outerSquare}>
-        <div className={styles.innerSquare}>
-        <FontAwesomeIcon icon={faUserAstronaut} className={styles.friendIcon} />
-        </div>
-        <div className={styles.friendUsername}>Test123</div>
-      </div>
-    );
+export default function AddFriendSquare({ friend }) {
+  // Check if friend is defined and has the expected properties
+  if (!friend || !friend.username) {
+    // Handle the case where friend is undefined or missing properties
+    return null;
   }
+
+  return (
+    <div className={styles.outerSquare}>
+      <div className={styles.innerSquare}>
+        <FontAwesomeIcon icon={faUserAstronaut} className={styles.friendIcon} />
+      </div>
+      <div className={styles.friendUsername}>{friend.username}</div>
+    </div>
+  );
+}
