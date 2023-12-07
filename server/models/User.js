@@ -24,6 +24,12 @@ const userSchema = new mongoose.Schema(
     bio: {
       type: String,
     },
+    messages: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Message",
+      },
+    ],
     friends: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -62,7 +68,7 @@ userSchema.pre("save", async function (next) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
-  console.log("Hashed passwords")
+  console.log("Hashed passwords");
   next();
 });
 
