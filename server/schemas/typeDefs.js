@@ -17,7 +17,16 @@ const typeDefs = `
     content: String!
     createdAt: String
     likes: [User]
+    likeCount: Int
+    dislikes: [User]
+    dislikeCount: Int
     comments: [Comment]
+  }
+
+  type PostInteracted {
+    _id: ID!
+    likeCount: Int!
+    dislikeCount: Int!
   }
 
   type Comment {
@@ -61,6 +70,9 @@ const typeDefs = `
     deleteComment(_id: ID!): Comment
 
     getPresignedUrl(key: String!): PresignedUrlResponse
+
+    likePost(postId: ID!): PostInteracted
+    dislikePost(postId: ID!): PostInteracted
   }
 `;
 
