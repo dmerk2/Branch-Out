@@ -23,6 +23,7 @@
 
 .userDescription {
     font-family: "Audiowide", sans-serif;
+    text-align: center;
     color: var(--black-haze);
     text-shadow: 0px 5px 5px  var(--elm-shadow);
     margin: 10px 50px;

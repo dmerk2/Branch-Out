@@ -10,8 +10,6 @@ export default function ProfileUserDisplay() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  console.log();
-
     return (
             <div className={styles.userDiamond_Horizontal_Container}>
               <UserDiamond />
