@@ -1,9 +1,89 @@
-/* RecentPost.jsx */
+import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { LIKE_POST, DISLIKE_POST } from "../utils/mutations";
 
-import React from 'react';
-import styles from '../../styles/RecentPost.module.css';
+import styles from "../../styles/RecentPost.module.css";
 
-export default function RecentPost() {
+export default function RecentPost({ postId }) {
+  const [likeCount, setLikeCount] = useState(0);
+  const [dislikeCount, setDislikeCount] = useState(0);
+  const [userAction, setUserAction] = useState(null); // 'like', 'dislike', or null
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
+
+  const [likePostMutation] = useMutation(LIKE_POST);
+  const [dislikePostMutation] = useMutation(DISLIKE_POST);
+
+  const handleLikePost = async () => {
+    if (userAction === 'like') {
+      // User already liked, remove like
+      setUserAction(null);
+      setIsLiked(false);
+      setLikeCount(likeCount - 1);
+    } else {
+      // User disliked before, remove dislike
+      if (userAction === 'dislike') {
+        setDislikeCount(dislikeCount - 1);
+        setIsDisliked(false);
+      }
+
+      // Like the post
+      setUserAction('like');
+      setIsLiked(true);
+
+      try {
+        const { data, errors } = await likePostMutation({
+          variables: { postId },
+        });
+
+        if (errors) {
+          console.error("Error liking post:", errors);
+        } else if (data.likePost && data.likePost.message) {
+          alert(data.likePost.message);
+        } else {
+          setLikeCount(data.likePost.likeCount);
+        }
+      } catch (error) {
+        console.error("Error liking post:", error);
+      }
+    }
+  };
+
+  const handleDislikePost = async () => {
+    if (userAction === 'dislike') {
+      // User already disliked, remove dislike
+      setUserAction(null);
+      setIsDisliked(false);
+      setDislikeCount(dislikeCount - 1);
+    } else {
+      // User liked before, remove like
+      if (userAction === 'like') {
+        setLikeCount(likeCount - 1);
+        setIsLiked(false);
+      }
+
+      // Dislike the post
+      setUserAction('dislike');
+      setIsDisliked(true);
+
+      try {
+        const { data, errors } = await dislikePostMutation({
+          variables: { postId },
+        });
+
+        if (errors) {
+          console.error("Error disliking post:", errors);
+        } else if (data.dislikePost && data.dislikePost.message) {
+          alert(data.dislikePost.message);
+        } else {
+          setDislikeCount(data.dislikePost.dislikeCount);
+        }
+      } catch (error) {
+        console.error("Error disliking post:", error);
+      }
+    }
+  };
+
   return (
     <div>
       <div className={styles.postContainer}>
@@ -16,22 +96,37 @@ export default function RecentPost() {
 
         <div className={styles.userPost}>
           <p className={styles.postContent}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+            facilisi.
           </p>
         </div>
 
         <div className={styles.engagementSection}>
           <div className={styles.comments}>
-            <p className={styles.comment}>John Smith: Comment 1 - Great post!</p>
+            <p className={styles.comment}>
+              John Smith: Comment 1 - Great post!
+            </p>
             <p className={styles.comment}>Jane Doe: Comment 2 - Keep it up!</p>
           </div>
 
           <div className={styles.likesDislikes}>
             <div className={styles.likeBox}>
-              <button className={styles.likeButton}>Like</button>
+              <button
+                className={styles.likeButton}
+                onClick={() => handleLikePost()}
+                disabled={isLiked}
+              >
+                Like ({likeCount})
+              </button>
             </div>
             <div className={styles.dislikeBox}>
-              <button className={styles.dislikeButton}>Dislike</button>
+              <button
+                className={styles.dislikeButton}
+                onClick={() => handleDislikePost()}
+                disabled={isDisliked}
+              >
+                Dislike ({dislikeCount})
+              </button>
             </div>
           </div>
         </div>
