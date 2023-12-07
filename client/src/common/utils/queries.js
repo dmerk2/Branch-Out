@@ -18,3 +18,17 @@ export const CHECK_USERNAME_EMAIL_EXISTS = gql`
     }
   }
 `;
+
+export const GET_FRIENDS = gql`
+  query GetFriends($id: ID) {
+    user(_id: $id) {
+      friends {
+        _id
+        username
+        email
+        profileImage
+        bio
+      }
+    }
+  }
+`;
