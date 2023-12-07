@@ -13,7 +13,7 @@ export default function Home() {
   const isLoggedIn = AuthService.loggedIn();
   
     // State to hold the current postId when the user is logged in
-    const [postId, setPostId] = useState('657122e9905ff73c832c1a5d');
+    const [postId, setPostId] = useState('65712ad993e883778f15c49a');
 
     // Function to update the current postId
     const handlePostChange = (newPostId) => {
