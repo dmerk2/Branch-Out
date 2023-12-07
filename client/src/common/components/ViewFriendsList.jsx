@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_FRIENDS } from '../utils/queries'; // Adjust the import path
-import AuthService from '../utils/auth'; // Adjust the import path
-
+import { GET_USER_INFO } from '../utils/queries'; // Adjust the import path
 import styles from '../../styles/ViewFriendsList.module.css';
 import AddFriendSquare from './AddFriendSquare';
 
 // Assuming your GraphQL query structure is similar to the example above
 
 const ViewFriendsList = () => {
-  const { loading, error, data } = useQuery(GET_FRIENDS);
+  const { loading, error, data } = useQuery(GET_USER_INFO);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
