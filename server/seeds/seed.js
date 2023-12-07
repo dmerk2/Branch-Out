@@ -14,6 +14,7 @@ db.once("open", async () => {
       password: "password123",
       profileImage: "",
       bio: "A software developer",
+      friends: [], // Initialize with an empty array
     },
     {
       username: "jane_smith",
@@ -21,8 +22,15 @@ db.once("open", async () => {
       password: "password456",
       profileImage: "",
       bio: "An artist and designer",
+      friends: [], // Initialize with an empty array
     },
   ]);
+
+  // Add multiple friends to the first user
+  users[0].friends.push(users[1]._id);
+
+  // Add the first user to the friends array of the second user
+  users[1].friends.push(users[0]._id);
 
   for (const userData of users) {
     const newUser = new User(userData);

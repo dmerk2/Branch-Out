@@ -7,6 +7,10 @@ const resolvers = {
     users: async () => {
       return await User.find().populate("friends").populate("posts");
     },
+    user: async (_, { _id }, context) => {
+      return await User.findById(_id || context.user._id)
+        .populate("friends")
+    },
     posts: async () => {
       return await Post.find()
         .populate("user")
