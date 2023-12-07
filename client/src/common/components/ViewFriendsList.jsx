@@ -18,6 +18,7 @@ const ViewFriendsList = () => {
 
 
   const friends = data?.user?.friends || [];
+
   return (
     <div className={styles.profileFriendsInfo}>
       <p className={styles.profileFriendCount}>Friends: {friends.length}</p>
