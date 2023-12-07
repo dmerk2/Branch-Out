@@ -1,151 +1,125 @@
-import { useState, useEffect } from "react";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_USER, GET_PRESIGNED_URL } from "../utils/mutations";
-import { CHECK_USERNAME_EMAIL_EXISTS } from "../utils/queries";
-import Auth from "../utils/auth";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateFormData,
+  checkUsernameEmailExists,
+  uploadFileAndRegisterUser,
+  setUploadProgress,
+  resetForm,
+} from "../../features/signUpFormSlice";
 import { BarLoader as Spinner } from "react-spinners";
 import styles from "../../styles/LoginForm.module.css";
 import Logo from "../../assets/images/BranchOut_With_Words.png";
+import defaultProfileImage from "../../assets/images/BranchOut_Logo.svg";
 
 function SignUpForm() {
-  const [userFormData, setUserFormData] = useState({
-    email: "",
-    password: "",
-    username: "",
-    bio: "",
-    profileImage: "",
-  });
-  const [showAlert, setShowAlert] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
-  const [color, setColor] = useState("#FF0000"); // Can be a CSS hex-color string or an array of colors in hex format
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [submitAttempted, setSubmitAttempted] = useState(false);
-  const [addUser, { error: addUserError }] = useMutation(ADD_USER);
-  const [getPresignedUrl, { error: presignedUrlError }] =
-    useMutation(GET_PRESIGNED_URL);
-  const [checkUsernameEmailExists, { data, loading, error }] = useLazyQuery(
-    CHECK_USERNAME_EMAIL_EXISTS
-  );
+  const dispatch = useDispatch();
+  const {
+    userFormData,
+    isUploading,
+    showAlert,
+    uploadProgress,
+    checkUsernameEmailLoading,
+    checkUsernameEmailError,
+    userRegistrationError,
+  } = useSelector((state) => state.signUpForm);
 
-  useEffect(() => {
-    presignedUrlError ? setShowAlert(true) : setShowAlert(false);
-  }, [presignedUrlError]);
-
-  useEffect(() => {
-    addUserError ? setShowAlert(true) : setShowAlert(false);
-  }, [addUserError]);
-
-  useEffect(() => {
-    if (submitAttempted) {
-      if (loading) return; // Waiting for the query to complete
-
-      if (error) {
-        console.error("Error checking username and email:", error);
-        setShowAlert(true);
-        setIsUploading(false);
-        setSubmitAttempted(false);
-        return;
-      }
-
-      if (data && data.users.length > 0) {
-        const duplicateField = data.users.some(
-          (user) => user.username === userFormData.username
-        )
-          ? "username"
-          : "email";
-        const message =
-          duplicateField === "username"
-            ? "This username is already taken. Please choose a different username."
-            : "This email is already registered. Please use a different email.";
-        alert(message);
-        setIsUploading(false);
-      } else {
-        // Proceed with file upload and form submission
-        // [place your file upload and form submission logic here]
-      }
-      setSubmitAttempted(false);
-    }
-  }, [
-    submitAttempted,
-    data,
-    loading,
-    error,
-    userFormData.username,
-    userFormData.email,
-  ]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserFormData({ ...userFormData, [name]: value });
-  };
-
-  const override = {
-    display: "block",
-    margin: "0 auto",
-    borderColor: "red",
-  };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    setIsUploading(true); // Indicate the start of the submission process
-
-    // Trigger the lazy query to check if the username or email exists
-    checkUsernameEmailExists({
-      variables: {
-        username: userFormData.username,
-        email: userFormData.email,
-      },
-    });
-    setSubmitAttempted(true); // Indicate that a submission attempt has been made
-
-    try {
-      const file = userFormData.profileImage;
-      const key = `${Date.now()}_${file.name}`;
-      const presignedUrlResponse = await getPresignedUrl({
-        variables: { key: key },
-      });
-      const { presignedUrl } = presignedUrlResponse.data.getPresignedUrl;
-
-      // Upload the file to S3
-      const formData = new FormData();
-      formData.append("file", file);
-
-      // Create a new XMLHttpRequest
-      var xhr = new XMLHttpRequest();
-
-      // Setup our listener to process completed requests
-      xhr.onload = async function () {
-        if (xhr.status == 200) {
-          const imageUrl = `https://branch-out-images.s3.amazonaws.com/${key}`;
-          const updatedFormData = { ...userFormData, profileImage: imageUrl };
-
-          // Submit the user data
-          const { data } = await addUser({ variables: { ...updatedFormData } });
-          Auth.login(data.addUser.token);
-        } else {
-          throw new Error("Failed to upload image to S3");
-        }
-      };
-
-      // Setup our listener to process upload progress
-      xhr.upload.onprogress = function (e) {
-        if (e.lengthComputable) {
-          setUploadProgress((e.loaded / e.total) * 100);
-        }
-      };
-
-      // Open the connection
-      xhr.open("PUT", presignedUrl, true);
-
-      // Send the file
-      xhr.send(formData);
-    } catch (error) {
-      console.error("Error signing up user:", error);
-      setShowAlert(true);
-    } finally {
-      setIsUploading(false); // Reset uploading state
+    if (e.target.name === "profileImage") {
+      const file = e.target.files[0];
+      if (file) {
+        setSelectedFile(file); // Store the actual file object
+        dispatch(
+          updateFormData({
+            // Dispatch file metadata
+            field: e.target.name,
+            value: { name: file.name, size: file.size, type: file.type },
+          })
+        );
+      }
+    } else {
+      dispatch(updateFormData({ field: e.target.name, value: e.target.value }));
     }
   };
+
+  const uploadFile = async () => {
+    if (!selectedFile) return;
+    const key = `uploads/${selectedFile.name}`;
+    try {
+      const response = await fetch(
+        `/presigned-url?key=${encodeURIComponent(key)}`
+      );
+      const data = await response.json();
+      const presignedUrl = data.presignedUrl;
+
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("PUT", presignedUrl, true);
+
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const progress = (event.loaded / event.total) * 100;
+            dispatch(setUploadProgress(progress));
+          }
+        };
+
+        xhr.onload = () =>
+          xhr.status === 200
+            ? resolve(`https://branch-out-images.s3.amazonaws.com/${key}`)
+            : reject(xhr.responseText);
+        xhr.onerror = () => reject(xhr.statusText);
+
+        xhr.send(selectedFile); // Send the actual file
+      });
+    } catch (error) {
+      console.error("Error getting presigned URL:", error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    if (
+      !checkUsernameEmailLoading &&
+      !checkUsernameEmailError &&
+      userFormData.profileImage
+    ) {
+      uploadFile(userFormData.profileImage)
+        .then((imageUrl) => {
+          dispatch(uploadFileAndRegisterUser({ userFormData, imageUrl }));
+        })
+        .catch((error) => {
+          console.error("Error during file upload:", error);
+        });
+    }
+  }, [
+    checkUsernameEmailLoading,
+    checkUsernameEmailError,
+    userFormData,
+    dispatch,
+  ]);
+
+  const [uploadError, setUploadError] = useState(false);
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setUploadError(false); // Reset error state on new submission
+
+    if (selectedFile) {
+      try {
+        const imageUrl = await uploadFile(selectedFile);
+        const completeUserData = { ...userFormData, profileImage: imageUrl };
+        dispatch(uploadFileAndRegisterUser(completeUserData));
+      } catch (error) {
+        console.error("Error during file upload:", error);
+        setUploadError(true); // Set error state on failure
+      }
+    } else {
+      // Handle registration without image
+    }
+  };
+
+  // JSX for the form
   return (
     <>
       <form
@@ -168,7 +142,7 @@ function SignUpForm() {
             name="email"
             id="email"
             onChange={handleInputChange}
-            value={userFormData.email}
+            value={userFormData.email} // Value obtained from Redux state
             required
           />
         </div>
@@ -184,7 +158,7 @@ function SignUpForm() {
             name="username"
             id="username"
             onChange={handleInputChange}
-            value={userFormData.username}
+            value={userFormData.username} // Value obtained from Redux state
             required
           />
         </div>
@@ -200,7 +174,7 @@ function SignUpForm() {
             name="password"
             id="password"
             onChange={handleInputChange}
-            value={userFormData.password}
+            value={userFormData.password} // Value obtained from Redux state
             required
           />
         </div>
@@ -216,7 +190,7 @@ function SignUpForm() {
             cols="30"
             rows="4"
             onChange={handleInputChange}
-            value={userFormData.bio}
+            value={userFormData.bio} // Value obtained from Redux state
             placeholder="Enter Your Bio"
           ></textarea>
         </div>
@@ -230,29 +204,24 @@ function SignUpForm() {
             type="file"
             name="profileImage"
             id="profileImage"
-            onInput={(e) => {
-              setUserFormData({
-                ...userFormData,
-                profileImage: e.target.files[0],
-              });
-            }}
+            onInput={handleInputChange} // Handle file input changes
           />
-          {isUploading && (
-            <div>
-              <Spinner
-                color={color}
-                loading={isUploading}
-                cssOverride={override}
-                size={150}
-                aria-label="Loading..."
-                data-testid="spinner"
-              />{" "}
-              {/* Loading indicator */}
-              <p>Uploading image... {uploadProgress}%</p>
-            </div>
-          )}
         </div>
 
+        {isUploading && (
+          <div>
+            <Spinner
+              color="#someColor" // Replace with actual color value
+              loading={isUploading}
+              size={150}
+              aria-label="Loading..."
+              data-testid="spinner"
+            />
+            <p>Uploading image... {uploadProgress}%</p>
+          </div>
+        )}
+
+        {/* Submit button */}
         <button
           type="submit"
           className={styles.signUpPageButton}
@@ -261,16 +230,10 @@ function SignUpForm() {
           Submit
         </button>
 
-        {showAlert && (
+        {/* Error alert */}
+        {uploadError && (
           <div className={styles.somethingWrong}>
             Something went wrong with your sign up!
-            <button
-              type="button"
-              className={styles.close}
-              onClick={() => setShowAlert(false)}
-            >
-              <span>&times;</span>
-            </button>
           </div>
         )}
       </form>
