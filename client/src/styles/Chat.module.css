@@ -1,7 +1,5 @@
 .chatBody {
-    min-height: 565px;
-    max-height: 565px;
-    overflow-y: auto;
+    height: 565px;
     margin: 10px 30px;
     font-size: 20px;
 }
@@ -19,10 +17,11 @@
     align-items: center;
     padding: 10px;
     border-radius: 30px;
-    width: 20%;
+    max-width: 250px;
     color: var(--black-haze);
     box-shadow: 0px 10px 5px var(--black-haze-shadow);
     text-shadow: 0px 5px 5px var(--limed-spruce-shadow);
+    text-align: center;
 }
 
 .messageMeta {
@@ -40,11 +39,17 @@
     border-radius: 20px;
     box-shadow: 10px 0px 10px var(--elm-shadow);
     text-shadow: 0px 3px 3px var(--limed-spruce-shadow);
+    height: 36px;
 }
 
 .messageContent {
+    margin: 5px 20px;
     color: var(--black-haze);
     margin: 5px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 70%;
+     
 }
 
 .time {
@@ -55,11 +60,13 @@
     color: var(--black-haze);
     box-shadow: -10px 0px 10px var(--elm-shadow);
     text-shadow: 0px 3px 3px var(--mountain-meadow-shadow);
+    height: 36px;
+    width: 200px;
 }
 
 .chatInput {
     font-family: 'Audiowide', sans-serif;
-    width: 94%;
+    width: 92%;
     height: 2.8rem;
     background: var(black-haze);
     outline: none;
@@ -84,4 +91,89 @@
     box-shadow: 0px 10px 5px var(--black-haze-shadow);
     text-shadow: 0px 3px 3px var(--mountain-meadow-shadow);
     border: none;
+}
+
+@media only screen and (max-width: 1410px) {
+    .chatInput {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 1140px) {
+.chatInput {
+    width: 85%;
+}
+
+.messageContent {
+    max-width: 60%;
+}
+
+}
+
+@media only screen and (max-width: 970px) {
+    .time {
+        margin: 0 0 0 auto;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .chatInput {
+        width: 80%;
+    } 
+
+    .messageContent {
+        max-width: 50%;
+    }
+
+    .roomName {
+        justify-self: center;
+        margin: 20px auto;
+    }
+}
+
+@media only screen and (max-width: 620px) {
+    .chatInput {
+        width: 75%;
+    } 
+
+    .messageMeta {
+        flex-direction: column;
+    }
+    
+    .author {
+        margin: 0px auto 0px 0px;
+        justify-self: left;
+        box-shadow: 
+        10px 0px 10px var(--elm-shadow),
+        0px 10px 10px var(--elm-shadow);
+    }
+
+    .messageContent {
+        max-width: 100%;
+        margin: 15px;
+    }
+
+    .time {
+        box-shadow:
+        -10px 0px 10px var(--elm-shadow),
+        0px -10px 10px var(--elm-shadow);
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .chatInput {
+        width: 70%;
+    } 
+}
+
+@media only screen and (max-width: 420px) {
+    .chatInput {
+        width: 65%;
+    } 
+}
+
+@media only screen and (max-width: 370px) {
+    .chatInput {
+        width: 60%;
+    } 
 }

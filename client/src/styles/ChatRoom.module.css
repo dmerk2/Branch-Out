@@ -6,7 +6,7 @@
     align-items: center;
     padding: 10px;
     border-radius: 30px;
-    width: 25%;
+    width: 350px;
     color: var(--black-haze);
     box-shadow: 0px 10px 5px var(--black-haze-shadow);
     text-shadow: 0px 5px 5px var(--elm-shadow);
@@ -21,7 +21,7 @@
     align-items: center;
     padding: 10px;
     border-radius: 30px;
-    width: 15%;
+    width: 300px;
     box-shadow: 0px 10px 5px var(--black-haze-shadow);
 }
 
@@ -64,3 +64,18 @@
     color: var(--limed-spruce);
     text-shadow: 0px 3px 3px var(--black-haze-shadow);
 }
+
+@media only screen and (max-width: 400px) {
+    .chatRoomHeader {
+        width: 250px;
+        text-align: center;
+    }
+    .joinRoom {
+        width: 250px;
+    }
+
+    .chatRoomInput {
+        font-size: .8rem;
+    }
+
+  }
