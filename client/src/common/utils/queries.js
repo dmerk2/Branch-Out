@@ -39,27 +39,9 @@ export const GET_USER_INFO = gql`
           _id
           content
           createdAt
-        },
+        }
       },
-      messages {
-          _id
-          content
-          timestamp
-          sender {
-            _id
-            username
-            email
-            profileImage
-            bio
-          },
-          receiver {
-            _id
-            username
-            email
-            profileImage
-            bio
-          },
-      },
+      profileImage
     }
   }
 `;
