@@ -9,6 +9,15 @@ const typeDefs = `
     friends: [User]
     posts: [Post]
     likedPosts: [Post]
+    messages: [Message]
+  }
+
+  type Message {
+    _id: ID
+    sender: User
+    receiver: User
+    content: String!
+    timestamp: String
   }
 
   type Post {
