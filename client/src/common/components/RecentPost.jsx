@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LIKE_POST, DISLIKE_POST } from "../utils/mutations";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 import styles from "../../styles/RecentPost.module.css";
 
@@ -104,9 +106,13 @@ export default function RecentPost({ postId }) {
         <div className={styles.engagementSection}>
           <div className={styles.comments}>
             <p className={styles.comment}>
-              John Smith: Comment 1 - Great post!
+              <div className={styles.commentName}>John Smith</div>
+              <div className={styles.commentBody}>Great post!</div>
             </p>
-            <p className={styles.comment}>Jane Doe: Comment 2 - Keep it up!</p>
+            <p className={styles.comment}>
+            <div className={styles.commentName}>Jane Smith</div>
+              <div className={styles.commentBody}>This is an incredible message!</div>
+            </p>
           </div>
 
           <div className={styles.likesDislikes}>
@@ -116,7 +122,10 @@ export default function RecentPost({ postId }) {
                 onClick={() => handleLikePost()}
                 disabled={isLiked}
               >
-                Like ({likeCount})
+               <div className={styles.voteIcons}>
+                <FontAwesomeIcon icon={faThumbsUp} color="var(--black-haze)" />
+               </div>
+               ({likeCount})
               </button>
             </div>
             <div className={styles.dislikeBox}>
@@ -125,7 +134,10 @@ export default function RecentPost({ postId }) {
                 onClick={() => handleDislikePost()}
                 disabled={isDisliked}
               >
-                Dislike ({dislikeCount})
+                <div className={styles.voteIcons}>
+                <FontAwesomeIcon icon={faThumbsDown} color="var(--black-haze)" />
+                </div>
+                ({dislikeCount})
               </button>
             </div>
           </div>
