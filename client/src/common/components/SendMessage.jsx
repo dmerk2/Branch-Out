@@ -39,6 +39,7 @@ const SendMessageButton = () => {
             </button>
           </div>
           <textarea
+            className={style.modalTextArea}
             rows="4"
             cols="50"
             value={message}

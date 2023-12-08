@@ -13,6 +13,7 @@ import Post from "./layouts/Post.jsx";
 import EditPost from "./layouts/EditPost.jsx";
 import Friends from "./layouts/Friends.jsx";
 import SignupForm from "./common/components/SignUpForm.jsx";
+import OtherUserProfile from "./layouts/OtherUserProfile.jsx";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "friends",
         element: <Friends />,
+      },
+      {
+        path: "profile/:id",
+        element: <OtherUserProfile />,
       },
     ],
   },

@@ -45,7 +45,7 @@ function SearchBar() {
         <div className="dropdown">
           {filteredUsers.map((user) => (
             <div key={user._id} onClick={() => handleUserClick(user._id)}>
-              <a href="#">{user.username}</a>
+              <a href={`/profile/${user._id}`}>{user.username}</a>
             </div>
           ))}
         </div>
