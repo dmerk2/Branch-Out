@@ -49,7 +49,6 @@ const initialState = {
     profileImage: null,
   },
   isUploading: false,
-  showAlert: false,
   uploadProgress: 0,
   checkUsernameEmailLoading: false,
   checkUsernameEmailError: null,
