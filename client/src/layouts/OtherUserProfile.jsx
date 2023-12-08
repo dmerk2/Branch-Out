@@ -1,18 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styles from "../styles/Profile.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import ProfileUserDisplay from "../common/components/ProfileUserDisplay.jsx";
 import ViewFriendsList from "../common/components/ViewFriendsList.jsx";
 import AddFriendSquare from "../common/components/AddFriendSquare.jsx";
 import AboutMe from "../common/components/AboutMe.jsx";
 import DiamondButton from "../common/components/DiamondButton.jsx";
-import WhatsOnYourMind from "../common/components/WhatsOnYourMind.jsx";
-import UnreadMessageBoard from "../common/components/UnreadMessageBoard.jsx";
+import SendMessageButton from "../common/components/SendMessage"
 import UserPosts from "../common/components/UserPosts.jsx";
 
-export default function Profile() {
+export default function OtherUserProfile() {
   return (
 
       <div className= {styles.profilePageRow}>
@@ -35,12 +31,11 @@ export default function Profile() {
             <div className={styles.profileButton}><DiamondButton /></div>
             <div className={styles.profileButton}><DiamondButton /></div>
           </div>
-          <WhatsOnYourMind />
+          <div><UserPosts/></div>
         </div>
         <div className= { styles.profilePageColumn}>
-          <UnreadMessageBoard />
+        <SendMessageButton />
           </div>
-          <div><UserPosts/></div>
       </div>
   );
 }

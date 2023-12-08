@@ -1,24 +1,32 @@
 /* AboutBranchOut.module.css */
 
 .bigGreenSquare {
-    background-color: var(--elm); /* Replace with your desired green color */
+    background-color: var(--limed-spruce); /* Replace with your desired green color */
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 30px;
     padding:10px;
     margin-top: 30px;
-    box-shadow: 0px 5px 5px var(--elm-shadow);
+    box-shadow: 0px 5px 5px var(--black-haze-shadow);
   }
   
-  .aboutMe {
+  .aboutBranchOut {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
     font-size: 24px;
-    font-weight: bold;
-    color: var(--mountain-meadow); /* Replace with your desired text color */
+    background-color: var(--black-haze);
+    width: 250px;
+    border-radius: 30px;
+    text-shadow: 0px 2px 5px var(--black-haze-shadow);
+    box-shadow:  0px 5px 5px var(--limed-spruce-shadow);
+    color: var(--limed-spruce); /* Replace with your desired text color */
     text-align: center;
   }
   
-  .userDescription {
+  .branchOutDescription {
     font-size: 16px;
     color: var(--black-haze); /* Replace with your desired text color */
+    text-shadow: 0px 5px 5px var(--limed-spruce-shadow);
     margin-top: 10px;
     text-align: center;
   }
