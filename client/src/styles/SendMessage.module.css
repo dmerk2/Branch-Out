@@ -8,18 +8,25 @@
   }
   
   .openModalButton {
-    font-size: 16px;
-    padding: 10px 20px;
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
     background-color: var(--elm);
-    color: white;
+    color: var(--black-haze);
     border: none;
-    border-radius: 4px;
-    margin: 10px 0; /* Add margin for spacing */
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 30px auto 10px auto;
+    font-family: Audiowide, sans-serif;
+    border-radius: 40px;
+    font-size: 25px;
+    box-shadow: 0px 5px 5px var(--black-haze-shadow);
+    text-shadow: 0px 3px 3px  var(--elm-shadow);
   }
   
   .openModalButton:hover {
-    background-color: var(--elm);
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
+    text-shadow: 0px 3px 3px var(--limed-spruce-shadow);
   }
   
 .modal {
@@ -27,53 +34,97 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--elm);
+    background-color: var(--mountain-meadow);
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    box-shadow: 
+    0 10px 30px var(--limed-spruce-shadow),
+    0 -10px 30px var(--limed-spruce-shadow),
+    10px 0 30px var(--limed-spruce-shadow),
+    -10px 0 30px var(--limed-spruce-shadow);
     text-align: center;
   }
   
   .modalHeader {
     position: relative;
-    margin-bottom: 20px;
+    width: 375px;
+    margin: 0px auto 20px auto;
+    display: flex;
+    justify-content: center;
+    background-color: var(--black-haze);
+    color: var(--limed-spruce);
+    border: none;
+    padding: 5px 10px;
+    font-family: Audiowide, sans-serif;
+    border-radius: 40px;
+    font-size: 20px;
+    box-shadow: 0px 5px 5px var(--elm-shadow);
+    text-shadow: 0px 3px 6px  var(--black-haze-shadow);
   }
   
   .modalText {
+    border-radius: 30px;
     font-size: 18px;
     font-weight: bold;
   }
   
   .closeButton {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
+    top: -2px;
+    right: 15px;
+    font-size: 30px;
     background: none;
     border: none;
     cursor: pointer;
+    font-family: "Audiowide", sans-serif;
+    color: var(--limed-spruce);
+    text-shadow: 0px 3px 6px  var(--black-haze-shadow);
   }
   
   .modal-content {
     margin-bottom: 20px;
   }
   
-  .modal-buttons {
+  .modalButtons {
     display: flex;
     justify-content: center;
   }
   
-  .send-button {
+.modalTextArea {
+  border-radius: 20px;
+  border: none;
+  font-family: 'Audiowide', sans-serif;
+  color: var(--limed-spruce);
+  width: 350px;
+  height: 6rem;
+  background: var(--black-haze);
+  outline: none;
+  border: none;
+  border-radius: 1.625rem;
+  padding: 0.5rem 1rem 4rem 1rem;
+  font-size: 15px;
+  box-shadow: 0px 10px 10px var(--elm-shadow);
+}
+
+  .sendButton {
     font-size: 16px;
     padding: 10px 20px;
+    margin-top: 10px;
     cursor: pointer;
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
     border: none;
-    background-color: var(--mountain-meadow);
-    color: var(--limed-spruce);
-    border-radius: 4px;
+    padding: 5px 10px;
+    font-family: Audiowide, sans-serif;
+    border-radius: 40px;
+    font-size: 20px;
+    box-shadow: 0px 5px 5px var(--elm-shadow);
+    text-shadow: 0px 3px 6px  var(--limed-spruce-shadow);
   }
   
-  .send-button:hover {
+  .sendButton:hover {
     background-color: var(--black-haze);
+    text-shadow: 0px 3px 6px  var(--black-haze-shadow);
+    color: var(--limed-spruce)
   }
   
