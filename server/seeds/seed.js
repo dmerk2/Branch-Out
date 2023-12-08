@@ -15,6 +15,9 @@ db.once("open", async () => {
       profileImage: "",
       bio: "A software developer",
       friends: [], // Initialize with an empty array
+      posts: [], // Initialize with an empty array
+      messages: [], // Initialize with an empty array
+      likedPosts: [], // Initialize with an empty array
     },
     {
       username: "jane_smith",
@@ -23,6 +26,9 @@ db.once("open", async () => {
       profileImage: "",
       bio: "An artist and designer",
       friends: [], // Initialize with an empty array
+      posts: [], // Initialize with an empty array
+      messages: [], // Initialize with an empty array
+      likedPosts: [], // Initialize with an empty array
     },
   ]);
 

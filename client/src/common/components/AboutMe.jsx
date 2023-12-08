@@ -3,8 +3,10 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { GET_USER_INFO } from '../utils/queries'; // Adjust the import path
+import auth from '../utils/auth';
 
 export default function AboutMe() {
+
     const { id } = useParams(); // Get the user ID from the URL
   
     const { loading, error, data } = useQuery(GET_USER_INFO, {

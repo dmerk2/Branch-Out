@@ -4,10 +4,12 @@ import { useParams } from 'react-router-dom';
 import { GET_USER_INFO } from '../utils/queries'; // Adjust the import path
 import styles from '../../styles/ViewFriendsList.module.css';
 import AddFriendSquare from './AddFriendSquare';
+import auth from '../utils/auth';
 
 // Assuming your GraphQL query structure is similar to the example above
 
 const ViewFriendsList = () => {
+
   const { id } = useParams(); // Get the user ID from the URL
   
   const { loading, error, data } = useQuery(GET_USER_INFO, {
@@ -20,7 +22,7 @@ const ViewFriendsList = () => {
   console.log(data.user.friends);
 
 
-  const friends = data?.user?.friends || [];
+  const friends = data?.user.friends || [];
 
   return (
     <div className={styles.profileFriendsInfo}>
