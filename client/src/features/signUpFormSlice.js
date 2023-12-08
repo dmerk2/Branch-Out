@@ -40,7 +40,6 @@ export const uploadFileAndRegisterUser = createAsyncThunk(
   }
 );
 
-
 const initialState = {
   userFormData: {
     email: "",
@@ -82,28 +81,33 @@ export const signUpFormSlice = createSlice({
     },
     resetForm: () => initialState,
   },
-  extraReducers: {
-    [checkUsernameEmailExists.pending]: (state) => {
-      state.checkUsernameEmailLoading = true;
-    },
-    [checkUsernameEmailExists.fulfilled]: (state, action) => {
-      state.checkUsernameEmailLoading = false;
-    },
-    [checkUsernameEmailExists.rejected]: (state, action) => {
-      state.checkUsernameEmailLoading = false;
-      state.checkUsernameEmailError = action.error.message;
-    },
-    [uploadFileAndRegisterUser.fulfilled]: (state, action) => {
-      state.userFormData = initialState.userFormData;
-      state.userDetails = action.payload.user;
-      state.uploadProgress = 100;
-      state.isUploading = false;
-      state.userRegistrationError = null;
-    },
-    [uploadFileAndRegisterUser.rejected]: (state, action) => {
-      state.userRegistrationError = action.error.message;
-    }
-  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(checkUsernameEmailExists.pending, (state) => {
+        state.checkUsernameEmailLoading = true;
+        state.checkUsernameEmailError = null;
+      })
+      .addCase(checkUsernameEmailExists.fulfilled, (state, action) => {
+        state.checkUsernameEmailLoading = false;
+        state.checkUsernameEmailError = null;
+      })
+      .addCase(checkUsernameEmailExists.rejected, (state, action) => {
+        state.checkUsernameEmailLoading = false;
+        state.checkUsernameEmailError = action.error.message;
+      })
+      .addCase(uploadFileAndRegisterUser.pending, (state) => {
+        state.isUploading = true;
+        state.userRegistrationError = null;
+      })
+      .addCase(uploadFileAndRegisterUser.fulfilled, (state, action) => {
+        state.isUploading = false;
+        state.userRegistrationError = null;
+      })
+      .addCase(uploadFileAndRegisterUser.rejected, (state, action) => {
+        state.isUploading = false;
+        state.userRegistrationError = action.error.message;
+      });
+  }
 });
 
 export const { updateFormData, setUploadProgress, resetForm } = signUpFormSlice.actions;
