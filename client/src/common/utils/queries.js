@@ -19,16 +19,42 @@ query checkUsernameEmailExists($username: String!, $email: String!) {
 }
 `;
 
-export const GET_FRIENDS = gql`
-  query GetFriends($id: ID) {
+export const GET_USER_INFO = gql`
+  query getUserInfo($id: ID) {
     user(_id: $id) {
+      username,
+      bio,
       friends {
         _id
         username
         email
         profileImage
         bio
+      },
+      posts {
+        _id
+        content
+        createdAt
+        comments {
+          _id
+          content
+          createdAt
+        }
       }
     }
   }
 `;
+
+export const GET_USER_POSTS = gql`
+  query GetUserPosts($id: ID) {
+    user(_id: $id) {
+      _id
+      posts {
+        _id
+        content
+        createdAt
+      }
+    }
+  }
+`;
+
