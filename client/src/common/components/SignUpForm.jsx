@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateFormData,
@@ -10,7 +10,6 @@ import {
 import { BarLoader as Spinner } from "react-spinners";
 import styles from "../../styles/LoginForm.module.css";
 import Logo from "../../assets/images/BranchOut_With_Words.png";
-import defaultProfileImage from "../../assets/images/BranchOut_Logo.svg";
 
 function SignUpForm() {
   const dispatch = useDispatch();
@@ -33,9 +32,16 @@ function SignUpForm() {
         setSelectedFile(file); // Store the actual file object
         dispatch(
           updateFormData({
-            // Dispatch file metadata
             field: e.target.name,
             value: { name: file.name, size: file.size, type: file.type },
+          })
+        );
+      } else {
+        setSelectedFile(null); // No file selected
+        dispatch(
+          updateFormData({
+            field: e.target.name,
+            value: defaultProfileImage, // Set to default image
           })
         );
       }
@@ -45,8 +51,8 @@ function SignUpForm() {
   };
 
   const uploadFile = async () => {
-    if (!selectedFile) return;
     const key = `uploads/${selectedFile.name}`;
+    // Generate a unique key for the file
     try {
       const response = await fetch(
         `/presigned-url?key=${encodeURIComponent(key)}`
@@ -79,43 +85,45 @@ function SignUpForm() {
     }
   };
 
-  useEffect(() => {
-    if (
-      !checkUsernameEmailLoading &&
-      !checkUsernameEmailError &&
-      userFormData.profileImage
-    ) {
-      uploadFile(userFormData.profileImage)
-        .then((imageUrl) => {
-          dispatch(uploadFileAndRegisterUser({ userFormData, imageUrl }));
-        })
-        .catch((error) => {
-          console.error("Error during file upload:", error);
-        });
-    }
-  }, [
-    checkUsernameEmailLoading,
-    checkUsernameEmailError,
-    userFormData,
-    dispatch,
-  ]);
-
   const [uploadError, setUploadError] = useState(false);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setUploadError(false); // Reset error state on new submission
+    setUploadError(false);
 
-    if (selectedFile) {
-      try {
-        const imageUrl = await uploadFile(selectedFile);
-        const completeUserData = { ...userFormData, profileImage: imageUrl };
-        dispatch(uploadFileAndRegisterUser(completeUserData));
-      } catch (error) {
-        console.error("Error during file upload:", error);
-        setUploadError(true); // Set error state on failure
+    try {
+      // Check username/email existence
+      await dispatch(
+        checkUsernameEmailExists({
+          username: userFormData.username,
+          email: userFormData.email,
+        })
+      ).unwrap();
+
+      let imageUrl =
+        "https://branch-out-images.s3.us-east-2.amazonaws.com/uploads/user-ninja-solid.svg";
+      if (selectedFile) {
+        try {
+          const uploadedImageUrl = await uploadFile();
+          if (uploadedImageUrl) {
+            imageUrl = uploadedImageUrl;
+          }
+        } catch (uploadError) {
+          console.error("Error during file upload:", uploadError);
+          setUploadError(true);
+          return; // Exit if there is an upload error
+        }
       }
-    } else {
-      // Handle registration without image
+
+      // Register the user
+      await dispatch(
+        uploadFileAndRegisterUser({ userFormData, imageUrl })
+      ).unwrap();
+      dispatch(resetForm()); // Reset the form on successful registration
+    } catch (error) {
+      // Catch any errors from username/email check or registration
+      console.error("Error during form submission:", error);
+      setUploadError(true);
     }
   };
 
@@ -204,7 +212,7 @@ function SignUpForm() {
             type="file"
             name="profileImage"
             id="profileImage"
-            onInput={handleInputChange} // Handle file input changes
+            onChange={handleInputChange} // Handle file input changes
           />
         </div>
 
@@ -235,6 +243,26 @@ function SignUpForm() {
           <div className={styles.somethingWrong}>
             Something went wrong with your sign up!
           </div>
+        )}
+        {/* Display username/email existence error */}
+        {checkUsernameEmailError && (
+          <div className={styles.error}>{checkUsernameEmailError}</div>
+        )}
+
+        {/* Display user registration error */}
+        {userRegistrationError && (
+          <div className={styles.error}>{userRegistrationError}</div>
+        )}
+
+        {/* Display loading spinner */}
+        {checkUsernameEmailLoading && (
+          <Spinner
+            color="#00FF00" // Replace with actual color value
+            loading={checkUsernameEmailLoading}
+            size={150}
+            aria-label="Loading..."
+            data-testid="spinner"
+          />
         )}
       </form>
     </>
