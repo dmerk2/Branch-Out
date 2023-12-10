@@ -106,14 +106,14 @@ export default function RecentPost({ postId }) {
         <div className={styles.engagementSection}>
           <div className={styles.comments}>
             <div className={styles.comment}>
-              <p className={styles.commentName}>John Smith</p>
-              <p className={styles.commentBody}>Great post!</p>
+              <div className={styles.commentName}>John Smith</div>
+              <div className={styles.commentBody}>Great post!</div>
             </div>
             <div className={styles.comment}>
-              <h5 className={styles.commentName}>Jane Smith</h5>
-              <p className={styles.commentBody}>
+              <div className={styles.commentName}>Jane Smith</div>
+              <div className={styles.commentBody}>
                 This is an incredible message!
-              </p>
+              </div>
             </div>
           </div>
 

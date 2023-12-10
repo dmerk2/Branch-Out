@@ -5,7 +5,7 @@ export const chatSlice = createSlice({
   initialState: {
     username: '',
     room: '',
-    messageList: [],
+    messagesByRoom: {},
   },
   reducers: {
     setUsername: (state, action) => {
@@ -15,10 +15,15 @@ export const chatSlice = createSlice({
       state.room = action.payload;
     },
     addMessage: (state, action) => {
-      state.messageList.push(action.payload);
+      const { room, ...message } = action.payload;
+      if (!state.messagesByRoom[room]) {
+        state.messagesByRoom[room] = [];
+      }
+      state.messagesByRoom[room].push(message);
     },
     setMessages: (state, action) => {
-      state.messageList = action.payload;
+      const { room, messages } = action.payload;
+      state.messagesByRoom[room] = messages;
     },
   }
 });
