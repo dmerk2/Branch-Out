@@ -202,6 +202,31 @@ const resolvers = {
         throw new Error("Failed to dislike post");
       }
     },
+    addFriend: async (_, { userId }, { user }) => {
+      try {
+        // Check if the user is authenticated
+        if (!user) {
+          throw new Error('Authentication required to add a friend.');
+        }
+
+        // Find the current user by ID
+        const currentUser = await User.findById(user._id);
+
+        // Check if the friend's ID is valid and not already a friend
+        if (!userId || currentUser.friends.includes(userId)) {
+          throw new Error('Invalid or duplicate friend request.');
+        }
+
+        // Add the friend to the user's friend list
+        currentUser.friends.push(userId);
+        await currentUser.save();
+
+        // Return the updated user
+        return currentUser;
+      } catch (error) {
+        throw new Error(`Error adding friend: ${error.message}`);
+      }
+    },
   },
 };
 
