@@ -55,7 +55,6 @@ export const ADD_POST = gql`
       _id
       user {
         _id
-        username
       }
       content
       createdAt
@@ -92,7 +91,15 @@ export const ADD_COMMENT = gql`
         _id
       }
       content
-      createdAt
+    }
+  }
+`;
+
+export const ADD_FRIEND = gql`
+  mutation addFriend($userId: ID!) {
+    addFriend(userId: $userId) {
+      _id
+      username
     }
   }
 `;

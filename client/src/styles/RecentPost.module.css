@@ -1,12 +1,31 @@
 /* RecentPost.module.css */
 
 .postContainer {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: var(--mountain-meadow);
-    margin: 20px;
+    margin: 20px auto;
     padding: 20px;
     border-radius: 40px;
     box-shadow: 0px 10px 10px var(--black-haze-shadow);
+    width: 600px;
+
+  }
+
+  .postHeader {
+    display: flex;
+    justify-content: center;
+    font-weight: normal;
+    width: 175px;
+    padding: 5px 0;
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
+    text-shadow: 0 5px 5px var(--limed-spruce-shadow);
+    box-shadow: 0px 10px 10px var(--black-haze-shadow);
+    border-radius: 30px;
+    margin: 20px auto 0 auto;
+
 
   }
   
@@ -31,10 +50,9 @@
   .postDate {
     font-size: 14px;
     color: var(--black-haze);
-    margin: 0;
-    position: absolute;
-    top: 24px; /* Add padding to the top */
-    right: 20px; /* Add padding to the right */
+    position: relative;
+    left: 360px;
+    bottom: 20px;
     text-shadow: 0 5px 5px var(--mountain-meadow-shadow);
   }
   
@@ -255,4 +273,10 @@
   padding: 0.5rem 1rem 4rem 1rem;
   font-size: 15px;
   box-shadow: 0px 10px 10px var(--elm-shadow);
+}
+
+@media only screen and (max-width: 1400px) {
+  .postContainer {
+    width: 400;
+  }
 }

@@ -1,7 +1,7 @@
 .outerSquare {
   background-color: var(--limed-spruce);
   width: 100px;
-  height: 130px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,6 +29,11 @@
 
 .friendUsername {
   color: var(--black-haze);
-  margin-bottom: 12px;
+  margin: 5px 0;
   text-shadow: 0px 3px 3px var(--limed-spruce-shadow);
+  font-size: 15px;
+}
+
+.friendAddButton {
+  margin: 0px auto 5px auto;
 }
