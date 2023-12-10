@@ -13,10 +13,15 @@ export default defineConfig({
         secure: false,
         changeOrigin: true
       },
+      // '/presigned-url': {
+      //   target: 'http://localhost:3001',
+      //   secure: false,
+      //   changeOrigin: true
+      // },
       '/presigned-url': {
-        target: 'http://localhost:3001',
-        secure: false,
-        changeOrigin: true
+        target: 'https://branch-out-web-service.onrender.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/presigned-url/, '')
       },
     }
   }
