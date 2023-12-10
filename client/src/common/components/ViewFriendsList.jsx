@@ -38,16 +38,20 @@ const ViewFriendsList = () => {
   const friends = userData?.user.friends || [];
 
   return (
-    <div className={styles.profileFriendsInfo}>
-      <p className={styles.profileFriendCount}>Friends: {friends.length}</p>
-      <Link to="/friends">
+    <div>
+      <div className={styles.profileFriendsInfo}>
+        <p className={styles.profileFriendCount}>Friends: {friends.length}</p>
+        <Link to="/friends">
         <button className={styles.profileViewAllFriends}>View All</button>
-      </Link>
-
-      {friends.map((friend) => (
-        <AddFriendSquare key={friend._id} friend={friend} />
-      ))}
+       </Link>
+        </div>
+      <div className={styles.justTheFriends}>
+        {friends.map((friend) => (
+          <AddFriendSquare key={friend._id} friend={friend} />
+        ))}
+      </div>
     </div>
+   
   );
 };
 
