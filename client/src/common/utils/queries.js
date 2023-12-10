@@ -24,6 +24,7 @@ export const GET_USER_INFO = gql`
     user(_id: $id) {
       _id
       username
+      bio
       friends {
         _id
         username
