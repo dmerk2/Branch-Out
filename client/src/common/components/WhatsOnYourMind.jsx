@@ -25,9 +25,10 @@ export default function WhatsOnYourMind() {
 
     try {
       const result = await addPost({
-        variables: { user: userId._id, content },
+        variables: {user: userId._id, content },
+       
       });
-
+      console.log(result, "from handle post")
       console.log("Post added successfully:", result);
       setContent("");
     } catch (error) {
