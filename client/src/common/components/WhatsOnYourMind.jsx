@@ -18,12 +18,14 @@ export default function WhatsOnYourMind() {
       return;
     }
 
-    const userId = loggedInUser.data._id;
+    const userId = loggedInUser.data;
+    console.log("loggedInUser:", loggedInUser)
     console.log("userId:", userId);
+    console.log(loggedInUser.data.username, "USERNAME");
 
     try {
       const result = await addPost({
-        variables: { user: userId, content },
+        variables: { user: userId._id, content },
       });
 
       console.log("Post added successfully:", result);

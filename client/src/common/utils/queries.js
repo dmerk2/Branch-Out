@@ -37,7 +37,6 @@ export const GET_USER_INFO = gql`
         createdAt
         comments {
           _id
-          content
           createdAt
         }
       },

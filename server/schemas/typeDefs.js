@@ -10,6 +10,7 @@ const typeDefs = `
     posts: [Post]
     likedPosts: [Post]
     messages: [Message]
+    comments : [Comment]
   }
 
   type Message {
@@ -40,10 +41,10 @@ const typeDefs = `
 
   type Comment {
     _id: ID
-    post: [Post]
-    user: [User]
+    post: Post
+    user: User
     content: String!
-    createdAt: String
+    createdAt: String!
   }
 
   type PresignedUrlResponse {
