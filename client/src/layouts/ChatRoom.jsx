@@ -7,6 +7,9 @@ import {
   setRoom,
   selectUsername,
   selectRoom,
+  addMessage,
+  setMessages,
+  selectMessageList,
 } from "../features/chatSlice"; // Import Redux actions and selectors
 import styles from "../styles/ChatRoom.module.css";
 
@@ -26,6 +29,7 @@ export default function ChatRoom() {
 
   const joinRoom = () => {
     if (username !== "" && room !== "") {
+      dispatch(setRoom(room));
       socket.emit("join_room", room);
       setShowChat(true);
     }
@@ -61,10 +65,14 @@ export default function ChatRoom() {
               Join A Room
             </button>
           </div>
-          {showChat ? <Chat socket={socket} username={username} room={room} /> : null}
+          {showChat ? (
+            <Chat socket={socket} username={username} room={room} />
+          ) : null}
         </div>
       )}
-    {showChat ? <Chat socket={socket} username={username} room={room} /> : null}
-  </div>
+      {showChat ? (
+        <Chat socket={socket} username={username} room={room} />
+      ) : null}
+    </div>
   );
 }
