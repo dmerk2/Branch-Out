@@ -27,7 +27,7 @@ export const GET_USER_INFO = gql`
       friends {
         _id
         username
-        email
+        email 
         profileImage
         bio
       },
@@ -38,6 +38,7 @@ export const GET_USER_INFO = gql`
         comments {
           _id
           createdAt
+          content
         }
       },
       profileImage

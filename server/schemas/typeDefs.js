@@ -10,7 +10,7 @@ const typeDefs = `
     posts: [Post]
     likedPosts: [Post]
     messages: [Message]
-    comments : [Comment]
+    comments: [Comment]
   }
 
   type Message {
@@ -43,7 +43,7 @@ const typeDefs = `
     _id: ID
     post: Post
     user: User
-    content: String!
+    content: String
     createdAt: String!
   }
 
@@ -72,7 +72,7 @@ const typeDefs = `
     updateUser(_id: ID!, username: String, email: String, password: String): User
     deleteUser(_id: ID!): User
 
-    addPost(user: ID!, content: String!): Post
+    addPost(user: ID!, content: String!, username: String!): Post
     updatePost(_id: ID!, content: String): Post
     deletePost(_id: ID!): Post
 

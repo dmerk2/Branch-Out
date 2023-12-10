@@ -12,7 +12,7 @@ const resolvers = {
       
         .populate("friends")
         .populate("posts")
-        .populate("likedPosts");
+        .populate("likedPosts")
     },
     posts: async () => {
       return await Post.find()
