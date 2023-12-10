@@ -36,7 +36,7 @@ export default function Profile() {
           ))}
         </div>
         <WhatsOnYourMind />
-        <UserPosts/>
+        <UserPosts />
       </div>
       <div className={styles.profilePageColumn}>
         <UnreadMessageBoard />
