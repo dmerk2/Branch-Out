@@ -1,0 +1,20 @@
+.friendButton {
+    background-color: var(--black-haze);
+    border: none;
+    border-radius: 20px;
+    font-family: "Audiowide", sans-serif;
+    color: var(--limed-spruce);
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 5px;
+    text-align: center;
+    text-shadow: 0px 3px 3px var(--black-haze-shadow);
+    box-shadow: 0px 5px 5px var(--limed-spruce-shadow);
+}
+
+.friendButton:hover {
+    background-color: var(--elm);
+    color: var(--black-haze);
+    text-shadow: 0px 3px 3px var(--elm-shadow);
+}
