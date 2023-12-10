@@ -7,7 +7,8 @@ import styles from "../../styles/Chat.module.css";
 export default function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const dispatch = useDispatch();
-  const messageList = useSelector(selectMessageList);
+  const messagesByRoom = useSelector((state) => state.chat.messagesByRoom);
+  const messageList = messagesByRoom[room] || [];
 
   const sendMessage = () => {
     if (currentMessage.trim() !== "") {
@@ -53,13 +54,14 @@ export default function Chat({ socket, username, room }) {
                   : "other-message"
               }
             >
-              
               <div className={styles.messageMeta}>
                 <span className={styles.author}>{messageContent.author}</span>
                 <div className={styles.messageContent}>
-                <p>{messageContent.message}</p>
-              </div>
-                <span className={styles.time}>Sent at {messageContent.time}</span>
+                  <p>{messageContent.message}</p>
+                </div>
+                <span className={styles.time}>
+                  Sent at {messageContent.time}
+                </span>
               </div>
             </div>
           </div>
@@ -74,7 +76,9 @@ export default function Chat({ socket, username, room }) {
           onChange={(e) => setCurrentMessage(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
-        <button className={styles.sendButton} onClick={sendMessage}>Send</button>
+        <button className={styles.sendButton} onClick={sendMessage}>
+          Send
+        </button>
       </div>
     </div>
   );
