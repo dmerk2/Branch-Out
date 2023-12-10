@@ -94,3 +94,13 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
+
+export const ADD_FRIEND = gql`
+  mutation AddFriend($userId: ID!) {
+    addFriend(userId: $userId) {
+      _id
+      username
+      email
+    }
+  }
+`;
