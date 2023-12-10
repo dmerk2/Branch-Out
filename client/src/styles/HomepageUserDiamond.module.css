@@ -17,7 +17,7 @@
   border-radius: 40px;
   box-shadow: 
     inset 10px 8px 10px  var(--limed-spruce-shadow),
-    4px 10px 5px var(--black-haze-shadow);
+    10px 10px 5px var(--black-haze-shadow);
 }
 
 .userIcon {

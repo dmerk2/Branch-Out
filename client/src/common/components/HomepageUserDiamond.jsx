@@ -1,10 +1,17 @@
 import React from 'react';
 import styles from "../../styles/HomepageUserDiamond.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { faUserSecret, faUserGroup, faMessage, faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import DiamondButton from "./DiamondButton";
 
 export default function HomepageUserDiamond() {
+  const buttons = [
+    { icon: faUserGroup, url: '/friends' },
+    { icon: faMessage, url: '/chatroom' },
+    { icon: faEnvelope, url: '/profile' },
+    // Add more objects as needed
+  ];
+
   return (
     <div className={styles.container}>
       <div className={styles.diamondShape}>
@@ -12,15 +19,11 @@ export default function HomepageUserDiamond() {
       </div>
 
       <div className={styles.buttonColumn}>
-        <div className={styles.diamondButtonWrapper}>
-          <DiamondButton />
-        </div>
-        <div className={styles.diamondButtonWrapper}>
-          <DiamondButton />
-        </div>
-        <div className={styles.diamondButtonWrapper}>
-          <DiamondButton />
-        </div>
+        {buttons.map((button, index) => (
+          <div className={styles.diamondButtonWrapper} key={index}>
+            <DiamondButton icon={button.icon} url={button.url} />
+          </div>
+        ))}
       </div>
     </div>
   );
