@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { SEARCH_USERS } from "../utils/queries";
 import styles from "../../styles/SearchBar.module.css";
@@ -11,11 +11,6 @@ function SearchBar() {
     skip: !searchTerm,
   });
 
-  const handleSearch = () => {
-    // Perform the search using the searchTerm variable
-    // You can use the searchTerm to filter the data as needed
-  };
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
@@ -26,23 +21,17 @@ function SearchBar() {
     user.username.toLowerCase().startsWith(searchTerm.toLowerCase())
   );
 
-  const handleUserClick = (userId) => {
-    // Handle navigation to the user's profile, e.g., by using React Router
-    console.log(`Navigate to user profile with id ${userId}`);
-  };
-
   return (
-    <div  className={styles.headerSearch}>
+    <div className={styles.headerSearch}>
       <input
-       className={styles.inputSearch}
+        className={styles.inputSearch}
         type="text"
         placeholder="Search users..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button className={styles.searchButton} onClick={handleSearch}>Search</button>
       {filteredUsers.length > 0 && (
-        <div className="dropdown">
+        <div className={styles.dropdown}>
           {filteredUsers.map((user) => (
             <div key={user._id} onClick={() => handleUserClick(user._id)}>
               <a href={`/profile/${user._id}`}>{user.username}</a>

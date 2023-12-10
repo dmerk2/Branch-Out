@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LIKE_POST, DISLIKE_POST } from "../utils/mutations";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "../../styles/RecentPost.module.css";
 
@@ -17,20 +17,20 @@ export default function RecentPost({ postId }) {
   const [dislikePostMutation] = useMutation(DISLIKE_POST);
 
   const handleLikePost = async () => {
-    if (userAction === 'like') {
+    if (userAction === "like") {
       // User already liked, remove like
       setUserAction(null);
       setIsLiked(false);
       setLikeCount(likeCount - 1);
     } else {
       // User disliked before, remove dislike
-      if (userAction === 'dislike') {
+      if (userAction === "dislike") {
         setDislikeCount(dislikeCount - 1);
         setIsDisliked(false);
       }
 
       // Like the post
-      setUserAction('like');
+      setUserAction("like");
       setIsLiked(true);
 
       try {
@@ -52,20 +52,20 @@ export default function RecentPost({ postId }) {
   };
 
   const handleDislikePost = async () => {
-    if (userAction === 'dislike') {
+    if (userAction === "dislike") {
       // User already disliked, remove dislike
       setUserAction(null);
       setIsDisliked(false);
       setDislikeCount(dislikeCount - 1);
     } else {
       // User liked before, remove like
-      if (userAction === 'like') {
+      if (userAction === "like") {
         setLikeCount(likeCount - 1);
         setIsLiked(false);
       }
 
       // Dislike the post
-      setUserAction('dislike');
+      setUserAction("dislike");
       setIsDisliked(true);
 
       try {
@@ -105,14 +105,16 @@ export default function RecentPost({ postId }) {
 
         <div className={styles.engagementSection}>
           <div className={styles.comments}>
-            <p className={styles.comment}>
-              <div className={styles.commentName}>John Smith</div>
-              <div className={styles.commentBody}>Great post!</div>
-            </p>
-            <p className={styles.comment}>
-            <div className={styles.commentName}>Jane Smith</div>
-              <div className={styles.commentBody}>This is an incredible message!</div>
-            </p>
+            <div className={styles.comment}>
+              <p className={styles.commentName}>John Smith</p>
+              <p className={styles.commentBody}>Great post!</p>
+            </div>
+            <div className={styles.comment}>
+              <h5 className={styles.commentName}>Jane Smith</h5>
+              <p className={styles.commentBody}>
+                This is an incredible message!
+              </p>
+            </div>
           </div>
 
           <div className={styles.likesDislikes}>
@@ -122,10 +124,13 @@ export default function RecentPost({ postId }) {
                 onClick={() => handleLikePost()}
                 disabled={isLiked}
               >
-               <div className={styles.voteIcons}>
-                <FontAwesomeIcon icon={faThumbsUp} color="var(--black-haze)" />
-               </div>
-               ({likeCount})
+                <div className={styles.voteIcons}>
+                  <FontAwesomeIcon
+                    icon={faThumbsUp}
+                    color="var(--black-haze)"
+                  />
+                </div>
+                ({likeCount})
               </button>
             </div>
             <div className={styles.dislikeBox}>
@@ -135,7 +140,10 @@ export default function RecentPost({ postId }) {
                 disabled={isDisliked}
               >
                 <div className={styles.voteIcons}>
-                <FontAwesomeIcon icon={faThumbsDown} color="var(--black-haze)" />
+                  <FontAwesomeIcon
+                    icon={faThumbsDown}
+                    color="var(--black-haze)"
+                  />
                 </div>
                 ({dislikeCount})
               </button>
