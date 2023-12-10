@@ -9,10 +9,10 @@ const resolvers = {
     },
     user: async (_, { _id }, context) => {
       return await User.findById(_id || context.user._id)
-      
+
         .populate("friends")
         .populate("posts")
-        .populate("likedPosts")
+        .populate("likedPosts");
     },
     posts: async () => {
       return await Post.find()
@@ -84,8 +84,23 @@ const resolvers = {
       return user;
     },
 
-    addPost: async (parent, { user, content }) => {
+    addPost: async (parent, { user, content }, context) => {
+      console.log(content, user);
       const post = await Post.create({ user, content });
+
+      console.log(post.content, post._id, "from the create");
+      console.log(user, "this is the user being sent from the front end");
+
+      const userData = await User.findByIdAndUpdate(
+        { _id: user },
+        { $push: { posts: post._id } },
+        { new: true }
+      );
+      console.log(userData, "user data from resolvers");
+      if (!userData) {
+        return false;
+      }
+
       return post;
     },
     updatePost: async (parent, { _id, content }) => {
