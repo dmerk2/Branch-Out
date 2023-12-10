@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { GET_USER_INFO } from '../utils/queries';
-import { LIKE_POST, DISLIKE_POST, ADD_COMMENT } from '../utils/mutations';
-import auth from '../utils/auth';
-import styles from '../../styles/RecentPost.module.css';
-import { useParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_USER_INFO } from "../utils/queries";
+import { LIKE_POST, DISLIKE_POST, ADD_COMMENT } from "../utils/mutations";
+import auth from "../utils/auth";
+import styles from "../../styles/RecentPost.module.css";
+import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsDown, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 
 const UserPosts = () => {
   const { id } = useParams();
@@ -21,24 +21,22 @@ const UserPosts = () => {
   const [userAction, setUserAction] = useState(null); // 'like', 'dislike', or null
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
-  const [commentContent, setCommentContent] = useState('');
+  const [commentContent, setCommentContent] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [addingComment, setAddingComment] = useState(false);
 
-
-
   const handleLikePost = async (postId) => {
-    if (userAction === 'like') {
+    if (userAction === "like") {
       setUserAction(null);
       setIsLiked(false);
       setLikeCount(likeCount - 1);
     } else {
-      if (userAction === 'dislike') {
+      if (userAction === "dislike") {
         setDislikeCount(dislikeCount - 1);
         setIsDisliked(false);
       }
 
-      setUserAction('like');
+      setUserAction("like");
       setIsLiked(true);
 
       try {
@@ -60,17 +58,17 @@ const UserPosts = () => {
   };
 
   const handleDislikePost = async (postId) => {
-    if (userAction === 'dislike') {
+    if (userAction === "dislike") {
       setUserAction(null);
       setIsDisliked(false);
       setDislikeCount(dislikeCount - 1);
     } else {
-      if (userAction === 'like') {
+      if (userAction === "like") {
         setLikeCount(likeCount - 1);
         setIsLiked(false);
       }
 
-      setUserAction('dislike');
+      setUserAction("dislike");
       setIsDisliked(true);
 
       try {
@@ -91,11 +89,12 @@ const UserPosts = () => {
     }
   };
 
-  const handleAddComment = async (postId, content) => {  // Update the function parameters
+  const handleAddComment = async (postId, content) => {
+    // Update the function parameters
     try {
       // Check if content is not empty
       if (!content.trim()) {
-        console.error('Comment content cannot be empty');
+        console.error("Comment content cannot be empty");
         return;
       }
 
@@ -110,36 +109,33 @@ const UserPosts = () => {
       });
 
       if (data.addComment) {
-        console.log('Comment added successfully:', data.addComment);
+        console.log("Comment added successfully:", data.addComment);
         setAddingComment(false);
-        setCommentContent('');
+        setCommentContent("");
       }
     } catch (error) {
-      console.error('Error adding comment:', error);
+      console.error("Error adding comment:", error);
       setAddingComment(false);
     }
   };
 
-
-
-
   const CommentModal = ({ onClose, onSubmit }) => {
-    const [localCommentContent, setLocalCommentContent] = useState('');
-  
+    const [localCommentContent, setLocalCommentContent] = useState("");
+
     const handleCommentSubmit = () => {
-      console.log('Comment Content Length:', localCommentContent.length);
-  
+      console.log("Comment Content Length:", localCommentContent.length);
+
       // Check if localCommentContent is not empty
       if (!localCommentContent.trim()) {
-        console.error('Comment content cannot be empty');
+        console.error("Comment content cannot be empty");
         return;
       }
-  
+
       // Call onSubmit with postId and content
       onSubmit(localCommentContent);
       onClose();
     };
-  
+
     return (
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
@@ -157,7 +153,10 @@ const UserPosts = () => {
         />
         <br />
         <div className={styles.modalButtons}>
-          <button className={styles.commentButton} onClick={handleCommentSubmit}>
+          <button
+            className={styles.commentButton}
+            onClick={handleCommentSubmit}
+          >
             Submit Comment
           </button>
         </div>
@@ -167,7 +166,9 @@ const UserPosts = () => {
 
   if (!id) {
     const user = auth.getProfile().data._id;
-    const { loading, error, data } = useQuery(GET_USER_INFO, { variables: { id: user } });
+    const { loading, error, data } = useQuery(GET_USER_INFO, {
+      variables: { id: user },
+    });
     userData = data;
 
     if (loading) return <p>Loading...</p>;
@@ -192,13 +193,14 @@ const UserPosts = () => {
           <div className={styles.userDetails}>
             <div className={styles.userInfo}>
               <p className={styles.userName}>{userData.user.username}</p>
-              <p className={styles.postDate}>{new Date(parseInt(post.createdAt)).toLocaleString()}</p>
+              <p className={styles.postDate}>
+                {new Date(parseInt(post.createdAt)).toLocaleString()}
+              </p>
             </div>
           </div>
           <div className={styles.userPost}>
             <p className={styles.postContent}>{post.content}</p>
           </div>
-          {/* Button to add a comment */}
           <button
             className={styles.commentButton}
             onClick={() => setShowModal(true)}
@@ -220,9 +222,12 @@ const UserPosts = () => {
                     {comment.name && (
                       <div className={styles.commentName}>{comment.name}</div>
                     )}
-                    {comment.content !== undefined && comment.content !== null && (
-                      <div className={styles.commentBody}>{comment.content}</div>
-                    )}
+                    {comment.content !== undefined &&
+                      comment.content !== null && (
+                        <div className={styles.commentBody}>
+                          {comment.content}
+                        </div>
+                      )}
                   </p>
                 ))}
               </div>
@@ -234,7 +239,10 @@ const UserPosts = () => {
                     disabled={isLiked}
                   >
                     <div className={styles.voteIcons}>
-                      <FontAwesomeIcon icon={faThumbsUp} color="var(--black-haze)" />
+                      <FontAwesomeIcon
+                        icon={faThumbsUp}
+                        color="var(--black-haze)"
+                      />
                     </div>
                     ({likeCount})
                   </button>
@@ -246,7 +254,10 @@ const UserPosts = () => {
                     disabled={isDisliked}
                   >
                     <div className={styles.voteIcons}>
-                      <FontAwesomeIcon icon={faThumbsDown} color="var(--black-haze)" />
+                      <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        color="var(--black-haze)"
+                      />
                     </div>
                     ({dislikeCount})
                   </button>
@@ -254,7 +265,41 @@ const UserPosts = () => {
               </div>
             </div>
           ) : (
-            <p>No comments available.</p>
+            <>
+              <p>No comments available.</p>
+              <div className={styles.likesDislikes}>
+                <div className={styles.likeBox}>
+                  <button
+                    className={styles.likeButton}
+                    onClick={() => handleLikePost(post._id)}
+                    disabled={isLiked}
+                  >
+                    <div className={styles.voteIcons}>
+                      <FontAwesomeIcon
+                        icon={faThumbsUp}
+                        color="var(--black-haze)"
+                      />
+                    </div>
+                    ({likeCount})
+                  </button>
+                </div>
+                <div className={styles.dislikeBox}>
+                  <button
+                    className={styles.dislikeButton}
+                    onClick={() => handleDislikePost(post._id)}
+                    disabled={isDisliked}
+                  >
+                    <div className={styles.voteIcons}>
+                      <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        color="var(--black-haze)"
+                      />
+                    </div>
+                    ({dislikeCount})
+                  </button>
+                </div>
+              </div>
+            </>
           )}
         </div>
       ))}
