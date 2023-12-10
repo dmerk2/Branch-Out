@@ -1,11 +1,9 @@
-// SendMessage.jsx
-
-import React, { useState } from 'react';
+import { useState } from "react";
 import style from "../../styles/SendMessage.module.css";
 
 const SendMessageButton = () => {
   const [showModal, setShowModal] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const handleClick = () => {
     setShowModal(!showModal);
@@ -16,7 +14,6 @@ const SendMessageButton = () => {
   };
 
   const handleSendMessage = () => {
-    // Add logic to send the message (e.g., through an API call)
     console.log(`Sending message: ${message}`);
 
     // Close the modal after sending the message
@@ -24,17 +21,20 @@ const SendMessageButton = () => {
   };
 
   return (
-    <div className= {style.container}>
+    <div className={style.container}>
+      <h2>Send this user a message!</h2>
       <button className={style.openModalButton} onClick={handleClick}>
-        Send this user a message!
+        Message
       </button>
 
       {showModal && (
         <div className={style.modal}>
-          {/* Modal content */}
           <div className={style.modalHeader}>
             <p className={style.modalText}>Send this user a message!</p>
-            <button className={style.closeButton} onClick={() => setShowModal(false)}>
+            <button
+              className={style.closeButton}
+              onClick={() => setShowModal(false)}
+            >
               &times;
             </button>
           </div>
