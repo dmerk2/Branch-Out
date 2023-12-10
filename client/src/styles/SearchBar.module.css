@@ -12,11 +12,8 @@
     box-shadow: 0px 10px 5px var(--limed-spruce-shadow);
   }
 
-  .searchButton {
-    display: none;
-  }
-  
   .headerSearch {
+    position: relative;
     flex: 1;
     margin: 0 20px;
     padding: 0;
@@ -26,4 +23,31 @@
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: var(--black-haze);
+    border: 1px solid var(--black-haze-shadow);
+    border-top: none;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown a {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+    color: var(--limed-spruce);
+    transition: background-color 0.3s;
+  }
+  
+  .dropdown a:hover {
+    background-color: #f0f0f0;
   }
