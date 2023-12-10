@@ -22,15 +22,15 @@ query checkUsernameEmailExists($username: String!, $email: String!) {
 export const GET_USER_INFO = gql`
   query getUserInfo($id: ID!) {
     user(_id: $id) {
-      username,
-      bio,
+      _id
+      username
       friends {
         _id
         username
-        email 
+        email
         profileImage
         bio
-      },
+      }
       posts {
         _id
         content
@@ -40,8 +40,9 @@ export const GET_USER_INFO = gql`
           createdAt
           content
         }
-      },
+      }
       profileImage
+      signedInUserId: _id  # Include the signed-in user's ID directly
     }
   }
 `;
