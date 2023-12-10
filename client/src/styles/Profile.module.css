@@ -10,6 +10,7 @@
   width: 33.33%;
 }
 
+
 .profilePageRow:after {
   content: "";
   display: table;
@@ -47,7 +48,13 @@
   margin: 10px 40px 10px 40px;
 }
 
-
+.userPostsProfileFeed {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
 
 /* For medium-sized screens */
 @media only screen and (max-width: 1400px) {

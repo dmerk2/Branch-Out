@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "../styles/Profile.module.css";
 import { faCodeCompare, faLink, faCode } from '@fortawesome/free-solid-svg-icons';
 import ProfileUserDisplay from "../common/components/ProfileUserDisplay.jsx";
@@ -37,12 +36,10 @@ export default function Profile() {
           ))}
         </div>
         <WhatsOnYourMind />
+        <UserPosts/>
       </div>
       <div className={styles.profilePageColumn}>
         <UnreadMessageBoard />
-      </div>
-      <div>
-        <UserPosts/>
       </div>
     </div>
   );
