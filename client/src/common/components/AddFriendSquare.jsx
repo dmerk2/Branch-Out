@@ -17,7 +17,7 @@ export default function AddFriendSquare({ friend }) {
         <FontAwesomeIcon icon={faUserAstronaut} className={styles.friendIcon} />
       </div>
       <div className={styles.friendUsername}>{friend.username}</div>
-      <div><AddFriendButton userId={friend._id} /></div>
+      <div className={styles.friendAddButton}><AddFriendButton userId={friend._id} /></div>
     </div>
   );
 }

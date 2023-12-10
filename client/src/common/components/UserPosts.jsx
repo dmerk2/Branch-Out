@@ -187,7 +187,7 @@ const UserPosts = () => {
 
   return (
     <div>
-      <h2>User Posts</h2>
+      <h2 className={styles.postHeader}>User Posts</h2>
       {userPosts.map((post) => (
         <div className={styles.postContainer} key={post._id}>
           <div className={styles.userDetails}>

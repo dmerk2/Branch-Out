@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../styles/AddFriendButton.module.css';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER_INFO } from '../utils/queries';
 import { ADD_FRIEND } from '../utils/mutations';
@@ -45,12 +46,12 @@ const isFriend =
     return (
       <div>
         {!isFriend && (
-          <button type="button" onClick={handleAddFriend}>
+          <button type="button" onClick={handleAddFriend}  className={styles.friendButton}>
             Add Friend
           </button>
         )}
       </div>
     );
   };
-  
-  export default AddFriendButton;
+
+export default AddFriendButton;
