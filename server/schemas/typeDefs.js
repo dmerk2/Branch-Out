@@ -9,6 +9,16 @@ const typeDefs = `
     friends: [User]
     posts: [Post]
     likedPosts: [Post]
+    messages: [Message]
+    comments: [Comment]
+  }
+
+  type Message {
+    _id: ID
+    sender: User
+    receiver: User
+    content: String!
+    timestamp: String
   }
 
   type Post {
@@ -31,10 +41,10 @@ const typeDefs = `
 
   type Comment {
     _id: ID
-    post: [Post]
-    user: [User]
-    content: String!
-    createdAt: String
+    post: Post
+    user: User
+    content: String
+    createdAt: String!
   }
 
   type PresignedUrlResponse {
@@ -62,7 +72,7 @@ const typeDefs = `
     updateUser(_id: ID!, username: String, email: String, password: String): User
     deleteUser(_id: ID!): User
 
-    addPost(user: ID!, content: String!): Post
+    addPost(user: ID!, content: String!, username: String!): Post
     updatePost(_id: ID!, content: String): Post
     deletePost(_id: ID!): Post
 

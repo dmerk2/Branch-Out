@@ -6,7 +6,6 @@ import SuggestedFriendsList from "../common/components/SuggestedFriends"
 import AuthService from "../common/utils/auth"
 import RecentPost from "../common/components/RecentPost"
 import AboutBranchOut from "../common/components/AboutBranchOut"
-import SendMessageButton from "../common/components/SendMessage"
 import { useState } from "react"
 
 export default function Home() {
@@ -52,7 +51,6 @@ export default function Home() {
           <AddFriendSquare />
         </div>
         <div>
-        <SendMessageButton />
       </div>
       </div>
     </div>

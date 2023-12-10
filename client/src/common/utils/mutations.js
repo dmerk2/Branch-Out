@@ -80,3 +80,19 @@ export const DISLIKE_POST = gql`
     }
   }
 `;
+
+export const ADD_COMMENT = gql`
+  mutation AddComment($post: ID!, $user: ID!, $content: String!) {
+    addComment(post: $post, user: $user, content: $content) {
+      _id
+      post {
+        _id
+      }
+      user {
+        _id
+      }
+      content
+      createdAt
+    }
+  }
+`;

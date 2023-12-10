@@ -9,7 +9,10 @@ const resolvers = {
     },
     user: async (_, { _id }, context) => {
       return await User.findById(_id || context.user._id)
+      
         .populate("friends")
+        .populate("posts")
+        .populate("likedPosts")
     },
     posts: async () => {
       return await Post.find()
