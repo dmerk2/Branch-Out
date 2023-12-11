@@ -28,6 +28,9 @@ export default function OtherUserProfile() {
           <div className={styles.profileUserSection}>
             <ProfileUserDisplay />
           </div>
+          <div>
+          <AddFriendButtonWithQuery userId={id} />
+        </div>
           <div className={styles.profileFriendsTracker}>
             <ViewFriendsList />
           </div>
@@ -45,13 +48,9 @@ export default function OtherUserProfile() {
             <UserPosts />
           </div>
         </div>
-      </div>
       <div className={styles.profilePageColumn}>
         <SendMessageButton />
-        {/* Pass the profileId from useParams as userId to AddFriendButtonWithQuery */}
-        <div>
-          <AddFriendButtonWithQuery userId={id} />
-        </div>
+      </div>
       </div>
     </div>
   );

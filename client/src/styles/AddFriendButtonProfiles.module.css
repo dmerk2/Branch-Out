@@ -1,0 +1,23 @@
+.buttonAppearance {
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+    background-color: var(--black-haze);
+    border: 5px solid var(--limed-spruce);
+    border-radius: 30px;
+    font-family: "Audiowide", sans-serif;
+    color: var(--limed-spruce);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    text-shadow: 0px 5px 5px var(--black-haze-shadow);
+    box-shadow: 0px 5px 5px var(--black-haze-shadow);
+}
+
+.buttonAppearance:hover {
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
+    text-shadow: 0px 5px 5px var(--limed-spruce-shadow);
+    box-shadow: 0px 5px 5px var(--black-haze-shadow);
+}
