@@ -13,7 +13,9 @@ const RecentPost = ({ postId }) => {
   const [userAction, setUserAction] = useState(null); // 'like', 'dislike', or null
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
-
+  const [commentContent, setCommentContent] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [addingComment, setAddingComment] = useState(false);
   const [likePostMutation] = useMutation(LIKE_POST);
   const [dislikePostMutation] = useMutation(DISLIKE_POST);
 
@@ -96,6 +98,81 @@ const RecentPost = ({ postId }) => {
     }
   };
 
+  const handleAddComment = async (postId, content) => {
+    // Update the function parameters
+    try {
+      // Check if content is not empty
+      if (!content.trim()) {
+        console.error("Comment content cannot be empty");
+        return;
+      }
+
+      setAddingComment(true);
+
+      const { data } = await addCommentMutation({
+        variables: {
+          post: postId,
+          user: auth.getProfile().data._id,
+          content: content,
+        },
+      });
+
+      if (data.addComment) {
+        console.log("Comment added successfully:", data.addComment);
+        setAddingComment(false);
+        setCommentContent("");
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      setAddingComment(false);
+    }
+  };
+
+  const CommentModal = ({ onClose, onSubmit }) => {
+    const [localCommentContent, setLocalCommentContent] = useState("");
+
+    const handleCommentSubmit = () => {
+      console.log("Comment Content Length:", localCommentContent.length);
+
+      // Check if localCommentContent is not empty
+      if (!localCommentContent.trim()) {
+        console.error("Comment content cannot be empty");
+        return;
+      }
+
+      // Call onSubmit with postId and content
+      onSubmit(localCommentContent);
+      onClose();
+    };
+
+    return (
+      <div className={styles.modal}>
+        <div className={styles.modalHeader}>
+          <p className={styles.modalText}>Post Your Comment!</p>
+          <button className={styles.closeButton} onClick={() => onClose()}>
+            &times;
+          </button>
+        </div>
+        <textarea
+          className={styles.modalTextArea}
+          rows="4"
+          cols="50"
+          value={localCommentContent}
+          onChange={(e) => setLocalCommentContent(e.target.value)}
+        />
+        <br />
+        <div className={styles.modalButtons}>
+          <button
+            className={styles.commentButton}
+            onClick={handleCommentSubmit}
+          >
+            Submit Comment
+          </button>
+        </div>
+      </div>
+    );
+  };
+
     return (
       <div>
         {posts.map((post) => (
@@ -110,7 +187,19 @@ const RecentPost = ({ postId }) => {
             <div className={styles.userPost}>
               <p className={styles.postContent}>{post.content}</p>
             </div>
-  
+            <button
+            className={styles.commentButton}
+            onClick={() => setShowModal(true)}
+          >
+            Add a Comment
+          </button>
+          {/* Modal */}
+          {showModal && (
+            <CommentModal
+              onClose={() => setShowModal(false)}
+              onSubmit={(content) => handleAddComment(post._id, content)}
+            />
+          )}
             <div className={styles.engagementSection}>
               <div className={styles.comments}>
                 {post.comments.map((comment) => (
