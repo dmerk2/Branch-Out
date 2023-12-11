@@ -12,16 +12,16 @@ export default function SuggestedFriendsList() {
   const friends = data.users; // Update to use friends instead of users
 
   return (
-    <div>
+    <div className={styles.suggestedColumn}>
       <div className={styles.suggestedFriendsInfo}>
         <div className={styles.suggestedFriends}>Suggested Friends
-        <div>
+        </div>
+      </div>
+        <div className={styles.friendSquares}>
           {friends.map((friend) => (
             <AddFriendSquare key={friend._id} friend={friend} /> // Pass friend prop
           ))}
           </div>
-        </div>
-      </div>
     </div>
   );
 }
