@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
-import { LIKE_POST, DISLIKE_POST } from "../utils/mutations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
-
 import styles from "../../styles/RecentPost.module.css";
+import { LIKE_POST, DISLIKE_POST } from "../utils/mutations";
+import { GET_ALL_POSTS } from "../utils/queries";
 
-export default function RecentPost({ postId }) {
+const RecentPost = ({ postId }) => {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [userAction, setUserAction] = useState(null); // 'like', 'dislike', or null
@@ -15,6 +16,15 @@ export default function RecentPost({ postId }) {
 
   const [likePostMutation] = useMutation(LIKE_POST);
   const [dislikePostMutation] = useMutation(DISLIKE_POST);
+
+  const { loading, error, data } = useQuery(GET_ALL_POSTS);
+  
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+  console.log(data , "data")
+  const { user, posts } = data;
+
 
   const handleLikePost = async () => {
     if (userAction === "like") {
@@ -86,71 +96,62 @@ export default function RecentPost({ postId }) {
     }
   };
 
-  return (
-    <div>
-      <div className={styles.postContainer}>
-        <div className={styles.userDetails}>
-          <div className={styles.userInfo}>
-            <p className={styles.userName}>John Doe</p>
-            <p className={styles.postDate}>December 6, 2023</p>
-          </div>
-        </div>
-
-        <div className={styles.userPost}>
-          <p className={styles.postContent}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-            facilisi.
-          </p>
-        </div>
-
-        <div className={styles.engagementSection}>
-          <div className={styles.comments}>
-            <div className={styles.comment}>
-              <div className={styles.commentName}>John Smith</div>
-              <div className={styles.commentBody}>Great post!</div>
+    return (
+      <div>
+        {posts.map((post) => (
+          <div key={post._id} className={styles.postContainer}>
+            <div className={styles.userDetails}>
+              <div className={styles.userInfo}>
+                <p className={styles.userName}>{post.user.username}</p>
+                <p className={styles.postDate}>{post.createdAt}</p>
+              </div>
             </div>
-            <div className={styles.comment}>
-              <div className={styles.commentName}>Jane Smith</div>
-              <div className={styles.commentBody}>
-                This is an incredible message!
+  
+            <div className={styles.userPost}>
+              <p className={styles.postContent}>{post.content}</p>
+            </div>
+  
+            <div className={styles.engagementSection}>
+              <div className={styles.comments}>
+                {post.comments.map((comment) => (
+                  <div key={comment._id} className={styles.comment}>
+                    <div className={styles.commentName}>{comment.user}</div>
+                    <div className={styles.commentBody}>{comment.content}</div>
+                  </div>
+                ))}
+              </div>
+  
+              <div className={styles.likesDislikes}>
+                <div className={styles.likeBox}>
+                  <button
+                    className={styles.likeButton}
+                    onClick={() => handleLikePost()}
+                    disabled={isLiked}
+                  >
+                    <div className={styles.voteIcons}>
+                      <FontAwesomeIcon icon={faThumbsUp} color="var(--black-haze)" />
+                    </div>
+                    ({likeCount})
+                  </button>
+                </div>
+                <div className={styles.dislikeBox}>
+                  <button
+                    className={styles.dislikeButton}
+                    onClick={() => handleDislikePost()}
+                    disabled={isDisliked}
+                  >
+                    <div className={styles.voteIcons}>
+                      <FontAwesomeIcon icon={faThumbsDown} color="var(--black-haze)" />
+                    </div>
+                    ({dislikeCount})
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-
-          <div className={styles.likesDislikes}>
-            <div className={styles.likeBox}>
-              <button
-                className={styles.likeButton}
-                onClick={() => handleLikePost()}
-                disabled={isLiked}
-              >
-                <div className={styles.voteIcons}>
-                  <FontAwesomeIcon
-                    icon={faThumbsUp}
-                    color="var(--black-haze)"
-                  />
-                </div>
-                ({likeCount})
-              </button>
-            </div>
-            <div className={styles.dislikeBox}>
-              <button
-                className={styles.dislikeButton}
-                onClick={() => handleDislikePost()}
-                disabled={isDisliked}
-              >
-                <div className={styles.voteIcons}>
-                  <FontAwesomeIcon
-                    icon={faThumbsDown}
-                    color="var(--black-haze)"
-                  />
-                </div>
-                ({dislikeCount})
-              </button>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
-    </div>
-  );
-}
+    );
+  };
+  
+  export default RecentPost;

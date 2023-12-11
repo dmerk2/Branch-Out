@@ -117,11 +117,11 @@ const resolvers = {
     },
 
     addComment: async (parent, { post, user, content }) => {
-      const comment = await Comment.create({ post, user, content });
+      const comment = await Comment.create({ post, user, content : [] });
       console.log("adComment in resolvers", comment)
       const postData = await Post.findByIdAndUpdate(
         { _id: post },
-        { $push: { comments: comment._id } },
+        { $push: { comments: comment._id , content:comment.content } },
         { new: true }
       );
       console.log(postData, "post data from resolvers");
