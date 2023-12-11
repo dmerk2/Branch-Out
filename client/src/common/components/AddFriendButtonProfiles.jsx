@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../styles/AddFriendButtonProfiles.module.css';
 import { useMutation, useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { ADD_FRIEND } from '../utils/mutations';
@@ -41,7 +42,7 @@ const AddFriendButtonWithQuery = () => {
       };
   
     return (
-      <button type="button" onClick={handleAddFriend}>
+      <button type="button" onClick={handleAddFriend} className={styles.buttonAppearance}>
         Add Friend
       </button>
     );

@@ -106,25 +106,65 @@
   box-shadow: 0px 10px 10px var(--elm-shadow);
 }
 
-  .sendButton {
-    font-size: 16px;
-    padding: 10px 20px;
-    margin-top: 10px;
-    cursor: pointer;
-    background-color: var(--limed-spruce);
-    color: var(--black-haze);
-    border: none;
-    padding: 5px 10px;
-    font-family: Audiowide, sans-serif;
-    border-radius: 40px;
-    font-size: 20px;
-    box-shadow: 0px 5px 5px var(--elm-shadow);
-    text-shadow: 0px 3px 6px  var(--limed-spruce-shadow);
-  }
-  
-  .sendButton:hover {
-    background-color: var(--black-haze);
-    text-shadow: 0px 3px 6px  var(--black-haze-shadow);
-    color: var(--limed-spruce)
-  }
-  
+.sendButton {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: var(--limed-spruce);
+  color: var(--black-haze);
+  border: none;
+  padding: 5px 10px;
+  font-family: Audiowide, sans-serif;
+  border-radius: 40px;
+  font-size: 20px;
+  box-shadow: 0px 5px 5px var(--elm-shadow);
+  text-shadow: 0px 3px 6px  var(--limed-spruce-shadow);
+}
+
+.sendButton:hover {
+  background-color: var(--black-haze);
+  text-shadow: 0px 3px 6px  var(--black-haze-shadow);
+  color: var(--limed-spruce)
+}
+
+.messageHeader {
+  display: flex;
+  justify-content: center;
+  font-weight: normal;
+  width: 375px;
+  padding: 5px 0;
+  background-color: var(--elm);
+  color: var(--black-haze);
+  text-shadow: 0 5px 5px var(--elm-shadow);
+  box-shadow: 0px 10px 10px var(--black-haze-shadow);
+  border-radius: 30px;
+  margin: 50px auto 0 auto;
+
+
+}
+
+.smallDiamondShape {
+  cursor: pointer;
+  margin-top: 30px;
+  background: var(--black-haze);
+  height: 85px;
+  width: 85px;
+  text-align: center;
+  transform: rotate(45deg);
+  border: 12px solid var(--limed-spruce);
+  border-radius: 25px;
+  box-shadow: 
+  inset 5px 4px 5px  var(--black-haze-shadow),
+  5px 5px 5px var(--black-haze-shadow);
+}
+
+.messageIcon {
+  color: var(--limed-spruce);
+  transform: rotate(-45deg);
+  height: 40px;
+}
+
+.messageIcon :hover{
+  color: var(--elm);
+}
