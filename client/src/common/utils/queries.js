@@ -56,8 +56,36 @@ export const GET_USER_POSTS = gql`
         _id
         content
         createdAt
+        comments{
+          _id
+          content
+          createdAt
+        }
       }
     }
   }
+`;
+
+export const GET_ALL_POSTS = gql`
+query GetAllPosts {
+  posts {
+    _id
+    content
+    createdAt
+    user {
+      _id
+      username
+    }
+    comments {
+      _id
+      content
+      createdAt
+      user {
+        _id
+        username
+      }
+    }
+  }
+}
 `;
 

@@ -1,3 +1,7 @@
+.suggestedColumn {
+  margin: auto;
+}
+
 .suggestedFriendsInfo {
     display: flex;
     background-color: var(--elm);
@@ -10,7 +14,12 @@
   
   .suggestedFriends {
     color: var(--black-haze);
-    margin: auto 10px;
+    margin: auto;
     font-size: 20px;
     text-shadow: 0px 3px 3px #0f413c;
   }
+
+.friendSquares {
+  display: flex;
+  justify-content: center;
+}
