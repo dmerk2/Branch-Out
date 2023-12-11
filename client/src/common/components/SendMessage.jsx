@@ -1,5 +1,7 @@
 import { useState } from "react";
 import style from "../../styles/SendMessage.module.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope} from '@fortawesome/free-solid-svg-icons';
 
 const SendMessageButton = () => {
   const [showModal, setShowModal] = useState(false);
@@ -22,15 +24,15 @@ const SendMessageButton = () => {
 
   return (
     <div className={style.container}>
-      <h2>Send this user a message!</h2>
-      <button className={style.openModalButton} onClick={handleClick}>
-        Message
+      <h2 className={style.messageHeader}>Send this user a message!</h2>
+      <button className={style.smallDiamondShape} onClick={handleClick}>
+       <FontAwesomeIcon icon={faEnvelope} className={style.messageIcon}/>
       </button>
 
       {showModal && (
         <div className={style.modal}>
           <div className={style.modalHeader}>
-            <p className={style.modalText}>Send this user a message!</p>
+            <p className={style.modalText}>What do you want to send?</p>
             <button
               className={style.closeButton}
               onClick={() => setShowModal(false)}
