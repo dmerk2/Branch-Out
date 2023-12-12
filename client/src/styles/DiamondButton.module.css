@@ -6,8 +6,8 @@
     width: 75px;
     text-align: center;
     transform: rotate(45deg) !important;
-    border: 10px solid var(--limed-spruce);
-    border-radius: 10px;
+    border: 11px solid var(--limed-spruce);
+    border-radius: 18px;
     box-shadow: 
     inset 5px 4px 5px  var(--black-haze-shadow),
     5px 5px 5px var(--black-haze-shadow);

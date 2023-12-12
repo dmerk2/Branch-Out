@@ -140,8 +140,21 @@
   box-shadow: 0px 10px 10px var(--black-haze-shadow);
   border-radius: 30px;
   margin: 50px auto 0 auto;
+}
 
-
+.logoutMessageHeader {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-weight: normal;
+  width: 375px;
+  padding: 20px 0;
+  background-color: var(--elm);
+  color: var(--black-haze);
+  text-shadow: 0 5px 5px var(--elm-shadow);
+  box-shadow: 0px 10px 10px var(--black-haze-shadow);
+  border-radius: 30px;
+  margin: 50px auto 0 auto;
 }
 
 .smallDiamondShape {
@@ -166,5 +179,16 @@
 }
 
 .messageIcon :hover{
+  color: var(--elm);
+}
+
+.logoutMessageIcon {
+  color: var(--limed-spruce);
+  transform: rotate(-45deg);
+  height: 40px;
+  margin-top: 10px;
+}
+
+.logoutMessageIcon :hover{
   color: var(--elm);
 }

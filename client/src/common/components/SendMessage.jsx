@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import style from "../../styles/SendMessage.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope} from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faRightToBracket} from '@fortawesome/free-solid-svg-icons';
+import auth from "../utils/auth";
 
 const SendMessageButton = () => {
   const [showModal, setShowModal] = useState(false);
@@ -22,12 +24,25 @@ const SendMessageButton = () => {
     setShowModal(false);
   };
 
+  const isLoggedIn = auth.loggedIn();
+
   return (
     <div className={style.container}>
-      <h2 className={style.messageHeader}>Send this user a message!</h2>
-      <button className={style.smallDiamondShape} onClick={handleClick}>
-       <FontAwesomeIcon icon={faEnvelope} className={style.messageIcon}/>
-      </button>
+      {isLoggedIn ? (
+        <>
+          <h2 className={style.messageHeader}>Send this user a message!</h2>
+          <button className={style.smallDiamondShape} onClick={handleClick}>
+            <FontAwesomeIcon icon={faEnvelope} className={style.messageIcon}/>
+          </button>
+        </>
+      ) : (
+        <>
+        <h2 className={style.logoutMessageHeader}>Login to send this user a message!</h2>
+        <Link to="/login" className={style.smallDiamondShape} >
+          <FontAwesomeIcon icon={faRightToBracket} className={style.logoutMessageIcon}/>
+          </Link>
+        </>
+      )}
 
       {showModal && (
         <div className={style.modal}>

@@ -21,3 +21,7 @@
     text-shadow: 0px 5px 5px var(--limed-spruce-shadow);
     box-shadow: 0px 5px 5px var(--black-haze-shadow);
 }
+
+.buttonAppearanceVanish {
+    display: none;
+}

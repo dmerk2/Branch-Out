@@ -6,8 +6,8 @@
     width: 75px;
     text-align: center;
     transform: rotate(45deg) !important;
-    border: 10px solid var(--mountain-meadow);
-    border-radius: 10px;
+    border: 11px solid var(--mountain-meadow);
+    border-radius: 18px;
     box-shadow: 
     inset 5px 4px 5px  var(--limed-spruce-shadow),
     5px 5px 5px var(--limed-spruce-shadow);
