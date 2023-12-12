@@ -11,14 +11,14 @@ const resolvers = {
       return await User.findById(_id || context.user._id)
 
         .populate("friends")
-        .populate("posts")
+        .populate({path: "posts", populate: {path: "comments"}})
         .populate("likedPosts");
     },
     posts: async () => {
       return await Post.find()
         .populate("user")
         .populate("likes")
-        .populate("comments");
+        .populate({path: "comments", populate: {path: "user"}});
     },
     comments: async () => {
       return await Comment.find().populate("post").populate("user");
@@ -117,11 +117,12 @@ const resolvers = {
     },
 
     addComment: async (parent, { post, user, content }) => {
-      const comment = await Comment.create({ post, user, content : [] });
-      console.log("adComment in resolvers", comment)
+      console.log(post, user, content);
+      const comment = await Comment.create({ post, user, content });
+      console.log("addComment in resolvers", comment)
       const postData = await Post.findByIdAndUpdate(
         { _id: post },
-        { $push: { comments: comment._id , content:comment.content } },
+        { $push: { comments: comment._id } },
         { new: true }
       );
       console.log(postData, "post data from resolvers");
