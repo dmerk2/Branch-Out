@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { GET_USER_INFO } from "../utils/queries";
-import auth from '../utils/auth'
+import auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { UPDATE_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
@@ -11,28 +11,32 @@ const EditProfileForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: "",
     bio: "",
   });
-  const [updateUser] = useMutation(UPDATE_USER)
+  const [updateUser] = useMutation(UPDATE_USER);
   const user = auth.getProfile().data._id;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
+  console.log("User:", user)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await updateUser({
-        variables: { id: user }
-      })
-      console.log('Profile updated successfully', result);
+        variables: {
+          _id: user,
+          username: formData.name,
+          email: formData.email,
+          bio: formData.bio,
+        },
+      });
+      console.log("Profile updated successfully", result);
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error("Error updating profile:", error);
     }
   };
-
 
   const { loading, error, data } = useQuery(GET_USER_INFO, {
     variables: { id: user },
@@ -43,7 +47,6 @@ const EditProfileForm = () => {
       setFormData({
         name: data.user.username || "",
         email: data.user.email || "",
-        password: data.user.password || "",
         bio: data.user.bio || "",
       });
     }
@@ -52,7 +55,7 @@ const EditProfileForm = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log(data)
+  console.log(data);
 
   return (
     <form onSubmit={handleSubmit} className={styles.formSquare}>
@@ -71,8 +74,7 @@ const EditProfileForm = () => {
           value={formData.name}
           onChange={handleChange}
         />
-      </div>
-      
+      </div>   
       <div>
       <label className={styles.loginRequirement}>
         Email:
@@ -85,7 +87,6 @@ const EditProfileForm = () => {
           onChange={handleChange}
         />
       </div>
-
       <div>
       <label className={styles.loginRequirement}>
         Password:
