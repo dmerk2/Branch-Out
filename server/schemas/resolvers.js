@@ -11,7 +11,8 @@ const resolvers = {
       return await User.findById(_id || context.user._id)
 
         .populate("friends")
-        .populate({path: "posts", populate: {path: "comments"}})
+        .populate({path: "posts", populate: {path: "user"}})
+        .populate({path: "posts", populate: {path: "comments", populate: {path: "user"}}})
         .populate("likedPosts");
     },
     posts: async () => {
@@ -21,7 +22,9 @@ const resolvers = {
         .populate({path: "comments", populate: {path: "user"}});
     },
     comments: async () => {
-      return await Comment.find().populate("post").populate("user");
+      return await Comment.find()
+      .populate("post")
+      .populate("user");
     },
     searchUsers: async (_, { username }) => {
       return await User.find({ username });
