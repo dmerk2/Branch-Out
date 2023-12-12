@@ -204,7 +204,7 @@ const RecentPost = ({ postId }) => {
               <div className={styles.comments}>
                 {post.comments.map((comment) => (
                   <div key={comment._id} className={styles.comment}>
-                    <div className={styles.commentName}>{comment.user}</div>
+                    <div className={styles.commentName}>{comment.user.username}</div>
                     <div className={styles.commentBody}>{comment.content}</div>
                   </div>
                 ))}

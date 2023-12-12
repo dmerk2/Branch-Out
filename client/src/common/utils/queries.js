@@ -25,6 +25,8 @@ export const GET_USER_INFO = gql`
       _id
       username
       bio
+      email
+      password
       friends {
         _id
         username
