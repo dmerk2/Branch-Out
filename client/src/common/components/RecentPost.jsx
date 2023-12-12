@@ -179,7 +179,7 @@ const RecentPost = ({ postId }) => {
           <div key={post._id} className={styles.postContainer}>
             <div className={styles.userDetails}>
               <div className={styles.userInfo}>
-                <p className={styles.userName}>{post.user.username}</p>
+                <p className={styles.userName}>hi</p>
                 <p className={styles.postDate}>{post.createdAt}</p>
               </div>
             </div>
@@ -204,7 +204,7 @@ const RecentPost = ({ postId }) => {
               <div className={styles.comments}>
                 {post.comments.map((comment) => (
                   <div key={comment._id} className={styles.comment}>
-                    <div className={styles.commentName}>{comment.user}</div>
+                    <div className={styles.commentName}>{comment.user.username}</div>
                     <div className={styles.commentBody}>{comment.content}</div>
                   </div>
                 ))}
