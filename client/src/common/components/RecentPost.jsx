@@ -6,6 +6,8 @@ import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../styles/RecentPost.module.css";
 import { LIKE_POST, DISLIKE_POST } from "../utils/mutations";
 import { GET_ALL_POSTS } from "../utils/queries";
+import { ADD_COMMENT } from "../utils/mutations";
+import auth from "../utils/auth";
 
 const RecentPost = ({ postId }) => {
   const [likeCount, setLikeCount] = useState(0);
@@ -18,6 +20,7 @@ const RecentPost = ({ postId }) => {
   const [addingComment, setAddingComment] = useState(false);
   const [likePostMutation] = useMutation(LIKE_POST);
   const [dislikePostMutation] = useMutation(DISLIKE_POST);
+  const [addCommentMutation] = useMutation(ADD_COMMENT);
 
   const { loading, error, data } = useQuery(GET_ALL_POSTS);
   
@@ -180,7 +183,9 @@ const RecentPost = ({ postId }) => {
             <div className={styles.userDetails}>
               <div className={styles.userInfo}>
                 <p className={styles.userName}>{post.user.username}</p>
-                <p className={styles.postDate}>{post.createdAt}</p>
+                <p className={styles.postDate}>
+                {new Date(parseInt(post.createdAt)).toLocaleString()}
+              </p>
               </div>
             </div>
   
