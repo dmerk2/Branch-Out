@@ -1,0 +1,24 @@
+.friendTitle {
+    background-color: var(--limed-spruce);
+    color: var(--black-haze);
+    font-weight: normal;
+    font-size: 2rem;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    width: 250px;
+    text-shadow: 0px 5px 5px var(--limed-spruce-shadow);
+    box-shadow: 0px 10px 10px var(--black-haze-shadow);
+}
+
+.friendSquares {
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
+  }

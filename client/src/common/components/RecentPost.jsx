@@ -14,6 +14,7 @@ import {
 import { GET_ALL_POSTS } from "../utils/queries";
 import auth from "../utils/auth";
 
+
 const RecentPost = ({ postId, userId }) => {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
@@ -133,6 +134,8 @@ const RecentPost = ({ postId, userId }) => {
       onClose();
     };
 
+    
+    
     return (
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
@@ -160,6 +163,8 @@ const RecentPost = ({ postId, userId }) => {
       </div>
     );
   };
+  
+  const isLoggedIn = auth.loggedIn();
 
   return (
     <div>
@@ -172,18 +177,27 @@ const RecentPost = ({ postId, userId }) => {
               <p className={styles.postDate}>
                 {new Date(parseInt(post.createdAt)).toLocaleString()}
               </p>
+              </div>
             </div>
-          </div>
-
-          <div className={styles.userPost}>
-            <p className={styles.postContent}>{post.content}</p>
-          </div>
-          <button
+  
+            <div className={styles.userPost}>
+              <p className={styles.postContent}>{post.content}</p>
+            </div>
+            {isLoggedIn ? (
+            <button
             className={styles.commentButton}
             onClick={() => setShowModal(true)}
           >
             Add a Comment
           </button>
+          ) : (
+            <button
+            className={styles.commentButtonGone}
+            onClick={() => setShowModal(true)}
+          >
+            Add a Comment
+          </button>
+          )}
           {/* Modal */}
           {showModal && (
             <CommentModal

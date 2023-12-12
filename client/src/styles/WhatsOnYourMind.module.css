@@ -1,10 +1,11 @@
 
 .postMakingSquare {
     background-color: var(--mountain-meadow);
-    margin: 50px 30px 0px 30px;
+    margin: 50px;
     padding: 20px;
     border-radius: 60px;
     box-shadow: 0px 10px 5px var(--black-haze-shadow);
+    justify-content: center;
   }
   
   .whatsUp {
@@ -58,4 +59,14 @@
     text-shadow: 0px 3px 3px  var(--black-haze-shadow);
   }
     
-  
+  @media only screen and (max-width: 930px) {
+    .postMakingSquare {
+      background-color: var(--mountain-meadow);
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 60px;
+      box-shadow: 0px 10px 5px var(--black-haze-shadow);
+      width: 70%;
+      justify-content: center;
+    }
+  }

@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { ADD_FRIEND } from "../utils/mutations";
 import { GET_USER_INFO } from "../utils/queries";
+import auth from "../utils/auth";
 
 const AddFriendButtonWithQuery = () => {
   const { id } = useParams();
@@ -40,14 +41,27 @@ const AddFriendButtonWithQuery = () => {
     }
   };
 
+  const isLoggedIn = auth.loggedIn();
+
   return (
-    <button
+    isLoggedIn ? (
+      <button
       type="button"
       onClick={handleAddFriend}
       className={styles.buttonAppearance}
     >
       Add Friend
     </button>
-  );
+  ) : (
+    <button
+      type="button"
+      onClick={handleAddFriend}
+      className={styles.buttonAppearanceVanish}
+    >
+      Add Friend
+    </button>
+  )
+);
 };
+
 export default AddFriendButtonWithQuery;

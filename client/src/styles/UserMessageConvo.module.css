@@ -37,6 +37,11 @@
     transform: rotate(-45deg);
     height: 40px;
     padding: 10px 8px 0 0;
+    cursor: pointer;
+}
+
+.messageIcon :hover {
+    color: var(--mountain-meadow);
 }
 
 @media only screen and (max-width: 440px) {

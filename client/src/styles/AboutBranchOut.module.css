@@ -31,5 +31,10 @@
     text-align: center;
   }
 
-
-  
+@media only screen and (max-width: 1400px) {
+  .bigGreenSquare {
+    width:75%;
+    justify-content: center;
+    margin: 30px auto auto auto;
+  }
+}
