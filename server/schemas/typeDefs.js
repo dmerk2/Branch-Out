@@ -82,7 +82,8 @@ const typeDefs = `
     addPost(user: ID!, content: String!): Post
     updatePost(_id: ID!, content: String): Post
     deletePost(_id: ID!): Post
-
+    unlikePost(postId: ID!, userId: ID!): Post
+    undislikePost(postId: ID!, userId: ID!): Post
     addComment(post: ID!, user: ID!, content: String!): Comment
     updateComment(_id: ID!, content: String): Comment
     deleteComment(_id: ID!): Comment

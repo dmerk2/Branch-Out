@@ -1,16 +1,21 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../styles/RecentPost.module.css";
-import { LIKE_POST, DISLIKE_POST } from "../utils/mutations";
+import {
+  LIKE_POST,
+  DISLIKE_POST,
+  UNLIKE_POST,
+  UNDISLIKE_POST,
+  ADD_COMMENT,
+} from "../utils/mutations";
 import { GET_ALL_POSTS } from "../utils/queries";
-import { ADD_COMMENT } from "../utils/mutations";
 import auth from "../utils/auth";
 
 
-
-const RecentPost = ({ postId }) => {
+const RecentPost = ({ postId, userId }) => {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [userAction, setUserAction] = useState(null);
@@ -21,84 +26,65 @@ const RecentPost = ({ postId }) => {
   const [addingComment, setAddingComment] = useState(false);
   const [likePostMutation] = useMutation(LIKE_POST);
   const [dislikePostMutation] = useMutation(DISLIKE_POST);
-  const [addCommentMutation] = useMutation(ADD_COMMENT, {
-    refetchQueries: [ADD_COMMENT, GET_ALL_POSTS],
-  });
+  const [addCommentMutation] = useMutation(ADD_COMMENT);
+  const [unlikePostMutation] = useMutation(UNLIKE_POST);
+  const [undislikePostMutation] = useMutation(UNDISLIKE_POST);
 
   const { loading, error, data } = useQuery(GET_ALL_POSTS);
+
+  const loggedinuser = auth.getProfile().data._id;
+
+  useEffect(() => {
+    if (data) {
+      const post = data.posts.find((p) => p._id === postId);
+      if (post) {
+        setLikeCount(post.likes.length);
+        setDislikeCount(post.dislikes.length);
+      }
+    }
+  }, [data]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const { user, posts } = data;
 
-  const handleLikePost = async () => {
-    if (userAction === "like") {
-      // User already liked, remove like
-      setUserAction(null);
-      setIsLiked(false);
-      setLikeCount(likeCount - 1);
+  const handleLikePost = async (postId) => {
+    const post = data.posts.find((p) => p._id === postId);
+    const userHasLiked = post.likes.some((like) => like._id === loggedinuser);
+    console.log(post, "Current Post Being Liked");
+    console.log(loggedinuser, "Current User ID");
+
+    if (userHasLiked) {
+      await unlikePostMutation({
+        variables: { postId, userId: loggedinuser },
+        refetchQueries: [{ query: GET_ALL_POSTS }],
+      });
     } else {
-      // User disliked before, remove dislike
-      if (userAction === "dislike") {
-        setDislikeCount(dislikeCount - 1);
-        setIsDisliked(false);
-      }
-
-      // Like the post
-      setUserAction("like");
-      setIsLiked(true);
-
-      try {
-        const { data, errors } = await likePostMutation({
-          variables: { postId },
-        });
-
-        if (errors) {
-          console.error("Error liking post:", errors);
-        } else if (data.likePost && data.likePost.message) {
-          alert(data.likePost.message);
-        } else {
-          setLikeCount(data.likePost.likeCount);
-        }
-      } catch (error) {
-        console.error("Error liking post:", error);
-      }
+      await likePostMutation({
+        variables: { postId, userId: loggedinuser },
+        refetchQueries: [{ query: GET_ALL_POSTS }],
+      });
     }
   };
 
-  const handleDislikePost = async () => {
-    if (userAction === "dislike") {
-      // User already disliked, remove dislike
-      setUserAction(null);
-      setIsDisliked(false);
-      setDislikeCount(dislikeCount - 1);
+  const handleDislikePost = async (postId) => {
+    const post = data.posts.find((p) => p._id === postId);
+    const userHasDisliked = post.dislikes.some(
+      (dislike) => dislike._id === loggedinuser
+    );
+    console.log(post, "Current Post Being Disliked");
+
+    if (userHasDisliked) {
+      await undislikePostMutation({
+        variables: { postId, userId: loggedinuser },
+        refetchQueries: [{ query: GET_ALL_POSTS }],
+      });
     } else {
-      // User liked before, remove like
-      if (userAction === "like") {
-        setLikeCount(likeCount - 1);
-        setIsLiked(false);
-      }
-
-      // Dislike the post
-      setUserAction("dislike");
-      setIsDisliked(true);
-
-      try {
-        const { data, errors } = await dislikePostMutation({
-          variables: { postId },
-        });
-
-        if (errors) {
-          console.error("Error disliking post:", errors);
-        } else if (data.dislikePost && data.dislikePost.message) {
-          alert(data.dislikePost.message);
-        } else {
-          setDislikeCount(data.dislikePost.dislikeCount);
-        }
-      } catch (error) {
-        console.error("Error disliking post:", error);
-      }
+      await dislikePostMutation({
+        variables: { postId, userId: loggedinuser },
+        refetchQueries: [{ query: GET_ALL_POSTS }],
+      });
     }
   };
 
@@ -182,7 +168,8 @@ const RecentPost = ({ postId }) => {
 
   return (
     <div>
-      {posts.map((post) => (
+
+      {data.posts.map((post) => (
         <div key={post._id} className={styles.postContainer}>
           <div className={styles.userDetails}>
             <div className={styles.userInfo}>
@@ -234,7 +221,7 @@ const RecentPost = ({ postId }) => {
               <div className={styles.likeBox}>
                 <button
                   className={styles.likeButton}
-                  onClick={() => handleLikePost()}
+                  onClick={() => handleLikePost(post._id)}
                   disabled={isLiked}
                 >
                   <div className={styles.voteIcons}>
@@ -243,13 +230,17 @@ const RecentPost = ({ postId }) => {
                       color="var(--black-haze)"
                     />
                   </div>
-                  ({likeCount})
+
+                  ({post.likes.length})
+
                 </button>
               </div>
               <div className={styles.dislikeBox}>
                 <button
                   className={styles.dislikeButton}
-                  onClick={() => handleDislikePost()}
+
+                  onClick={() => handleDislikePost(post._id)}
+
                   disabled={isDisliked}
                 >
                   <div className={styles.voteIcons}>
@@ -258,7 +249,8 @@ const RecentPost = ({ postId }) => {
                       color="var(--black-haze)"
                     />
                   </div>
-                  ({dislikeCount})
+                  ({post.dislikes.length})
+
                 </button>
               </div>
             </div>
