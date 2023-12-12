@@ -178,7 +178,7 @@ const RecentPost = ({ postId }) => {
     );
   };
   
-  const isLoggedIn = AuthService.loggedIn();
+  const isLoggedIn = auth.loggedIn();
 
   return (
     <div>

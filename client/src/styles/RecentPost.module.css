@@ -9,7 +9,7 @@
     padding: 20px;
     border-radius: 40px;
     box-shadow: 0px 10px 10px var(--black-haze-shadow);
-    width: 600px;
+    width: 550px;
 
   }
 
@@ -50,10 +50,9 @@
   .postDate {
     font-size: 14px;
     color: var(--black-haze);
-    position: relative;
-    left: 360px;
-    bottom: 20px;
+    justify-content: space-evenly;
     text-shadow: 0 5px 5px var(--mountain-meadow-shadow);
+    margin-left: 5px;
   }
   
   .userPost {
@@ -79,7 +78,7 @@
   }
   
   .comment {
-    width: 400px;
+    width: 350px;
     display: flex;
     justify-content: left;
     font-size: 14px;
@@ -175,6 +174,9 @@
     text-shadow: 0px 3px 6px  var(--black-haze-shadow);
     color: var(--limed-spruce)
   }
+
+  .commentButtonGone {
+    display: none;}
 
   .openModalButton {
     display: flex;
@@ -275,8 +277,82 @@
   box-shadow: 0px 10px 10px var(--elm-shadow);
 }
 
+@media only screen and (max-width: 1645px) {
+
+  .likesDislikes {
+    margin: 10px auto auto auto;
+  }
+
+  .postContainer {
+    width:450px;
+  }
+
+  .comment {
+    flex-direction: column;
+    width: 90%;
+    margin-left: 5px;
+  }
+
+  .commentName {
+    margin: auto auto auto 0px;
+    box-shadow: 5px 0 5px var(--black-haze-shadow),
+    0 5px 5px var(--black-haze-shadow);
+  }
+
+  .commentBody {
+    text-align: center;
+  }
+
+}
+
 @media only screen and (max-width: 1400px) {
   .postContainer {
-    width: 400;
+    width:75%;
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  .postContainer {
+    width:50%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .postContainer {
+    width:85%;
+    justify-content: center;
+    margin: 20px auto;
+  }
+
+  .comment {
+    width: 100%;
+    margin: 10px;
+  }
+
+  .commentBodu {
+    width: 80%;
+  }
+  
+}
+
+@media only screen and (max-width: 600px) {
+
+  .modal {
+    width: 80%;
+  }
+
+  .modalText {
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .modalHeader {
+    width: 90%;
+
+  }
+
+  .modalTextArea {
+    width: 90%;
   }
 }
