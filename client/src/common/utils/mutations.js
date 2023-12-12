@@ -103,3 +103,24 @@ export const ADD_FRIEND = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation updateUser(
+    $id: ID!
+    $bio: String
+    $password: String
+    $email: String
+  ) {
+    updateUser(
+      _id: $id
+      bio: $bio
+      password: $password
+      email: $email
+    ) {
+      bio
+      username
+      password
+      email
+    }
+  }
+`;
