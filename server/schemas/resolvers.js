@@ -11,8 +11,8 @@ const resolvers = {
       return await User.findById(_id || context.user._id)
 
         .populate("friends")
-        .populate({path: "posts", populate: {path: "user"}})
-        .populate({path: "posts", populate: {path: "comments", populate: {path: "user"}}})
+        .populate({ path: "posts", populate: { path: "user" } })
+        .populate({ path: "posts", populate: { path: "comments", populate: { path: "user" } } })
         .populate("likedPosts");
     },
     posts: async () => {
@@ -23,8 +23,8 @@ const resolvers = {
     },
     comments: async () => {
       return await Comment.find()
-      .populate("post")
-      .populate("user");
+        .populate("post")
+        .populate("user");
     },
     searchUsers: async (_, { username }) => {
       return await User.find({ username });
@@ -111,7 +111,6 @@ const resolvers = {
       const post = await Post.findByIdAndDelete(_id);
       return post;
     },
-
     addComment: async (parent, { post, user, content }) => {
       const comment = await Comment.create({ post, user, content });
       const postData = await Post.findByIdAndUpdate(
@@ -145,21 +144,34 @@ const resolvers = {
         throw new Error("Failed to generate pre-signed URL");
       }
     },
-    likePost: async (_, { postId }, context) => {
+    likePost: async (parent, { postId }, context) => {
+      console.log("Liking post with ID:", postId);
       try {
         // Access the userId from the context
         const { user } = context;
+        console.log("User ID from context:", user);
 
         if (!user) {
           // If the user is not authenticated, you can return a message
-          return new Error("User not authenticated");
+          throw new Error("User not authenticated");
         }
 
-        const post = await Post.findByIdAndUpdate(
+        // Find the post with the specified ID
+        let post = await Post.findById(postId);
+        console.log("Post found:", post);
+
+        // If no post with that ID is found, throw an error
+        if (!post) {
+          throw new Error('Post not found');
+        }
+
+        // Update the post
+        post = await Post.findByIdAndUpdate(
           postId,
           { $addToSet: { likes: user } },
           { new: true }
         );
+        console.log("Updated post:", post);
 
         return {
           _id: post._id,
@@ -168,19 +180,29 @@ const resolvers = {
         };
       } catch (error) {
         console.error("Error liking post:", error);
-        throw new Error("Failed to like post");
       }
     },
-
-    dislikePost: async (_, { postId }, context) => {
+    dislikePost: async (parent, { postId }, context) => {
+      console.log("Disliking post with ID:", postId);
       try {
+        // Access the userId from the context
         const { user } = context;
 
         if (!user) {
-          return new Error("User not authenticated");
+          // If the user is not authenticated, you can return a message
+          throw new Error("User not authenticated");
         }
 
-        const post = await Post.findByIdAndUpdate(
+        // Find the post with the specified ID
+        let post = await Post.findById(postId);
+
+        // If no post with that ID is found, throw an error
+        if (!post) {
+          throw new Error('Post not found');
+        }
+
+        // Update the post
+        post = await Post.findByIdAndUpdate(
           postId,
           { $addToSet: { dislikes: user } },
           { new: true }
@@ -188,8 +210,8 @@ const resolvers = {
 
         return {
           _id: post._id,
-          dislikeCount: post.dislikeCount,
           likeCount: post.likeCount,
+          dislikeCount: post.dislikeCount,
         };
       } catch (error) {
         console.error("Error disliking post:", error);
@@ -220,6 +242,28 @@ const resolvers = {
       } catch (error) {
         throw new Error(`Error adding friend: ${error.message}`);
       }
+    },
+    unlikePost: async (parent, { postId, userId }, context) => {
+      // Find the post and remove the userId from the likes array
+      const post = await Post.findByIdAndUpdate(
+        postId,
+        { $pull: { likes: userId } },
+        { new: true }
+      );
+
+      // Return the updated post
+      return post;
+    },
+    undislikePost: async (parent, { postId, userId }, context) => {
+      // Find the post and remove the userId from the dislikes array
+      const post = await Post.findByIdAndUpdate(
+        postId,
+        { $pull: { dislikes: userId } },
+        { new: true }
+      );
+
+      // Return the updated post
+      return post;
     },
   },
 };
