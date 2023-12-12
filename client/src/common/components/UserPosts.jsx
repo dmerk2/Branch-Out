@@ -1,3 +1,4 @@
+
 // import React, { useState } from "react";
 // import { useQuery, useMutation } from "@apollo/client";
 // import { GET_USER_INFO } from "../utils/queries";
@@ -320,9 +321,10 @@ const UserPosts = () => {
   const [undislikePostMutation] = useMutation(UNDISLIKE_POST);
   const [addCommentMutation] = useMutation(ADD_COMMENT);
 
+
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
-  const [userAction, setUserAction] = useState(null); // 'like', 'dislike', or null
+  const [userAction, setUserAction] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [commentContent, setCommentContent] = useState("");

@@ -7,7 +7,7 @@ const resolvers = {
     users: async () => {
       return await User.find().populate("friends").populate("posts");
     },
-    user: async (_, { _id }, context) => {
+     user: async (_, { _id }, context) => {
       return await User.findById(_id || context.user._id)
 
         .populate("friends")
@@ -71,15 +71,16 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    updateUser: async (
-      parent,
-      { _id, username, email, password, bio, profileImage }
-    ) => {
+    updateUser: async (parent, { _id, username, email, bio }) => {
       const user = await User.findByIdAndUpdate(
         _id,
-        { username, email, password, bio, profileImage },
+        { username, email, bio },
         { new: true }
       );
+      if (!user) {
+        console.log("No user found");
+        return false;
+      }
       return user;
     },
     deleteUser: async (parent, { _id }) => {
@@ -87,22 +88,15 @@ const resolvers = {
       return user;
     },
     addPost: async (parent, { user, content }, context) => {
-      console.log(content, user);
       const post = await Post.create({ user, content });
-
-      console.log(post.content, post._id, "from the create");
-      console.log(user, "this is the user being sent from the front end");
-
       const userData = await User.findByIdAndUpdate(
         { _id: user },
         { $push: { posts: post._id } },
         { new: true }
       );
-      console.log(userData, "user data from resolvers");
       if (!userData) {
         return false;
       }
-
       return post;
     },
     updatePost: async (parent, { _id, content }) => {
@@ -118,15 +112,12 @@ const resolvers = {
       return post;
     },
     addComment: async (parent, { post, user, content }) => {
-      console.log(post, user, content);
       const comment = await Comment.create({ post, user, content });
-      console.log("addComment in resolvers", comment)
       const postData = await Post.findByIdAndUpdate(
         { _id: post },
         { $push: { comments: comment._id } },
         { new: true }
       );
-      console.log(postData, "post data from resolvers");
       if (!postData) {
         return false;
       }
@@ -231,7 +222,7 @@ const resolvers = {
       try {
         // Check if the user is authenticated
         if (!user) {
-          throw new Error('Authentication required to add a friend.');
+          throw new Error("Authentication required to add a friend.");
         }
 
         // Find the current user by ID
@@ -239,7 +230,7 @@ const resolvers = {
 
         // Check if the friend's ID is valid and not already a friend
         if (!userId || currentUser.friends.includes(userId)) {
-          throw new Error('Invalid or duplicate friend request.');
+          throw new Error("Invalid or duplicate friend request.");
         }
 
         // Add the friend to the user's friend list

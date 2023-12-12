@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +17,7 @@ import auth from "../utils/auth";
 const RecentPost = ({ postId, userId }) => {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
-  const [userAction, setUserAction] = useState(null); // 'like', 'dislike', or null
+  const [userAction, setUserAction] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [commentContent, setCommentContent] = useState("");
@@ -120,7 +121,6 @@ const RecentPost = ({ postId, userId }) => {
     const [localCommentContent, setLocalCommentContent] = useState("");
 
     const handleCommentSubmit = () => {
-      console.log("Comment Content Length:", localCommentContent.length);
 
       // Check if localCommentContent is not empty
       if (!localCommentContent.trim()) {
@@ -163,6 +163,7 @@ const RecentPost = ({ postId, userId }) => {
 
   return (
     <div>
+
       {data.posts.map((post) => (
         <div key={post._id} className={styles.postContainer}>
           <div className={styles.userDetails}>
@@ -215,13 +216,17 @@ const RecentPost = ({ postId, userId }) => {
                       color="var(--black-haze)"
                     />
                   </div>
+
                   ({post.likes.length})
+
                 </button>
               </div>
               <div className={styles.dislikeBox}>
                 <button
                   className={styles.dislikeButton}
+
                   onClick={() => handleDislikePost(post._id)}
+
                   disabled={isDisliked}
                 >
                   <div className={styles.voteIcons}>
@@ -231,6 +236,7 @@ const RecentPost = ({ postId, userId }) => {
                     />
                   </div>
                   ({post.dislikes.length})
+
                 </button>
               </div>
             </div>
