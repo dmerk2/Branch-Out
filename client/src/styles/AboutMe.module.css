@@ -50,3 +50,9 @@
     text-shadow: 0px 5px 5px  var(--elm-shadow);
 }
   
+@media only screen and (max-width: 920px) {
+    .bigGreenSquare {
+       width: 70%;
+       margin: 20px auto;
+    }
+    }
