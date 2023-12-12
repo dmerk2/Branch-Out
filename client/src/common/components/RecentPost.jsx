@@ -1,5 +1,5 @@
-
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,6 @@ import {
 } from "../utils/mutations";
 import { GET_ALL_POSTS } from "../utils/queries";
 import auth from "../utils/auth";
-
 
 const RecentPost = ({ postId, userId }) => {
   const [likeCount, setLikeCount] = useState(0);
@@ -29,13 +28,21 @@ const RecentPost = ({ postId, userId }) => {
   const [addCommentMutation] = useMutation(ADD_COMMENT);
   const [unlikePostMutation] = useMutation(UNLIKE_POST);
   const [undislikePostMutation] = useMutation(UNDISLIKE_POST);
-
+  const navigate = useNavigate();
   const { loading, error, data } = useQuery(GET_ALL_POSTS);
 
-  const loggedinuser = auth.getProfile().data._id;
+  let loggedinuser;
+  if (auth.getToken()) {
+    loggedinuser = auth.getProfile().data?._id;
+  }
+  console.log(loggedinuser, "Current User ID");
 
+  if (!loggedinuser) {
+    navigate("/login");
+  }
+  const { user, posts } = data || {};
   useEffect(() => {
-    if (data) {
+    if (data && data.posts) {
       const post = data.posts.find((p) => p._id === postId);
       if (post) {
         setLikeCount(post.likes.length);
@@ -46,8 +53,6 @@ const RecentPost = ({ postId, userId }) => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
-  const { user, posts } = data;
 
   const handleLikePost = async (postId) => {
     const post = data.posts.find((p) => p._id === postId);
@@ -122,7 +127,6 @@ const RecentPost = ({ postId, userId }) => {
     const [localCommentContent, setLocalCommentContent] = useState("");
 
     const handleCommentSubmit = () => {
-
       // Check if localCommentContent is not empty
       if (!localCommentContent.trim()) {
         console.error("Comment content cannot be empty");
@@ -134,8 +138,6 @@ const RecentPost = ({ postId, userId }) => {
       onClose();
     };
 
-    
-    
     return (
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
@@ -163,12 +165,11 @@ const RecentPost = ({ postId, userId }) => {
       </div>
     );
   };
-  
+
   const isLoggedIn = auth.loggedIn();
 
   return (
     <div>
-
       {data.posts.map((post) => (
         <div key={post._id} className={styles.postContainer}>
           <div className={styles.userDetails}>
@@ -177,26 +178,26 @@ const RecentPost = ({ postId, userId }) => {
               <p className={styles.postDate}>
                 {new Date(parseInt(post.createdAt)).toLocaleString()}
               </p>
-              </div>
             </div>
-  
-            <div className={styles.userPost}>
-              <p className={styles.postContent}>{post.content}</p>
-            </div>
-            {isLoggedIn ? (
+          </div>
+
+          <div className={styles.userPost}>
+            <p className={styles.postContent}>{post.content}</p>
+          </div>
+          {isLoggedIn ? (
             <button
-            className={styles.commentButton}
-            onClick={() => setShowModal(true)}
-          >
-            Add a Comment
-          </button>
+              className={styles.commentButton}
+              onClick={() => setShowModal(true)}
+            >
+              Add a Comment
+            </button>
           ) : (
             <button
-            className={styles.commentButtonGone}
-            onClick={() => setShowModal(true)}
-          >
-            Add a Comment
-          </button>
+              className={styles.commentButtonGone}
+              onClick={() => setShowModal(true)}
+            >
+              Add a Comment
+            </button>
           )}
           {/* Modal */}
           {showModal && (
@@ -230,17 +231,13 @@ const RecentPost = ({ postId, userId }) => {
                       color="var(--black-haze)"
                     />
                   </div>
-
                   ({post.likes.length})
-
                 </button>
               </div>
               <div className={styles.dislikeBox}>
                 <button
                   className={styles.dislikeButton}
-
                   onClick={() => handleDislikePost(post._id)}
-
                   disabled={isDisliked}
                 >
                   <div className={styles.voteIcons}>
@@ -250,7 +247,6 @@ const RecentPost = ({ postId, userId }) => {
                     />
                   </div>
                   ({post.dislikes.length})
-
                 </button>
               </div>
             </div>
