@@ -13,20 +13,25 @@ const EditProfileForm = () => {
     email: "",
     bio: "",
   });
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [updateUser] = useMutation(UPDATE_USER, {
+    refetchQueries: [
+      UPDATE_USER,
+      GET_USER_INFO
+    ]
+  });
   const user = auth.getProfile().data._id;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-  console.log("User:", user)
+  console.log("User:", user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await updateUser({
         variables: {
-          _id: user,
+          id: user,
           username: formData.name,
           email: formData.email,
           bio: formData.bio,
@@ -60,13 +65,11 @@ const EditProfileForm = () => {
   return (
     <form onSubmit={handleSubmit} className={styles.formSquare}>
       <div className={styles.formLogo}>
-          <img src={Logo} alt="Branch Out Logo" />
+        <img src={Logo} alt="Branch Out Logo" />
       </div>
 
       <div>
-      <label className={styles.loginRequirement}>
-        Name:
-      </label>
+        <label className={styles.loginRequirement}>Name:</label>
         <input
           className={styles.loginInput}
           type="text"
@@ -74,11 +77,9 @@ const EditProfileForm = () => {
           value={formData.name}
           onChange={handleChange}
         />
-      </div>   
+      </div>
       <div>
-      <label className={styles.loginRequirement}>
-        Email:
-      </label>
+        <label className={styles.loginRequirement}>Email:</label>
         <input
           className={styles.loginInput}
           type="text"
@@ -88,22 +89,7 @@ const EditProfileForm = () => {
         />
       </div>
       <div>
-      <label className={styles.loginRequirement}>
-        Password:
-      </label>
-        <input
-          className={styles.loginInput}
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-      <label className={styles.loginRequirement}>
-        Bio:
-      </label>
+        <label className={styles.loginRequirement}>Bio:</label>
         <textarea
           className={styles.loginInput}
           name="bio"
@@ -112,9 +98,11 @@ const EditProfileForm = () => {
           value={formData.bio}
           onChange={handleChange}
         ></textarea>
-       </div>
+      </div>
 
-      <button type="submit" className={styles.signUpPageButton}>Update Profile</button>
+      <button type="submit" className={styles.signUpPageButton}>
+        Update Profile
+      </button>
     </form>
   );
 };

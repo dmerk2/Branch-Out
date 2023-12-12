@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USER_INFO } from "../utils/queries";
 import { LIKE_POST, DISLIKE_POST, ADD_COMMENT } from "../utils/mutations";
@@ -15,11 +15,13 @@ const UserPosts = () => {
 
   const [likePostMutation] = useMutation(LIKE_POST);
   const [dislikePostMutation] = useMutation(DISLIKE_POST);
-  const [addCommentMutation] = useMutation(ADD_COMMENT);
+  const [addCommentMutation] = useMutation(ADD_COMMENT, {
+    refetchQueries: [ADD_COMMENT, GET_USER_INFO],
+  });
 
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
-  const [userAction, setUserAction] = useState(null); // 'like', 'dislike', or null
+  const [userAction, setUserAction] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [commentContent, setCommentContent] = useState("");
@@ -233,13 +235,13 @@ const UserPosts = () => {
                   <div className={styles.comment} key={comment._id}>
                     {comment.name && (
                       <p className={styles.commentName}>{comment.name}</p>
-                      )}
-                      <p className={styles.commentName}>{comment.user.username}</p>
+                    )}
+                    <p className={styles.commentName}>
+                      {comment.user.username}
+                    </p>
                     {comment.content !== undefined &&
                       comment.content !== null && (
-                        <p className={styles.commentBody}>
-                          {comment.content}
-                        </p>
+                        <p className={styles.commentBody}>{comment.content}</p>
                       )}
                   </div>
                 ))}
