@@ -105,8 +105,13 @@ export const ADD_FRIEND = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation updateUser($id: ID!, $bio: String, $email: String) {
-    updateUser(_id: $id, bio: $bio, email: $email) {
+  mutation updateUser(
+    $id: ID!
+    $bio: String
+    $username: String
+    $email: String
+  ) {
+    updateUser(_id: $id, username: $username, bio: $bio, email: $email) {
       bio
       username
       email
