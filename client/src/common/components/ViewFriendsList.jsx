@@ -1,57 +1,43 @@
-import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
-import { GET_USER_INFO } from "../utils/queries";
-import styles from "../../styles/ViewFriendsList.module.css";
-import AddFriendSquare from "./AddFriendSquare";
-import auth from "../utils/auth";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useQuery } from '@apollo/client';
+import { useParams, Link } from 'react-router-dom';
+import { GET_USER_INFO } from '../utils/queries';
+import styles from '../../styles/ViewFriendsList.module.css';
+import AddFriendSquare from './AddFriendSquare';
+import auth from '../utils/auth';
 
 const ViewFriendsList = () => {
-  // Get the user ID from the URL
   const { id } = useParams();
-  let userData = {};
+  const isOwnProfile = !id; // If there is no ID parameter, it's the user's own profile
 
-  if (!id) {
-    const user = auth.getProfile().data._id;
-    const { loading, error, data } = useQuery(GET_USER_INFO, {
-      variables: { id: user },
-    });
-    userData = data;
+  // Get the user ID based on whether it's their own profile or another user's profile
+  const userId = isOwnProfile ? auth.getProfile().data._id : id;
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
+  const { loading, error, data } = useQuery(GET_USER_INFO, {
+    variables: { id: userId },
+  });
 
-    console.log(userData.user.friends);
-  } else {
-    const { loading, error, data } = useQuery(GET_USER_INFO, {
-      // Pass the user ID to the query
-      variables: { id },
-    });
-    userData = data;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-
-    console.log(userData.user.friends);
-  }
-
+  const userData = data;
   const friends = userData?.user.friends || [];
 
   return (
     <div>
       <div className={styles.profileFriendsInfo}>
         <p className={styles.profileFriendCount}>Friends: {friends.length}</p>
-        <Link to="/friends">
-        <button className={styles.profileViewAllFriends}>View All</button>
-       </Link>
-        </div>
+        {/* Dynamically set the link based on whether it's their own profile or another user's profile */}
+        <Link to={`/${userId}/friends`}>
+          <button className={styles.profileViewAllFriends}>View All</button>
+        </Link>
+      </div>
       <div className={styles.justTheFriends}>
         {friends.map((friend) => (
           <AddFriendSquare key={friend._id} friend={friend} />
         ))}
       </div>
     </div>
-   
   );
 };
 

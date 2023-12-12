@@ -38,12 +38,20 @@ export const GET_USER_INFO = gql`
         _id
         content
         createdAt
+        user {
+          _id
+          username
+          }
         comments {
           _id
-          createdAt
           content
+          createdAt
+            user {
+            _id
+             username
+            }
+          }
         }
-      }
       profileImage
       signedInUserId: _id  # Include the signed-in user's ID directly
     }

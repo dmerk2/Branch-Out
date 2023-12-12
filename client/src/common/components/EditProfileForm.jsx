@@ -4,6 +4,8 @@ import auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { UPDATE_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import styles from "../../styles/LoginForm.module.css";
+import Logo from "../../assets/images/BranchOut_With_Words.png";
 
 const EditProfileForm = () => {
   const [formData, setFormData] = useState({
@@ -56,37 +58,63 @@ const EditProfileForm = () => {
   console.log(data);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <form onSubmit={handleSubmit} className={styles.formSquare}>
+      <div className={styles.formLogo}>
+          <img src={Logo} alt="Branch Out Logo" />
+      </div>
+
+      <div>
+      <label className={styles.loginRequirement}>
         Name:
+      </label>
         <input
+          className={styles.loginInput}
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
         />
-      </label>
-
-      <label>
+      </div>   
+      <div>
+      <label className={styles.loginRequirement}>
         Email:
+      </label>
         <input
+          className={styles.loginInput}
           type="text"
           name="email"
           value={formData.email}
           onChange={handleChange}
         />
+      </div>
+      <div>
+      <label className={styles.loginRequirement}>
+        Password:
       </label>
+        <input
+          className={styles.loginInput}
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+      </div>
 
-      <label>
+      <div>
+      <label className={styles.loginRequirement}>
         Bio:
+      </label>
         <textarea
+          className={styles.loginInput}
           name="bio"
+          cols="30"
+          rows="20"
           value={formData.bio}
           onChange={handleChange}
         ></textarea>
-      </label>
+       </div>
 
-      <button type="submit">Update Profile</button>
+      <button type="submit" className={styles.signUpPageButton}>Update Profile</button>
     </form>
   );
 };

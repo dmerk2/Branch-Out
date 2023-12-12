@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         element: <EditProfile />,
       },
       {
-        path: "friends",
+        path: "/:id/friends",
         element: <Friends />,
       },
       {
