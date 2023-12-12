@@ -45,3 +45,9 @@
   align-items: center;
   width: 100%; /* Make each button take the full width of the container */
 }
+
+.logoStyling {
+  transform: rotate(-45deg);
+  height: 100px;
+  margin: 47px 0px 0px 0px;
+}
