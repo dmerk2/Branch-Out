@@ -179,7 +179,7 @@ const RecentPost = ({ postId }) => {
           <div key={post._id} className={styles.postContainer}>
             <div className={styles.userDetails}>
               <div className={styles.userInfo}>
-                <p className={styles.userName}>hi</p>
+                <p className={styles.userName}>{post.user.username}</p>
                 <p className={styles.postDate}>{post.createdAt}</p>
               </div>
             </div>

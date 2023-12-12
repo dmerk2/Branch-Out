@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const messageSchema = require("./Message");
 
 const userSchema = new mongoose.Schema(
   {
@@ -24,12 +25,7 @@ const userSchema = new mongoose.Schema(
     bio: {
       type: String,
     },
-    messages: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Message",
-      },
-    ],
+    messages: [messageSchema],
     friends: [
       {
         type: mongoose.Schema.Types.ObjectId,

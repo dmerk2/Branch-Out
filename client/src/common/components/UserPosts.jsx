@@ -218,17 +218,17 @@ const UserPosts = () => {
             <div className={styles.engagementSection}>
               <div className={styles.comments}>
                 {post.comments.map((comment, index) => (
-                  <p className={styles.comment} key={index}>
+                  <div className={styles.comment} key={index}>
                     {comment.name && (
-                      <div className={styles.commentName}>{comment.name}</div>
+                      <p className={styles.commentName}>{comment.name}</p>
                     )}
                     {comment.content !== undefined &&
                       comment.content !== null && (
-                        <div className={styles.commentBody}>
+                        <p className={styles.commentBody}>
                           {comment.content}
-                        </div>
+                        </p>
                       )}
-                  </p>
+                  </div>
                 ))}
               </div>
               <div className={styles.likesDislikes}>
