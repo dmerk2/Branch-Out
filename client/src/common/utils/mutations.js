@@ -80,6 +80,28 @@ export const DISLIKE_POST = gql`
   }
 `;
 
+export const UNLIKE_POST = gql`
+  mutation unlikePost($postId: ID!, $userId: ID!) {
+    unlikePost(postId: $postId, userId: $userId) {
+      _id
+      likes {
+        _id
+      }
+    }
+  }
+`;
+
+export const UNDISLIKE_POST = gql`
+  mutation undislikePost($postId: ID!, $userId: ID!) {
+    undislikePost(postId: $postId, userId: $userId) {
+      _id
+      dislikes {
+        _id
+      }
+    }
+  }
+`;
+
 export const ADD_COMMENT = gql`
   mutation AddComment($post: ID!, $user: ID!, $content: String!) {
     addComment(post: $post, user: $user, content: $content) {
