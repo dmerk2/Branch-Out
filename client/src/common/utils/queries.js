@@ -51,6 +51,12 @@ export const GET_USER_INFO = gql`
              username
             }
           }
+          likes {
+            _id
+          }
+          dislikes {
+            _id
+          }
         }
       profileImage
       signedInUserId: _id  # Include the signed-in user's ID directly
@@ -59,21 +65,27 @@ export const GET_USER_INFO = gql`
 `;
 
 export const GET_USER_POSTS = gql`
-  query GetUserPosts($id: ID) {
-    user(_id: $id) {
+query GetUserPosts($id: ID) {
+  user(_id: $id) {
+    _id
+    posts {
       _id
-      posts {
+      content
+      createdAt
+      likes {
+        _id
+      }
+      dislikes {
+        _id
+      }
+      comments{
         _id
         content
         createdAt
-        comments{
-          _id
-          content
-          createdAt
-        }
       }
     }
   }
+}
 `;
 
 export const GET_ALL_POSTS = gql`
@@ -82,6 +94,12 @@ query GetAllPosts {
     _id
     content
     createdAt
+    likes {
+      _id
+    }
+    dislikes {
+      _id
+    }
     user {
       _id
       username
