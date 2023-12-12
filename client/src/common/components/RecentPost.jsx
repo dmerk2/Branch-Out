@@ -25,7 +25,9 @@ const RecentPost = ({ postId, userId }) => {
   const [addingComment, setAddingComment] = useState(false);
   const [likePostMutation] = useMutation(LIKE_POST);
   const [dislikePostMutation] = useMutation(DISLIKE_POST);
-  const [addCommentMutation] = useMutation(ADD_COMMENT);
+  const [addCommentMutation] = useMutation(ADD_COMMENT, {
+    refetchQueries: [ ADD_COMMENT, GET_ALL_POSTS ],
+  });
   const [unlikePostMutation] = useMutation(UNLIKE_POST);
   const [undislikePostMutation] = useMutation(UNDISLIKE_POST);
   const navigate = useNavigate();
@@ -37,9 +39,9 @@ const RecentPost = ({ postId, userId }) => {
   }
   console.log(loggedinuser, "Current User ID");
 
-  if (!loggedinuser) {
-    navigate("/login");
-  }
+  // if (!loggedinuser) {
+  //   navigate("/login");
+  // }
   const { user, posts } = data || {};
   useEffect(() => {
     if (data && data.posts) {

@@ -5,13 +5,14 @@ import AuthService from "../utils/auth";
 
 import styles from "../../styles/WhatsOnYourMind.module.css";
 import { GET_USER_INFO } from "../utils/queries";
+import { GET_ALL_POSTS } from "../utils/queries";
 
 export default function WhatsOnYourMind() {
   const [content, setContent] = useState("");
   const loggedInUser = AuthService.getProfile();
 
   const [addPost] = useMutation(ADD_POST, {
-    refetchQueries: [ADD_POST, GET_USER_INFO],
+    refetchQueries: [ADD_POST, GET_USER_INFO, GET_ALL_POSTS],
   });
 
   const handlePost = async () => {

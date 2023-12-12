@@ -11,7 +11,9 @@ const AddFriendButton = ({ userId }) => {
     });
   
     // Mutation to add a friend
-    const [addFriend] = useMutation(ADD_FRIEND);
+    const [addFriend] = useMutation(ADD_FRIEND,{
+      refetchQueries: [ADD_FRIEND, GET_USER_INFO]
+    });
   
     // Handle errors
     if (loading) return <p>Loading...</p>;

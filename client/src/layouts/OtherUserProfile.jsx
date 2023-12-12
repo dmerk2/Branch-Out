@@ -12,6 +12,8 @@ import DiamondButton from "../common/components/DiamondButton.jsx";
 import SendMessageButton from "../common/components/SendMessage";
 import UserPosts from "../common/components/UserPosts.jsx";
 import AddFriendButtonWithQuery from "../common/components/AddFriendButtonProfiles.jsx";
+import { useQuery } from "@apollo/client";
+import { GET_USER_INFO } from "../common/utils/queries";
 
 export default function OtherUserProfile() {
   const { id } = useParams();
@@ -20,6 +22,12 @@ export default function OtherUserProfile() {
     { icon: faLink, url: "https://www.linkedin.com/" },
     { icon: faCode, url: "https://codepen.io/" },
   ];
+
+  const { loading, error, data } = useQuery(GET_USER_INFO, {
+    variables: { id: id },
+  });
+
+  console.log("Query Result:", { loading, error, data });
 
   return (
     <div>
