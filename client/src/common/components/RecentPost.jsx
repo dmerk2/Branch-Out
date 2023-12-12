@@ -9,6 +9,8 @@ import { GET_ALL_POSTS } from "../utils/queries";
 import { ADD_COMMENT } from "../utils/mutations";
 import auth from "../utils/auth";
 
+
+
 const RecentPost = ({ postId }) => {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
@@ -148,6 +150,8 @@ const RecentPost = ({ postId }) => {
       onClose();
     };
 
+    
+    
     return (
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
@@ -175,6 +179,8 @@ const RecentPost = ({ postId }) => {
       </div>
     );
   };
+  
+  const isLoggedIn = AuthService.loggedIn();
 
     return (
       <div>
@@ -192,12 +198,21 @@ const RecentPost = ({ postId }) => {
             <div className={styles.userPost}>
               <p className={styles.postContent}>{post.content}</p>
             </div>
+            {isLoggedIn ? (
             <button
             className={styles.commentButton}
             onClick={() => setShowModal(true)}
           >
             Add a Comment
           </button>
+          ) : (
+            <button
+            className={styles.commentButtonGone}
+            onClick={() => setShowModal(true)}
+          >
+            Add a Comment
+          </button>
+          )}
           {/* Modal */}
           {showModal && (
             <CommentModal
@@ -219,11 +234,13 @@ const RecentPost = ({ postId }) => {
                 <div className={styles.likeBox}>
                   <button
                     className={styles.likeButton}
-                    onClick={() => handleLikePost()}
+                    onClick={() => handleLikePost(post._id)}
                     disabled={isLiked}
                   >
                     <div className={styles.voteIcons}>
-                      <FontAwesomeIcon icon={faThumbsUp} color="var(--black-haze)" />
+                      <FontAwesomeIcon
+                       icon={faThumbsUp}
+                       color="var(--black-haze)" />
                     </div>
                     ({likeCount})
                   </button>
@@ -231,11 +248,13 @@ const RecentPost = ({ postId }) => {
                 <div className={styles.dislikeBox}>
                   <button
                     className={styles.dislikeButton}
-                    onClick={() => handleDislikePost()}
+                    onClick={() => handleDislikePost(post._id)}
                     disabled={isDisliked}
                   >
                     <div className={styles.voteIcons}>
-                      <FontAwesomeIcon icon={faThumbsDown} color="var(--black-haze)" />
+                      <FontAwesomeIcon
+                      icon={faThumbsDown}
+                      color="var(--black-haze)" />
                     </div>
                     ({dislikeCount})
                   </button>

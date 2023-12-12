@@ -7,6 +7,7 @@ import styles from "../../styles/RecentPost.module.css";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsDown, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import AuthService from "../utils/auth";
 
 const UserPosts = () => {
   const { id } = useParams();
@@ -185,6 +186,8 @@ const UserPosts = () => {
 
   const userPosts = userData?.user.posts || [];
 
+  const isLoggedIn = AuthService.loggedIn();
+  console.log (userData, "John Look here");
   return (
     <div>
       <h2 className={styles.postHeader}>User Posts</h2>
@@ -192,7 +195,7 @@ const UserPosts = () => {
         <div className={styles.postContainer} key={post._id}>
           <div className={styles.userDetails}>
             <div className={styles.userInfo}>
-              <p className={styles.userName}>{userData.username}</p>
+              <p className={styles.userName}>{post.user.username}</p>
               <p className={styles.postDate}>
                 {new Date(parseInt(post.createdAt)).toLocaleString()}
               </p>
@@ -201,12 +204,21 @@ const UserPosts = () => {
           <div className={styles.userPost}>
             <p className={styles.postContent}>{post.content}</p>
           </div>
-          <button
+          {isLoggedIn ? (
+            <button
             className={styles.commentButton}
             onClick={() => setShowModal(true)}
           >
             Add a Comment
           </button>
+          ) : (
+            <button
+            className={styles.commentButtonGone}
+            onClick={() => setShowModal(true)}
+          >
+            Add a Comment
+          </button>
+          )}
           {/* Modal */}
           {showModal && (
             <CommentModal
@@ -214,11 +226,11 @@ const UserPosts = () => {
               onSubmit={(content) => handleAddComment(post._id, content)}
             />
           )}
-          {post.comments && post.comments.length > 0 ? (
+          
             <div className={styles.engagementSection}>
               <div className={styles.comments}>
-                {post.comments.map((comment, index) => (
-                  <div className={styles.comment} key={index}>
+                {post.comments.map((comment) => (
+                  <div className={styles.comment} key={comment._id}>
                     {comment.name && (
                       <p className={styles.commentName}>{comment.name}</p>
                       )}
@@ -265,44 +277,7 @@ const UserPosts = () => {
                 </div>
               </div>
             </div>
-          ) : (
-            <>
-              <p>No comments available.</p>
-              <div className={styles.likesDislikes}>
-                <div className={styles.likeBox}>
-                  <button
-                    className={styles.likeButton}
-                    onClick={() => handleLikePost(post._id)}
-                    disabled={isLiked}
-                  >
-                    <div className={styles.voteIcons}>
-                      <FontAwesomeIcon
-                        icon={faThumbsUp}
-                        color="var(--black-haze)"
-                      />
-                    </div>
-                    ({likeCount})
-                  </button>
-                </div>
-                <div className={styles.dislikeBox}>
-                  <button
-                    className={styles.dislikeButton}
-                    onClick={() => handleDislikePost(post._id)}
-                    disabled={isDisliked}
-                  >
-                    <div className={styles.voteIcons}>
-                      <FontAwesomeIcon
-                        icon={faThumbsDown}
-                        color="var(--black-haze)"
-                      />
-                    </div>
-                    ({dislikeCount})
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
+         </div>
       ))}
     </div>
   );
