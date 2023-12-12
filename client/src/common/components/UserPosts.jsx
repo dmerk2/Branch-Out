@@ -192,7 +192,7 @@ const UserPosts = () => {
         <div className={styles.postContainer} key={post._id}>
           <div className={styles.userDetails}>
             <div className={styles.userInfo}>
-              <p className={styles.userName}>{userData.user.username}</p>
+              <p className={styles.userName}>{userData.username}</p>
               <p className={styles.postDate}>
                 {new Date(parseInt(post.createdAt)).toLocaleString()}
               </p>
@@ -221,7 +221,8 @@ const UserPosts = () => {
                   <div className={styles.comment} key={index}>
                     {comment.name && (
                       <p className={styles.commentName}>{comment.name}</p>
-                    )}
+                      )}
+                      <p className={styles.commentName}>{comment.user.username}</p>
                     {comment.content !== undefined &&
                       comment.content !== null && (
                         <p className={styles.commentBody}>
