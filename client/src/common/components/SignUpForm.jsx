@@ -10,6 +10,7 @@ import {
 import { BarLoader as Spinner } from "react-spinners";
 import styles from "../../styles/LoginForm.module.css";
 import Logo from "../../assets/images/BranchOut_With_Words.png";
+import crypto from "crypto";
 
 function SignUpForm() {
   const dispatch = useDispatch();
@@ -35,8 +36,14 @@ function SignUpForm() {
 
   // Function to handle file upload
   const uploadFile = async () => {
-    // Define key using the selected file's name
-    const key = `uploads/${selectedFile.name}`;
+    // Generate a unique hash
+    const hash = crypto.randomBytes(32).toString("hex");
+
+    // Get the file extension
+    const extension = selectedFile.name.split(".").pop();
+
+    // Define key using the unique hash and original file extension
+    const key = `uploads/${hash}.${extension}`;
     try {
       const response = await fetch(
         `/presigned-url?key=${encodeURIComponent(key)}`
