@@ -45,6 +45,12 @@ Branch Out is built using the MERN stack:
 Click the lightning bolt
 [⚡](https://branch-out-web-service.onrender.com/) to go to "Branch Out" on Render!
 
+![Signup](./client/src/assets/images/Branch-Out-Signup.PNG)
+![Homepage](./client/src/assets/images/Home-Page-Logged-In.PNG)
+![ChatRoom](./client/src/assets/images/Chat-Room.PNG)
+![Profile](./client/src/assets/images/Profile-Logged-In.PNG)
+
+
 ## License
 
 This project is licensed under the terms of the **[MIT License](https://opensource.org/licenses/MIT)**.
