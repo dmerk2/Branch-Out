@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { GET_USER_INFO } from "../utils/queries";
 import auth from "../utils/auth";
-import { UPDATE_USER } from "../utils/mutations";
+import { UPDATE_USER, DELETE_USER } from "../utils/mutations";
 import { useQuery, useMutation } from "@apollo/client";
 import styles from "../../styles/LoginForm.module.css";
 import Logo from "../../assets/images/BranchOut_With_Words.png";
 import { useNavigate } from "react-router-dom";
 
 const EditProfileForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,6 +16,9 @@ const EditProfileForm = () => {
   });
   const [updateUser] = useMutation(UPDATE_USER, {
     refetchQueries: [UPDATE_USER, GET_USER_INFO],
+  });
+  const [deleteUser] = useMutation(DELETE_USER, {
+    refetchQueries: [DELETE_USER, GET_USER_INFO],
   });
   const user = auth.getProfile().data._id;
   const handleChange = (e) => {
@@ -35,7 +38,7 @@ const EditProfileForm = () => {
         },
       });
       console.log("Profile updated successfully", result);
-      navigate("/profile")
+      navigate("/profile");
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -44,6 +47,21 @@ const EditProfileForm = () => {
   const { loading, error, data } = useQuery(GET_USER_INFO, {
     variables: { id: user },
   });
+
+  const handleDelete = async () => {
+    try {
+      const result = await deleteUser({
+        variables: {
+          id: user,
+        },
+      });
+      console.log("Profile deleted successfully", result);
+      auth.logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Error deleting profile:", error);
+    }
+  };
 
   useEffect(() => {
     if (data && data.user) {
@@ -102,6 +120,14 @@ const EditProfileForm = () => {
         className={styles.signUpPageButton}
       >
         Update Profile
+      </button>
+
+      <button
+        type="button"
+        onClick={handleDelete}
+        className={styles.signUpPageButton}
+      >
+        Delete Profile
       </button>
     </form>
   );
