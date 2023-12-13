@@ -1,6 +1,6 @@
 .outerSquare {
   background-color: var(--limed-spruce);
-  width: 100px;
+  width: 150px;
   height: 150px;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
 
 .innerSquare {
   background-color: var(--black-haze);
-  width: 80px;
+  width: 120px;
   height: 60px;
   border-radius: 12px;
   box-shadow: inset 0px 10px 5px var(--black-haze-shadow);
@@ -24,7 +24,7 @@
   color: var(--elm);
   height: 40px;
   width: 40px;
-  margin: 10px 20px;
+  margin: 10px 40px;
 }
 
 .friendUsername {
