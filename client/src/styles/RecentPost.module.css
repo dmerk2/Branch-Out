@@ -1,92 +1,89 @@
 /* RecentPost.module.css */
 
 .postContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: var(--mountain-meadow);
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 40px;
-    box-shadow: 0px 10px 10px var(--black-haze-shadow);
-    width: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--mountain-meadow);
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 40px;
+  box-shadow: 0px 10px 10px var(--black-haze-shadow);
+  width: 550px;
+}
 
-  }
+.postHeader {
+  display: flex;
+  justify-content: center;
+  font-weight: normal;
+  width: 175px;
+  padding: 5px 0;
+  background-color: var(--limed-spruce);
+  color: var(--black-haze);
+  text-shadow: 0 5px 5px var(--limed-spruce-shadow);
+  box-shadow: 0px 10px 10px var(--black-haze-shadow);
+  border-radius: 30px;
+  margin: 20px auto 0 auto;
+}
 
-  .postHeader {
-    display: flex;
-    justify-content: center;
-    font-weight: normal;
-    width: 175px;
-    padding: 5px 0;
-    background-color: var(--limed-spruce);
-    color: var(--black-haze);
-    text-shadow: 0 5px 5px var(--limed-spruce-shadow);
-    box-shadow: 0px 10px 10px var(--black-haze-shadow);
-    border-radius: 30px;
-    margin: 20px auto 0 auto;
+.userDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
 
-  }
-  
-  .userDetails {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .userInfo {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .userName {
-    font-size: 18px;
-    margin-left: 10px;
-    color: var(--black-haze);
-    text-shadow: 0 5px 5px var(--mountain-meadow-shadow);
-  }
-  
-  .postDate {
-    font-size: 14px;
-    color: var(--black-haze);
-    justify-content: space-evenly;
-    text-shadow: 0 5px 5px var(--mountain-meadow-shadow);
-    margin-left: 5px;
-  }
-  
-  .userPost {
-    margin-top: 10px;
-    background-color: var(--black-haze);
-    padding: 10px;
-    border-radius: 20px;
-    box-shadow: 0px 10px 10px var(--mountain-meadow-shadow);
-  }
-  
-  .postContent {
-    color: var(--limed-spruce);
-    text-shadow: 0 5px 10px var(--black-haze-shadow);
-    font-size: 16px;
-    line-height: 1.5;
-  }
-  
-  .engagementSection {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Align items vertically */
-  }
-  
-  .comment {
-    width: 350px;
-    display: flex;
-    justify-content: left;
-    font-size: 14px;
-    margin: 10px 0 10px auto;
-    background-color: var(--black-haze);
-    border-radius: 30px;
-    box-shadow: 0px 10px 10px var(--mountain-meadow-shadow);
-  }
+.userName {
+  font-size: 18px;
+  margin-left: 10px;
+  color: var(--black-haze);
+  text-shadow: 0 5px 5px var(--mountain-meadow-shadow);
+}
+
+.postDate {
+  font-size: 14px;
+  color: var(--black-haze);
+  justify-content: space-evenly;
+  text-shadow: 0 5px 5px var(--mountain-meadow-shadow);
+  margin-left: 5px;
+}
+
+.userPost {
+  margin-top: 10px;
+  background-color: var(--black-haze);
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0px 10px 10px var(--mountain-meadow-shadow);
+}
+
+.postContent {
+  color: var(--limed-spruce);
+  text-shadow: 0 5px 10px var(--black-haze-shadow);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.engagementSection {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align items vertically */
+}
+
+.comment {
+  width: 500px;
+  display: flex;
+  justify-content: left;
+  font-size: 14px;
+  margin: 10px auto;
+  background-color: var(--black-haze);
+  border-radius: 30px;
+  box-shadow: 0px 10px 10px var(--mountain-meadow-shadow);
+}
 
 .commentName {
   display: flex;
@@ -111,160 +108,120 @@
   text-shadow: 0 5px 5px var(--black-haze-shadow);
 }
 
-  .likesDislikes {
-    display: flex; /* Set display to flex */
-    align-items: flex-end; /* Align items to the bottom */
-  }
-  
-  .likeBox,
-  .dislikeBox {
-    padding: 10px;
-    border-radius: 8px;
-    margin-left: 10px;
-  }
-  
-  .likeButton,
-  .dislikeButton {
-    font-size: 14px;
-    margin: 0;
-    padding: 5px 10px;
-    cursor: pointer;
-    border: none;
-    background-color: var(--limed-spruce);
-    color: var(--black-haze);
-    border-radius: 20px;
-    font-family: "Audiowide", sans-serif;
-    box-shadow: 0 10px 10px var(--mountain-meadow-shadow);
-  }
-  
-  .likeButton:hover,
-  .dislikeButton:hover {
-    background-color: var(--elm);
-    border-radius: 20px;
-    box-shadow: 0 10px 10px var(--mountain-meadow-shadow);
-  }
-  
-  .voteIcons {
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-  }
+.commentButton {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin-top: 20px !important;
+  cursor: pointer;
+  background-color: var(--limed-spruce);
+  color: var(--black-haze);
+  border: none;
+  padding: 5px 10px;
+  font-family: Audiowide, sans-serif;
+  border-radius: 40px;
+  font-size: 20px;
+  box-shadow: 0px 5px 5px var(--elm-shadow);
+  text-shadow: 0px 3px 6px var(--limed-spruce-shadow);
+  display: block;
+  margin: 0 auto;
+}
 
-  .commentButton {
-    font-size: 16px;
-    padding: 10px 20px;
-    margin-top: 20px !important;
-    cursor: pointer;
-    background-color: var(--limed-spruce);
-    color: var(--black-haze);
-    border: none;
-    padding: 5px 10px;
-    font-family: Audiowide, sans-serif;
-    border-radius: 40px;
-    font-size: 20px;
-    box-shadow: 0px 5px 5px var(--elm-shadow);
-    text-shadow: 0px 3px 6px  var(--limed-spruce-shadow);
-    display: block; 
-    margin: 0 auto;
-  }
-  
-  .commentButton:hover {
-    background-color: var(--black-haze);
-    text-shadow: 0px 3px 6px  var(--black-haze-shadow);
-    color: var(--limed-spruce)
-  }
+.commentButton:hover {
+  background-color: var(--black-haze);
+  text-shadow: 0px 3px 6px var(--black-haze-shadow);
+  color: var(--limed-spruce);
+}
 
-  .commentButtonGone {
-    display: none;}
+.commentButtonGone {
+  display: none;
+}
 
-  .openModalButton {
-    display: flex;
-    justify-content: center;
-    background-color: var(--elm);
-    color: var(--black-haze);
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin: 30px auto 10px auto;
-    font-family: Audiowide, sans-serif;
-    border-radius: 40px;
-    font-size: 25px;
-    box-shadow: 0px 5px 5px var(--black-haze-shadow);
-    text-shadow: 0px 3px 3px  var(--elm-shadow);
-  }
-  
-  .openModalButton:hover {
-    background-color: var(--limed-spruce);
-    color: var(--black-haze);
-    text-shadow: 0px 3px 3px var(--limed-spruce-shadow);
-  }
-  
+.openModalButton {
+  display: flex;
+  justify-content: center;
+  background-color: var(--elm);
+  color: var(--black-haze);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 30px auto 10px auto;
+  font-family: Audiowide, sans-serif;
+  border-radius: 40px;
+  font-size: 25px;
+  box-shadow: 0px 5px 5px var(--black-haze-shadow);
+  text-shadow: 0px 3px 3px var(--elm-shadow);
+}
+
+.openModalButton:hover {
+  background-color: var(--limed-spruce);
+  color: var(--black-haze);
+  text-shadow: 0px 3px 3px var(--limed-spruce-shadow);
+}
+
 .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--mountain-meadow);
-    padding: 20px;
-    border-radius: 30px;
-    box-shadow: 
-    0 10px 30px var(--limed-spruce-shadow),
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--mountain-meadow);
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px var(--limed-spruce-shadow),
     0 -10px 30px var(--limed-spruce-shadow),
     10px 0 30px var(--limed-spruce-shadow),
     -10px 0 30px var(--limed-spruce-shadow);
-    text-align: center;
-  }
-  
-  .modalHeader {
-    position: relative;
-    width: 375px;
-    margin: 0px auto 20px auto;
-    display: flex;
-    justify-content: center;
-    background-color: var(--black-haze);
-    color: var(--limed-spruce);
-    border: none;
-    padding: 5px 10px;
-    font-family: Audiowide, sans-serif;
-    border-radius: 40px;
-    font-size: 20px;
-    box-shadow: 0px 5px 5px var(--elm-shadow);
-    text-shadow: 0px 3px 6px  var(--black-haze-shadow);
-  }
-  
-  .modalText {
-    border-radius: 30px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .closeButton {
-    position: absolute;
-    top: -2px;
-    right: 15px;
-    font-size: 30px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: "Audiowide", sans-serif;
-    color: var(--limed-spruce);
-    text-shadow: 0px 3px 6px  var(--black-haze-shadow);
-  }
-  
-  .modal-content {
-    margin-bottom: 20px;
-  }
-  
-  .modalButtons {
-    display: flex;
-    justify-content: center;
-  }
-  
+  text-align: center;
+}
+
+.modalHeader {
+  position: relative;
+  width: 375px;
+  margin: 0px auto 20px auto;
+  display: flex;
+  justify-content: center;
+  background-color: var(--black-haze);
+  color: var(--limed-spruce);
+  border: none;
+  padding: 5px 10px;
+  font-family: Audiowide, sans-serif;
+  border-radius: 40px;
+  font-size: 20px;
+  box-shadow: 0px 5px 5px var(--elm-shadow);
+  text-shadow: 0px 3px 6px var(--black-haze-shadow);
+}
+
+.modalText {
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.closeButton {
+  position: absolute;
+  top: -2px;
+  right: 15px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Audiowide", sans-serif;
+  color: var(--limed-spruce);
+  text-shadow: 0px 3px 6px var(--black-haze-shadow);
+}
+
+.modal-content {
+  margin-bottom: 20px;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: center;
+}
+
 .modalTextArea {
   border-radius: 20px;
   border: none;
-  font-family: 'Audiowide', sans-serif;
+  font-family: "Audiowide", sans-serif;
   color: var(--limed-spruce);
   width: 350px;
   height: 400px; /* Increase the height as needed */
@@ -278,65 +235,71 @@
 }
 
 @media only screen and (max-width: 1645px) {
-
-  .likesDislikes {
-    margin: 10px auto auto auto;
-  }
-
   .postContainer {
-    width:450px;
+    width: 450px;
   }
 
   .comment {
-    flex-direction: column;
-    width: 90%;
-    margin-left: 5px;
+    width: 400px;
   }
 
   .commentName {
     margin: auto auto auto 0px;
     box-shadow: 5px 0 5px var(--black-haze-shadow),
-    0 5px 5px var(--black-haze-shadow);
+      0 5px 5px var(--black-haze-shadow);
   }
 
   .commentBody {
     text-align: center;
   }
+}
 
+@media only screen and (max-width: 1200px) {
+  .comment {
+    flex-direction: column;
+    width: 320px;
+    margin: 10px auto;
+  }
+
+  .commentBody {
+    margin: auto;
+  }
 }
 
 @media only screen and (max-width: 1400px) {
   .postContainer {
-    width:75%;
+    width: 75%;
   }
 }
 
 @media only screen and (max-width: 930px) {
   .postContainer {
-    width:50%;
+    width: 50%;
+  }
+
+  .comment {
+    width: 300px;
+    justify-content: center;
   }
 }
 
 @media only screen and (max-width: 700px) {
   .postContainer {
-    width:85%;
+    width: 85%;
     justify-content: center;
     margin: 20px auto;
   }
 
   .comment {
-    width: 100%;
-    margin: 10px;
+    margin: 10px auto;
   }
 
   .commentBodu {
     width: 80%;
   }
-  
 }
 
 @media only screen and (max-width: 600px) {
-
   .modal {
     width: 80%;
   }
@@ -349,10 +312,15 @@
 
   .modalHeader {
     width: 90%;
-
   }
 
   .modalTextArea {
     width: 90%;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .comment {
+    width: 275px;
   }
 }
