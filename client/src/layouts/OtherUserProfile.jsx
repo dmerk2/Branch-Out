@@ -22,28 +22,29 @@ export default function OtherUserProfile() {
     { icon: faLink, url: "https://www.linkedin.com/" },
     { icon: faCode, url: "https://codepen.io/" },
   ];
-
   const { loading, error, data } = useQuery(GET_USER_INFO, {
     variables: { id: id },
   });
-  
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
   return (
     <div>
       <div className={styles.profilePageRow}>
         <div className={styles.profilePageColumn}>
           <div className={styles.profileUserSection}>
-            <ProfileUserDisplay />
+            <ProfileUserDisplay userInfo={data.user} />
           </div>
           <div>
-          <AddFriendButtonWithQuery userId={id} />
-        </div>
+            <AddFriendButtonWithQuery userId={id} />
+          </div>
           <div className={styles.profileFriendsTracker}>
             <ViewFriendsList />
           </div>
         </div>
         <div className={styles.profilePageColumn}>
-          <AboutMe />
+          <AboutMe userInfo={data.user} />
           <div className={styles.profileButtonRow}>
             {buttons.map((button, index) => (
               <div className={styles.profileButton} key={index}>
@@ -52,12 +53,12 @@ export default function OtherUserProfile() {
             ))}
           </div>
           <div>
-            <UserPosts />
+            <UserPosts userId={id} />
           </div>
         </div>
-      <div className={styles.profilePageColumn}>
-        <SendMessageButton />
-      </div>
+        <div className={styles.profilePageColumn}>
+          <SendMessageButton userId={id} />
+        </div>
       </div>
     </div>
   );
