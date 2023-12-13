@@ -4,7 +4,6 @@ import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserDiamond({ profileImage }) {
     profileImage = profileImage || null;
-    console.log("Here is the Profile Picture:" + profileImage);
     return (
         <div className={styles.diamondShape}>
             {profileImage ? (

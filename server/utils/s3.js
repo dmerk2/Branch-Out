@@ -8,7 +8,6 @@ const s3 = new S3({
 });
 
 const generatePresignedUrl = async (key) => {
-  console.log("bucket name: ", process.env.S3_BUCKET)
   const params = {
     Bucket: process.env.S3_BUCKET,
     Key: key,

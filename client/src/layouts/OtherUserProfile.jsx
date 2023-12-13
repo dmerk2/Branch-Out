@@ -26,8 +26,7 @@ export default function OtherUserProfile() {
   const { loading, error, data } = useQuery(GET_USER_INFO, {
     variables: { id: id },
   });
-
-  console.log("Query Result:", { loading, error, data });
+  
 
   return (
     <div>

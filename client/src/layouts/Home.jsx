@@ -16,7 +16,6 @@ export default function Home() {
 
     // Function to update the current postId
     const handlePostChange = (newPostId) => {
-      console.log('New postId:', newPostId);
       setPostId(newPostId);
     };
 

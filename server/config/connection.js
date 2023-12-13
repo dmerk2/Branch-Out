@@ -14,7 +14,6 @@ db.on('error', (error) => {
 });
 
 db.once('open', () => {
-  console.log('Connected to MongoDB');
 
   // Dynamically import all model files
   const modelsPath = path.join(__dirname, '..', 'models');

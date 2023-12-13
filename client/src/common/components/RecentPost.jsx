@@ -37,11 +37,7 @@ const RecentPost = ({ postId, userId }) => {
   if (auth.getToken()) {
     loggedinuser = auth.getProfile().data?._id;
   }
-  console.log(loggedinuser, "Current User ID");
 
-  // if (!loggedinuser) {
-  //   navigate("/login");
-  // }
   const { user, posts } = data || {};
   useEffect(() => {
     if (data && data.posts) {
@@ -59,8 +55,7 @@ const RecentPost = ({ postId, userId }) => {
   const handleLikePost = async (postId) => {
     const post = data.posts.find((p) => p._id === postId);
     const userHasLiked = post.likes.some((like) => like._id === loggedinuser);
-    console.log(post, "Current Post Being Liked");
-    console.log(loggedinuser, "Current User ID");
+
 
     if (userHasLiked) {
       await unlikePostMutation({
@@ -80,7 +75,6 @@ const RecentPost = ({ postId, userId }) => {
     const userHasDisliked = post.dislikes.some(
       (dislike) => dislike._id === loggedinuser
     );
-    console.log(post, "Current Post Being Disliked");
 
     if (userHasDisliked) {
       await undislikePostMutation({
@@ -115,7 +109,6 @@ const RecentPost = ({ postId, userId }) => {
       });
 
       if (data.addComment) {
-        console.log("Comment added successfully:", data.addComment);
         setAddingComment(false);
         setCommentContent("");
       }
