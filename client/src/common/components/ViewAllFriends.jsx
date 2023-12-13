@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import auth from "../utils/auth";
 import { GET_USER_INFO } from "../utils/queries";
 import { useQuery } from "@apollo/client";
-import styles from "../../styles/ViewALlFriends.module.css";
+import styles from "../../styles/ViewAllFriends.module.css";
 
 const AllFriendsList = () => {
   // Get the user ID from the URL
@@ -19,8 +19,6 @@ const AllFriendsList = () => {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
-
-    console.log(userData.user.friends);
   } else {
     const { loading, error, data } = useQuery(GET_USER_INFO, {
       // Pass the user ID to the query
@@ -30,8 +28,6 @@ const AllFriendsList = () => {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
-
-    console.log(userData.user.friends);
   }
 
   const friends = userData?.user.friends || [];
