@@ -1,10 +1,14 @@
-import styles from '../../styles/AboutBranchOut.module.css';
+import styles from "../../styles/AboutBranchOut.module.css";
 
 export default function AboutBranchOut() {
-    return (
-        <div className={styles.bigGreenSquare}>
-            <p className={styles.aboutBranchOut}>About BranchOut</p>
-            <p className={styles.branchOutDescription}> BranchOut is a social media platform that allows users to connect with other users and share their thoughts and ideas. </p>
-        </div>
-    );
+  return (
+    <div className={styles.bigGreenSquare}>
+      <p className={styles.aboutBranchOut}>About Branch Out</p>
+      <p className={styles.branchOutDescription}>
+        Branch Out is a social media platform for web developers wanting to
+        “branch out” from the monotony of daily work life, and to connect with
+        like minded peers.
+      </p>
+    </div>
+  );
 }
