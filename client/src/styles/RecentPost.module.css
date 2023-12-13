@@ -166,10 +166,7 @@
   background-color: var(--mountain-meadow);
   padding: 20px;
   border-radius: 30px;
-  box-shadow: 0 10px 30px var(--limed-spruce-shadow),
-    0 -10px 30px var(--limed-spruce-shadow),
-    10px 0 30px var(--limed-spruce-shadow),
-    -10px 0 30px var(--limed-spruce-shadow);
+  border: 5px solid var(--mountain-meadow-shadow);
   text-align: center;
 }
 
