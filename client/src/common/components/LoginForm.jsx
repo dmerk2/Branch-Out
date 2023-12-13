@@ -27,10 +27,8 @@ function LoginForm() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted");
     try {
       const { data } = await loginUser({ variables: { ...userFormData } });
-      console.log(data);
       Auth.login(data.login.token);
     } catch (error) {
       console.error(error);

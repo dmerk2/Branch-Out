@@ -18,8 +18,6 @@ const SendMessageButton = () => {
   };
 
   const handleSendMessage = () => {
-    console.log(`Sending message: ${message}`);
-
     // Close the modal after sending the message
     setShowModal(false);
   };

@@ -31,7 +31,7 @@ const isFriend =
   
         // Check if the friend was successfully added
         if (data.addFriend) {
-          alert(`Friend added: ${data.addFriend.username}`);
+          alert(`Friend added: ${data.user.username} `);
         }
       } catch (error) {
         // Check if the error is due to a duplicate friend request

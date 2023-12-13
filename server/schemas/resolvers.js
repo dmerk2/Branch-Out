@@ -78,8 +78,7 @@ const resolvers = {
         { new: true }
       );
       if (!user) {
-        console.log("No user found");
-        return false;
+        throw new Error("No user found");
       }
       return user;
     },
@@ -145,11 +144,9 @@ const resolvers = {
       }
     },
     likePost: async (parent, { postId }, context) => {
-      console.log("Liking post with ID:", postId);
       try {
         // Access the userId from the context
         const { user } = context;
-        console.log("User ID from context:", user);
 
         if (!user) {
           // If the user is not authenticated, you can return a message
@@ -158,7 +155,6 @@ const resolvers = {
 
         // Find the post with the specified ID
         let post = await Post.findById(postId);
-        console.log("Post found:", post);
 
         // If no post with that ID is found, throw an error
         if (!post) {
@@ -171,7 +167,6 @@ const resolvers = {
           { $addToSet: { likes: user } },
           { new: true }
         );
-        console.log("Updated post:", post);
 
         return {
           _id: post._id,

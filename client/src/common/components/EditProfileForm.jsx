@@ -37,13 +37,11 @@ const EditProfileForm = () => {
           bio: formData.bio,
         },
       });
-      console.log("Profile updated successfully", result);
       navigate("/profile");
     } catch (error) {
       console.error("Error updating profile:", error);
     }
   };
-  console.log("USER:", user);
   const { loading, error, data } = useQuery(GET_USER_INFO, {
     variables: { id: user },
   });
@@ -55,7 +53,6 @@ const EditProfileForm = () => {
           id: user,
         },
       });
-      console.log("Profile deleted successfully", result);
       auth.logout();
       navigate("/login");
     } catch (error) {
@@ -122,13 +119,13 @@ const EditProfileForm = () => {
         Update Profile
       </button>
 
-      <button
+      {/* <button
         type="button"
         onClick={handleDelete}
         className={styles.signUpPageButton}
       >
         Delete Profile
-      </button>
+      </button> */}
     </form>
   );
 };
