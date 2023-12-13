@@ -1,35 +1,31 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../styles/RecentPost.module.css";
 import {
-  LIKE_POST,
-  DISLIKE_POST,
-  UNLIKE_POST,
-  UNDISLIKE_POST,
   ADD_COMMENT,
 } from "../utils/mutations";
 import { GET_ALL_POSTS } from "../utils/queries";
 import auth from "../utils/auth";
 
 const RecentPost = ({ postId, userId }) => {
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislikeCount, setDislikeCount] = useState(0);
-  const [userAction, setUserAction] = useState(null);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
+  // const [likeCount, setLikeCount] = useState(0);
+  // const [dislikeCount, setDislikeCount] = useState(0);
+  // const [userAction, setUserAction] = useState(null);
+  // const [isLiked, setIsLiked] = useState(false);
+  // const [isDisliked, setIsDisliked] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [addingComment, setAddingComment] = useState(false);
-  const [likePostMutation] = useMutation(LIKE_POST);
-  const [dislikePostMutation] = useMutation(DISLIKE_POST);
+  // const [likePostMutation] = useMutation(LIKE_POST);
+  // const [dislikePostMutation] = useMutation(DISLIKE_POST);
   const [addCommentMutation] = useMutation(ADD_COMMENT, {
     refetchQueries: [ ADD_COMMENT, GET_ALL_POSTS ],
   });
-  const [unlikePostMutation] = useMutation(UNLIKE_POST);
-  const [undislikePostMutation] = useMutation(UNDISLIKE_POST);
+  // const [unlikePostMutation] = useMutation(UNLIKE_POST);
+  // const [undislikePostMutation] = useMutation(UNDISLIKE_POST);
   const navigate = useNavigate();
   const { loading, error, data } = useQuery(GET_ALL_POSTS);
 
@@ -39,55 +35,55 @@ const RecentPost = ({ postId, userId }) => {
   }
 
   const { user, posts } = data || {};
-  useEffect(() => {
-    if (data && data.posts) {
-      const post = data.posts.find((p) => p._id === postId);
-      if (post) {
-        setLikeCount(post.likes.length);
-        setDislikeCount(post.dislikes.length);
-      }
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data && data.posts) {
+  //     const post = data.posts.find((p) => p._id === postId);
+  //     if (post) {
+  //       setLikeCount(post.likes.length);
+  //       setDislikeCount(post.dislikes.length);
+  //     }
+  //   }
+  // }, [data]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const handleLikePost = async (postId) => {
-    const post = data.posts.find((p) => p._id === postId);
-    const userHasLiked = post.likes.some((like) => like._id === loggedinuser);
+  // const handleLikePost = async (postId) => {
+  //   const post = data.posts.find((p) => p._id === postId);
+  //   const userHasLiked = post.likes.some((like) => like._id === loggedinuser);
 
 
-    if (userHasLiked) {
-      await unlikePostMutation({
-        variables: { postId, userId: loggedinuser },
-        refetchQueries: [{ query: GET_ALL_POSTS }],
-      });
-    } else {
-      await likePostMutation({
-        variables: { postId, userId: loggedinuser },
-        refetchQueries: [{ query: GET_ALL_POSTS }],
-      });
-    }
-  };
+  //   if (userHasLiked) {
+  //     await unlikePostMutation({
+  //       variables: { postId, userId: loggedinuser },
+  //       refetchQueries: [{ query: GET_ALL_POSTS }],
+  //     });
+  //   } else {
+  //     await likePostMutation({
+  //       variables: { postId, userId: loggedinuser },
+  //       refetchQueries: [{ query: GET_ALL_POSTS }],
+  //     });
+  //   }
+  // };
 
-  const handleDislikePost = async (postId) => {
-    const post = data.posts.find((p) => p._id === postId);
-    const userHasDisliked = post.dislikes.some(
-      (dislike) => dislike._id === loggedinuser
-    );
+  // const handleDislikePost = async (postId) => {
+  //   const post = data.posts.find((p) => p._id === postId);
+  //   const userHasDisliked = post.dislikes.some(
+  //     (dislike) => dislike._id === loggedinuser
+  //   );
 
-    if (userHasDisliked) {
-      await undislikePostMutation({
-        variables: { postId, userId: loggedinuser },
-        refetchQueries: [{ query: GET_ALL_POSTS }],
-      });
-    } else {
-      await dislikePostMutation({
-        variables: { postId, userId: loggedinuser },
-        refetchQueries: [{ query: GET_ALL_POSTS }],
-      });
-    }
-  };
+  //   if (userHasDisliked) {
+  //     await undislikePostMutation({
+  //       variables: { postId, userId: loggedinuser },
+  //       refetchQueries: [{ query: GET_ALL_POSTS }],
+  //     });
+  //   } else {
+  //     await dislikePostMutation({
+  //       variables: { postId, userId: loggedinuser },
+  //       refetchQueries: [{ query: GET_ALL_POSTS }],
+  //     });
+  //   }
+  // };
 
   const handleAddComment = async (postId, content) => {
     // Update the function parameters
@@ -213,7 +209,7 @@ const RecentPost = ({ postId, userId }) => {
               ))}
             </div>
 
-            <div className={styles.likesDislikes}>
+            {/* <div className={styles.likesDislikes}>
               <div className={styles.likeBox}>
                 <button
                   className={styles.likeButton}
@@ -244,7 +240,7 @@ const RecentPost = ({ postId, userId }) => {
                   ({post.dislikes.length})
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       ))}

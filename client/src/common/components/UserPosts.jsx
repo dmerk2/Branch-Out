@@ -1,95 +1,95 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USER_INFO } from "../utils/queries";
-import { LIKE_POST, DISLIKE_POST, ADD_COMMENT } from "../utils/mutations";
+import { ADD_COMMENT } from "../utils/mutations";
 import auth from "../utils/auth";
 import styles from "../../styles/RecentPost.module.css";
 import { useParams } from "react-router-dom";
 import AuthService from "../utils/auth";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
 const UserPosts = () => {
   const { id } = useParams();
   let userData = {};
 
-  const [likePostMutation] = useMutation(LIKE_POST);
-  const [dislikePostMutation] = useMutation(DISLIKE_POST);
+  // const [likePostMutation] = useMutation(LIKE_POST);
+  // const [dislikePostMutation] = useMutation(DISLIKE_POST);
   const [addCommentMutation] = useMutation(ADD_COMMENT, {
     refetchQueries: [ADD_COMMENT, GET_USER_INFO],
   });
 
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislikeCount, setDislikeCount] = useState(0);
+  // const [likeCount, setLikeCount] = useState(0);
+  // const [dislikeCount, setDislikeCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [addingComment, setAddingComment] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
-  const [userAction, setUserAction] = useState(null);
+  // const [isLiked, setIsLiked] = useState(false);
+  // const [isDisliked, setIsDisliked] = useState(false);
+  // const [userAction, setUserAction] = useState(null);
 
-  const handleLikePost = async (postId) => {
-    if (userAction === "like") {
-      setUserAction(null);
-      setIsLiked(false);
-      setLikeCount(likeCount - 1);
-    } else {
-      if (userAction === "dislike") {
-        setDislikeCount(dislikeCount - 1);
-        setIsDisliked(false);
-      }
-      setUserAction("like");
-      setIsLiked(true);
-      setLikeCount(likeCount + 1);
-    }
+  // const handleLikePost = async (postId) => {
+  //   if (userAction === "like") {
+  //     setUserAction(null);
+  //     setIsLiked(false);
+  //     setLikeCount(likeCount - 1);
+  //   } else {
+  //     if (userAction === "dislike") {
+  //       setDislikeCount(dislikeCount - 1);
+  //       setIsDisliked(false);
+  //     }
+  //     setUserAction("like");
+  //     setIsLiked(true);
+  //     setLikeCount(likeCount + 1);
+  //   }
 
-    try {
-      const { data, errors } = await likePostMutation({
-        variables: { postId },
-      });
+  //   try {
+  //     const { data, errors } = await likePostMutation({
+  //       variables: { postId },
+  //     });
 
-      if (errors) {
-        console.error("Error liking post:", errors);
-      } else if (data.likePost && data.likePost.message) {
-        alert(data.likePost.message);
-      } else {
-        setLikeCount(data.likePost.likeCount);
-      }
-    } catch (error) {
-      console.error("Error liking post:", error);
-    }
-  };
+  //     if (errors) {
+  //       console.error("Error liking post:", errors);
+  //     } else if (data.likePost && data.likePost.message) {
+  //       alert(data.likePost.message);
+  //     } else {
+  //       setLikeCount(data.likePost.likeCount);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error liking post:", error);
+  //   }
+  // };
 
-  const handleDislikePost = async (postId) => {
-    if (userAction === "dislike") {
-      setUserAction(null);
-      setIsDisliked(false);
-      setDislikeCount(dislikeCount - 1);
-    } else {
-      if (userAction === "like") {
-        setLikeCount(likeCount - 1);
-        setIsLiked(false);
-      }
-      setUserAction("dislike");
-      setIsDisliked(true);
-      setDislikeCount(dislikeCount + 1);
-    }
+  // const handleDislikePost = async (postId) => {
+  //   if (userAction === "dislike") {
+  //     setUserAction(null);
+  //     setIsDisliked(false);
+  //     setDislikeCount(dislikeCount - 1);
+  //   } else {
+  //     if (userAction === "like") {
+  //       setLikeCount(likeCount - 1);
+  //       setIsLiked(false);
+  //     }
+  //     setUserAction("dislike");
+  //     setIsDisliked(true);
+  //     setDislikeCount(dislikeCount + 1);
+  //   }
 
-    try {
-      const { data, errors } = await dislikePostMutation({
-        variables: { postId },
-      });
+  //   try {
+  //     const { data, errors } = await dislikePostMutation({
+  //       variables: { postId },
+  //     });
 
-      if (errors) {
-        console.error("Error disliking post:", errors);
-      } else if (data.dislikePost && data.dislikePost.message) {
-        alert(data.dislikePost.message);
-      } else {
-        setDislikeCount(data.dislikePost.dislikeCount);
-      }
-    } catch (error) {
-      console.error("Error disliking post:", error);
-    }
-  };
+  //     if (errors) {
+  //       console.error("Error disliking post:", errors);
+  //     } else if (data.dislikePost && data.dislikePost.message) {
+  //       alert(data.dislikePost.message);
+  //     } else {
+  //       setDislikeCount(data.dislikePost.dislikeCount);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error disliking post:", error);
+  //   }
+  // };
 
   let data;
   const isLoggedIn = AuthService.loggedIn();
@@ -243,7 +243,7 @@ return (
               </div>
             ))}
           </div>
-          <div className={styles.likesDislikes}>
+          {/* <div className={styles.likesDislikes}>
             <div className={styles.likeBox}>
               <button
                 className={styles.likeButton}
@@ -274,7 +274,7 @@ return (
                 ({post.dislikes ? post.dislikes.length : 0})
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     ))}
