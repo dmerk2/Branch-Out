@@ -1,4 +1,3 @@
-
 .formSquare {
     display: flex;
     flex-direction: column;
@@ -22,11 +21,11 @@
     padding: 10px 20px;
     border-radius: 25px;
     box-shadow: 0px 10px 5px var(--mountain-meadow-shadow);
-  }
-  
-  .formLogo img {
+}
+
+.formLogo img {
     width: 150px;
-  }
+}
 
 .loginButton {
     display: flex;
@@ -41,7 +40,7 @@
     border-radius: 40px;
     font-size: 25px;
     box-shadow: 0px 5px 5px var(--mountain-meadow-shadow);
-    text-shadow: 0px 3px 3px  var(--black-haze-shadow);
+    text-shadow: 0px 3px 3px var(--black-haze-shadow);
 }
 
 .loginButton:hover {
@@ -63,7 +62,7 @@
     border-radius: 20px;
     font-size: 15px;
     box-shadow: 0px 5px 5px var(--mountain-meadow-shadow);
-    text-shadow: 0px 3px 3px  var(--limed-spruce-shadow);
+    text-shadow: 0px 3px 3px var(--limed-spruce-shadow);
 }
 
 .loginInput {
@@ -82,6 +81,10 @@
     padding: 0 3.5rem 0 1.5rem;
     font-size: 1rem;
     box-shadow: 0px 5px 5px var(--mountain-meadow-shadow);
+}
+
+#bioInput {
+    height: 200px;
 }
 
 .somethingWrong {
@@ -158,7 +161,7 @@
     border-radius: 40px;
     font-size: 25px;
     box-shadow: 0px 5px 5px var(--elm-shadow);
-    text-shadow: 0px 1px 3px  var(--black-haze-shadow);
+    text-shadow: 0px 1px 3px var(--black-haze-shadow);
 }
 
 .signUpButton:hover {
@@ -180,7 +183,7 @@
     border-radius: 40px;
     font-size: 25px;
     box-shadow: 0px 5px 5px var(--mountain-meadow-shadow);
-    text-shadow: 0px 1px 3px  var(--black-haze-shadow);
+    text-shadow: 0px 1px 3px var(--black-haze-shadow);
 }
 
 .signUpPageButton:hover {
@@ -188,7 +191,6 @@
     color: var(--black-haze);
     text-shadow: 0px 3px 3px var(--limed-spruce-shadow);
 }
-
 
 @media only screen and (max-width: 460px) {
     .formSquare {
@@ -202,4 +204,4 @@
     .noAccount {
         width: 300px;
     }
-  }
+}
