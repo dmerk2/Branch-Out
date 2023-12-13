@@ -24,7 +24,6 @@ const EditProfileForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("Submitting!");
     e.preventDefault();
     try {
       const result = await updateUser({
