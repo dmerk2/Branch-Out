@@ -23,6 +23,7 @@ const UserPosts = () => {
   // const [dislikeCount, setDislikeCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [addingComment, setAddingComment] = useState(false);
+  const [activePostId, setActivePostId] = useState(null);
   // const [isLiked, setIsLiked] = useState(false);
   // const [isDisliked, setIsDisliked] = useState(false);
   // const [userAction, setUserAction] = useState(null);
@@ -189,61 +190,64 @@ const UserPosts = () => {
     );
   };
 
+  return (
+    <div>
+      <h2 className={styles.postHeader}>User Posts</h2>
 
-return (
-  <div>
-    <h2 className={styles.postHeader}>User Posts</h2>
-
-    {userPosts.map((post) => (
-      <div className={styles.postContainer} key={post._id}>
-        <div className={styles.userDetails}>
-          <div className={styles.userInfo}>
-            <p className={styles.userName}>{data.user.username}</p>
-            <p className={styles.postDate}>
-              {new Date(parseInt(post.createdAt)).toLocaleString()}
-            </p>
+      {userPosts.map((post) => (
+        <div className={styles.postContainer} key={post._id}>
+          <div className={styles.userDetails}>
+            <div className={styles.userInfo}>
+              <p className={styles.userName}>{data.user.username}</p>
+              <p className={styles.postDate}>
+                {new Date(parseInt(post.createdAt)).toLocaleString()}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className={styles.userPost}>
-          <p className={styles.postContent}>{post.content}</p>
-        </div>
-        {isLoggedIn ? (
-          <button
-            className={styles.commentButton}
-            onClick={() => setShowModal(true)}
-          >
-            Add a Comment
-          </button>
-        ) : (
-          <button
-            className={styles.commentButtonGone}
-            onClick={() => setShowModal(true)}
-          >
-            Add a Comment
-          </button>
-        )}
-        {/* Modal */}
-        {showModal && (
-          <CommentModal
-            onClose={() => setShowModal(false)}
-            onSubmit={(content) => handleAddComment(post._id, content)}
-          />
-        )}
-        <div className={styles.engagementSection}>
-          <div className={styles.comments}>
-            {post.comments.map((comment) => (
-              <div className={styles.comment} key={comment._id}>
-                {comment.name && (
-                  <p className={styles.commentName}>{comment.name}</p>
-                )}
-                <p className={styles.commentName}>{comment.user.username}</p>
-                {comment.content !== undefined && comment.content !== null && (
-                  <p className={styles.commentBody}>{comment.content}</p>
-                )}
-              </div>
-            ))}
+          <div className={styles.userPost}>
+            <p className={styles.postContent}>{post.content}</p>
           </div>
-          {/* <div className={styles.likesDislikes}>
+          {isLoggedIn ? (
+            <button
+              className={styles.commentButton}
+              onClick={() => {
+                setShowModal(true);
+                setActivePostId(post._id);
+              }}
+            >
+              Add a Comment
+            </button>
+          ) : (
+            <button
+              className={styles.commentButtonGone}
+              onClick={() => setShowModal(true)}
+            >
+              Add a Comment
+            </button>
+          )}
+          {/* Modal */}
+          {showModal && (
+            <CommentModal
+              onClose={() => setShowModal(false)}
+              onSubmit={(content) => handleAddComment(activePostId, content)}
+            />
+          )}
+          <div className={styles.engagementSection}>
+            <div className={styles.comments}>
+              {post.comments.map((comment) => (
+                <div className={styles.comment} key={comment._id}>
+                  {comment.name && (
+                    <p className={styles.commentName}>{comment.name}</p>
+                  )}
+                  <p className={styles.commentName}>{comment.user.username}</p>
+                  {comment.content !== undefined &&
+                    comment.content !== null && (
+                      <p className={styles.commentBody}>{comment.content}</p>
+                    )}
+                </div>
+              ))}
+            </div>
+            {/* <div className={styles.likesDislikes}>
             <div className={styles.likeBox}>
               <button
                 className={styles.likeButton}
@@ -275,12 +279,11 @@ return (
               </button>
             </div>
           </div> */}
+          </div>
         </div>
-      </div>
-    ))}
-  </div>
-);
-
+      ))}
+    </div>
+  );
 };
 
 export default UserPosts;

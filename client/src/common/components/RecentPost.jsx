@@ -4,9 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../styles/RecentPost.module.css";
-import {
-  ADD_COMMENT,
-} from "../utils/mutations";
+import { ADD_COMMENT } from "../utils/mutations";
 import { GET_ALL_POSTS } from "../utils/queries";
 import auth from "../utils/auth";
 
@@ -19,10 +17,11 @@ const RecentPost = ({ postId, userId }) => {
   const [commentContent, setCommentContent] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [addingComment, setAddingComment] = useState(false);
+  const [activePostId, setActivePostId] = useState(null);
   // const [likePostMutation] = useMutation(LIKE_POST);
   // const [dislikePostMutation] = useMutation(DISLIKE_POST);
   const [addCommentMutation] = useMutation(ADD_COMMENT, {
-    refetchQueries: [ ADD_COMMENT, GET_ALL_POSTS ],
+    refetchQueries: [ADD_COMMENT, GET_ALL_POSTS],
   });
   // const [unlikePostMutation] = useMutation(UNLIKE_POST);
   // const [undislikePostMutation] = useMutation(UNDISLIKE_POST);
@@ -51,7 +50,6 @@ const RecentPost = ({ postId, userId }) => {
   // const handleLikePost = async (postId) => {
   //   const post = data.posts.find((p) => p._id === postId);
   //   const userHasLiked = post.likes.some((like) => like._id === loggedinuser);
-
 
   //   if (userHasLiked) {
   //     await unlikePostMutation({
@@ -178,7 +176,10 @@ const RecentPost = ({ postId, userId }) => {
           {isLoggedIn ? (
             <button
               className={styles.commentButton}
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                setShowModal(true);
+                setActivePostId(post._id);
+              }}
             >
               Add a Comment
             </button>
@@ -194,7 +195,7 @@ const RecentPost = ({ postId, userId }) => {
           {showModal && (
             <CommentModal
               onClose={() => setShowModal(false)}
-              onSubmit={(content) => handleAddComment(post._id, content)}
+              onSubmit={(content) => handleAddComment(activePostId, content)}
             />
           )}
           <div className={styles.engagementSection}>
