@@ -5,9 +5,10 @@ import { UPDATE_USER } from "../utils/mutations";
 import { useQuery, useMutation } from "@apollo/client";
 import styles from "../../styles/LoginForm.module.css";
 import Logo from "../../assets/images/BranchOut_With_Words.png";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EditProfileForm = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,6 +24,7 @@ const EditProfileForm = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("Submitting!");
     e.preventDefault();
     try {
       const result = await updateUser({
@@ -34,11 +36,12 @@ const EditProfileForm = () => {
         },
       });
       console.log("Profile updated successfully", result);
+      navigate("/profile")
     } catch (error) {
       console.error("Error updating profile:", error);
     }
   };
-
+  console.log("USER:", user);
   const { loading, error, data } = useQuery(GET_USER_INFO, {
     variables: { id: user },
   });
@@ -57,7 +60,7 @@ const EditProfileForm = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <form onSubmit={handleSubmit} className={styles.formSquare}>
+    <form className={styles.formSquare}>
       <div className={styles.formLogo}>
         <img src={Logo} alt="Branch Out Logo" />
       </div>
@@ -94,11 +97,13 @@ const EditProfileForm = () => {
           onChange={handleChange}
         ></textarea>
       </div>
-      <Link to="/profile">
-        <button type="submit" className={styles.signUpPageButton}>
-          Update Profile
-        </button>
-      </Link>
+      <button
+        type="button"
+        onClick={handleSubmit}
+        className={styles.signUpPageButton}
+      >
+        Update Profile
+      </button>
     </form>
   );
 };
