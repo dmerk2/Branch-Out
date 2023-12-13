@@ -40,7 +40,7 @@ const AddFriendButton = ({ userId }) => {
 
       // Check if the friend was successfully added
       if (data.addFriend) {
-        alert(`Friend added: ${data.user.username} `);
+        alert(`Friend added!`);
       }
     } catch (error) {
       // Check if the error is due to a duplicate friend request
