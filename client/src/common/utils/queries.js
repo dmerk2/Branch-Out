@@ -27,6 +27,8 @@ export const GET_USER_INFO = gql`
       bio
       email
       password
+      profileImage
+      signedInUserId: _id  # Include the signed-in user's ID directly
       friends {
         _id
         username
@@ -58,8 +60,6 @@ export const GET_USER_INFO = gql`
             _id
           }
         }
-      profileImage
-      signedInUserId: _id  # Include the signed-in user's ID directly
     }
   }
 `;
