@@ -178,9 +178,8 @@ function SignUpForm() {
             placeholder="Enter Your Bio"
           ></textarea>
         </div>
-        <div>
-          {" "}
-          {/* Profile Image Field */}
+        {/* Profile Image Field */}
+        {/* <div>
           <label htmlFor="profileImage" className={styles.loginRequirement}>
             Profile Picture
           </label>
@@ -191,7 +190,7 @@ function SignUpForm() {
             id="profileImage"
             onChange={handleInputChange}
           />
-        </div>
+        </div> */}
 
         {/* Upload Progress and Error Display */}
         {isUploading && (
